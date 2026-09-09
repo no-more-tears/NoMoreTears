@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/Common/" />
+  <Folder Name="/Shared/Common/Authorization/" />
+  <Folder Name="/Shared/Common/Exceptions/" />
+  <Folder Name="/Shared/Common/Pagination/" />
+  <Folder Name="/Shared/Domain/" />
+  <Folder Name="/Shared/Postgres/" />
+  <Folder Name="/Shared/Postgres/Abstractions/" />
+  <Folder Name="/Shared/Postgres/Base/" />
+  <Folder Name="/Shared/WebApi/" />
+</Solution>
