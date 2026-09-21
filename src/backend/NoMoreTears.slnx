@@ -4,9 +4,26 @@
   <Folder Name="/Shared/Common/Authorization/" />
   <Folder Name="/Shared/Common/Exceptions/" />
   <Folder Name="/Shared/Common/Pagination/" />
+  <Folder Name="/Shared/CQS/" />
+  <Folder Name="/Shared/CQS/Abstractions/">
+    <Project Path="Shared/CQS/Abstractions/NoMoreTears.Shared.CQS.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/CQS/Base/">
+    <Project Path="Shared/CQS/Base/NoMoreTears.Shared.CQS.csproj" />
+  </Folder>
+  <Folder Name="/Shared/CQS/Primitives/">
+    <Project Path="Shared/CQS/Primitives/NoMoreTears.Shared.CQS.Primitives.csproj" />
+  </Folder>
   <Folder Name="/Shared/Domain/" />
   <Folder Name="/Shared/Postgres/" />
-  <Folder Name="/Shared/Postgres/Abstractions/" />
-  <Folder Name="/Shared/Postgres/Base/" />
+  <Folder Name="/Shared/Postgres/Abstractions/">
+    <Project Path="Shared/Postgres/Abstractions/NoMoreTears.Shared.Postgres.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Postgres/Base/">
+    <Project Path="Shared/Postgres/Base/NoMoreTears.Shared.Postgres.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Postgres/Migrations/">
+    <Project Path="Shared/Postgres/Migrations/NoMoreTears.Shared.Postgres.Migrations.csproj" />
+  </Folder>
   <Folder Name="/Shared/WebApi/" />
 </Solution>
