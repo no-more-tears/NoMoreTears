@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Authorization\NoMoreTears.Shared.Common.Authorization.csproj" />
+    <ProjectReference Include="..\..\Common\Exceptions\NoMoreTears.Shared.Common.Exceptions.csproj" />
+    <ProjectReference Include="..\Primitives\NoMoreTears.Shared.CQS.Primitives.csproj" />
+  </ItemGroup>
+
+</Project>
