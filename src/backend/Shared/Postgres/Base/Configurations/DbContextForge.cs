@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 namespace NoMoreTears.Shared.Postgres.Configurations;
 
 /// <summary>
-///    An abstract base class for configuring a DbContext with PostgreSQL settings.
+///     An abstract base class for configuring a DbContext with PostgreSQL settings.
 /// </summary>
 /// <remarks>
 ///     See <c>Configurations\README.md</c> for EF Core performance tuning recommendations.

@@ -104,4 +104,4 @@ public static class PostgresRegistrar
         var configurator = provider.GetRequiredService<IDbContextConfigurator<TDbContext>>();
         configurator.Configure((DbContextOptionsBuilder<TDbContext>)builder);
     }
-}
+} 

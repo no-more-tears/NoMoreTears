@@ -1,8 +1,12 @@
 <Solution>
   <Folder Name="/Shared/" />
   <Folder Name="/Shared/Common/" />
-  <Folder Name="/Shared/Common/Authorization/" />
-  <Folder Name="/Shared/Common/Exceptions/" />
+  <Folder Name="/Shared/Common/Authorization/">
+    <Project Path="Shared/Common/Authorization/NoMoreTears.Shared.Common.Authorization.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Common/Exceptions/">
+    <Project Path="Shared/Common/Exceptions/NoMoreTears.Shared.Common.Exceptions.csproj" />
+  </Folder>
   <Folder Name="/Shared/Common/Pagination/" />
   <Folder Name="/Shared/CQS/" />
   <Folder Name="/Shared/CQS/Abstractions/">
