@@ -1,0 +1,4 @@
+# EF Core generated migrations are not subject to analyzers or style enforcement.
+[Migrations/**.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none

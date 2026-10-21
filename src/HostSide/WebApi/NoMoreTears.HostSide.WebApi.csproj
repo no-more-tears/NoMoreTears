@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Identity\Providers\NoMoreTears.Modules.Identity.Providers.csproj" />
+    <ProjectReference Include="..\..\Shared\Providers\Hosting\NoMoreTears.Shared.Providers.Hosting.csproj" />
+  </ItemGroup>
+
+</Project>
