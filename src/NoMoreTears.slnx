@@ -1,0 +1,90 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+	<File Path="Directory.Packages.props" />
+	<File Path="global.json" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/HostSide/" />
+  <Folder Name="/HostSide/BackgroundJobs/" />
+  <Folder Name="/HostSide/Migrations/">
+    <Project Path="HostSide/Migrations/NoMoreTears.HostSide.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/HostSide/WebApi/">
+    <Project Path="HostSide/WebApi/NoMoreTears.HostSide.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/Dispatch/" />
+  <Folder Name="/Modules/Identity/" />
+  <Folder Name="/Modules/Identity/Applications/" />
+  <Folder Name="/Modules/Identity/Applications/Handlers/">
+    <Project Path="Modules/Identity/Applications/Handlers/NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Identity/Applications/Services/">
+    <Project Path="Modules/Identity/Applications/Services/NoMoreTears.Modules.Identity.Applications.Services.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Identity/Contracts/">
+    <Project Path="Modules/Identity/Contracts/NoMoreTears.Modules.Identity.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Identity/Endpoints/">
+    <Project Path="Modules/Identity/Endpoints/NoMoreTears.Modules.Identity.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Identity/Providers/">
+    <Project Path="Modules/Identity/Providers/NoMoreTears.Modules.Identity.Providers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/" />
+  <Folder Name="/Modules/Notification/" />
+  <Folder Name="/Modules/Requests/" />
+  <Folder Name="/Modules/Trust/" />
+  <Folder Name="/Modules/Trust/Identity/" />
+  <Folder Name="/Modules/Trust/Identity/Abstractions/">
+    <Project Path="Shared/Providers/Identity/Abstractions/NoMoreTears.Shared.Providers.Identity.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Trust/Identity/Base/">
+    <Project Path="Shared/Providers/Identity/Base/NoMoreTears.Shared.Providers.Identity.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Trust/Identity/Contracts/">
+    <Project Path="Shared/Providers/Identity/Contracts/NoMoreTears.Shared.Providers.Identity.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Trust/Identity/Migrations/">
+    <Project Path="Shared/Providers/Identity/Migrations/NoMoreTears.Shared.Providers.Identity.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/Common/" />
+  <Folder Name="/Shared/Common/Authorization/">
+    <Project Path="Shared/Common/Authorization/NoMoreTears.Shared.Common.Authorization.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Common/Exceptions/">
+    <Project Path="Shared/Common/Exceptions/NoMoreTears.Shared.Common.Exceptions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Common/Pagination/" />
+  <Folder Name="/Shared/CQS/" />
+  <Folder Name="/Shared/CQS/Abstractions/">
+    <Project Path="Shared/CQS/Abstractions/NoMoreTears.Shared.CQS.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/CQS/Base/">
+    <Project Path="Shared/CQS/Base/NoMoreTears.Shared.CQS.csproj" />
+  </Folder>
+  <Folder Name="/Shared/CQS/Primitives/">
+    <Project Path="Shared/CQS/Primitives/NoMoreTears.Shared.CQS.Primitives.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Domain/" />
+  <Folder Name="/Shared/HostSide/" />
+  <Folder Name="/Shared/HostSide/Endpoints/" />
+  <Folder Name="/Shared/HostSide/WebApi/" />
+  <Folder Name="/Shared/Postgres/" />
+  <Folder Name="/Shared/Postgres/Abstractions/">
+    <Project Path="Shared/Postgres/Abstractions/NoMoreTears.Shared.Postgres.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Postgres/Base/">
+    <Project Path="Shared/Postgres/Base/NoMoreTears.Shared.Postgres.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Postgres/Migrations/">
+    <Project Path="Shared/Postgres/Migrations/NoMoreTears.Shared.Postgres.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Providers/" />
+  <Folder Name="/Shared/Providers/Hosting/">
+    <Project Path="Shared/Providers/Hosting/NoMoreTears.Shared.Providers.Hosting.csproj" />
+  </Folder>
+</Solution>
