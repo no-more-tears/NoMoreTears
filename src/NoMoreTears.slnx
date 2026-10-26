@@ -1,5 +1,23 @@
 <Solution>
+  <Folder Name="/Shared/Providers/Identity/" />
+  <Folder Name="/Shared/Providers/Identity/Abstractions/">
+    <Project Path="Shared/Providers/Identity/Abstractions/NoMoreTears.Shared.Providers.Identity.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Providers/Identity/Base/">
+    <Project Path="Shared/Providers/Identity/Base/NoMoreTears.Shared.Providers.Identity.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Providers/Identity/Contracts/">
+    <Project Path="Shared/Providers/Identity/Contracts/NoMoreTears.Shared.Providers.Identity.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Providers/Identity/Migrations/">
+    <Project Path="Shared/Providers/Identity/Migrations/NoMoreTears.Shared.Providers.Identity.Migrations.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
+    <File Path="../infrastructure/docker/docker-compose.infra.yaml" />
+    <File Path="../infrastructure/docker/docker-compose.observability.yaml" />
+    <File Path="../infrastructure/scripts/run-docker-all.ps1" />
+    <File Path="../infrastructure/scripts/run-docker-infra.ps1" />
+    <File Path="../infrastructure/scripts/run-docker-observability.ps1" />
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
 	<File Path="Directory.Packages.props" />
@@ -8,9 +26,6 @@
   </Folder>
   <Folder Name="/HostSide/" />
   <Folder Name="/HostSide/BackgroundJobs/" />
-  <Folder Name="/HostSide/Migrations/">
-    <Project Path="HostSide/Migrations/NoMoreTears.HostSide.Migrations.csproj" />
-  </Folder>
   <Folder Name="/HostSide/WebApi/">
     <Project Path="HostSide/WebApi/NoMoreTears.HostSide.WebApi.csproj" />
   </Folder>
@@ -27,29 +42,30 @@
   <Folder Name="/Modules/Identity/Contracts/">
     <Project Path="Modules/Identity/Contracts/NoMoreTears.Modules.Identity.Contracts.csproj" />
   </Folder>
-  <Folder Name="/Modules/Identity/Endpoints/">
-    <Project Path="Modules/Identity/Endpoints/NoMoreTears.Modules.Identity.Endpoints.csproj" />
+  <Folder Name="/Modules/Identity/HostSide/" />
+  <Folder Name="/Modules/Identity/HostSide/Endpoints/">
+    <Project Path="Modules/Identity/HostSide/Endpoints/NoMoreTears.Modules.Identity.HostSide.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Identity/HostSide/Migrations/">
+    <Project Path="Modules/Identity/HostSide/Migrations/NoMoreTears.Modules.Identity.HostSide.Migrations.csproj" />
   </Folder>
   <Folder Name="/Modules/Identity/Providers/">
     <Project Path="Modules/Identity/Providers/NoMoreTears.Modules.Identity.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Masters/" />
   <Folder Name="/Modules/Notification/" />
+  <Folder Name="/Modules/Notification/Applications/" />
+  <Folder Name="/Modules/Notification/Applications/Services/">
+    <Project Path="Modules/Notification/Applications/Services/NoMoreTears.Modules.Notification.Applications.Services.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/Contracts/">
+    <Project Path="Modules/Notification/Contracts/NoMoreTears.Modules.Notification.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/Providers/">
+    <Project Path="Modules/Notification/Providers/NoMoreTears.Modules.Notification.Providers.csproj" />
+  </Folder>
   <Folder Name="/Modules/Requests/" />
   <Folder Name="/Modules/Trust/" />
-  <Folder Name="/Modules/Trust/Identity/" />
-  <Folder Name="/Modules/Trust/Identity/Abstractions/">
-    <Project Path="Shared/Providers/Identity/Abstractions/NoMoreTears.Shared.Providers.Identity.Abstractions.csproj" />
-  </Folder>
-  <Folder Name="/Modules/Trust/Identity/Base/">
-    <Project Path="Shared/Providers/Identity/Base/NoMoreTears.Shared.Providers.Identity.csproj" />
-  </Folder>
-  <Folder Name="/Modules/Trust/Identity/Contracts/">
-    <Project Path="Shared/Providers/Identity/Contracts/NoMoreTears.Shared.Providers.Identity.Contracts.csproj" />
-  </Folder>
-  <Folder Name="/Modules/Trust/Identity/Migrations/">
-    <Project Path="Shared/Providers/Identity/Migrations/NoMoreTears.Shared.Providers.Identity.Migrations.csproj" />
-  </Folder>
   <Folder Name="/Shared/" />
   <Folder Name="/Shared/Common/" />
   <Folder Name="/Shared/Common/Authorization/">
@@ -71,8 +87,15 @@
   </Folder>
   <Folder Name="/Shared/Domain/" />
   <Folder Name="/Shared/HostSide/" />
-  <Folder Name="/Shared/HostSide/Endpoints/" />
-  <Folder Name="/Shared/HostSide/WebApi/" />
+  <Folder Name="/Shared/HostSide/Endpoints/">
+    <Project Path="Shared/HostSide/Endpoints/NoMoreTears.Shared.HostSide.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Shared/HostSide/RateLimit/">
+    <Project Path="Shared/HostSide/RateLimit/NoMoreTears.Shared.HostSide.RateLimit.csproj" />
+  </Folder>
+  <Folder Name="/Shared/HostSide/WebApi/">
+    <Project Path="Shared/HostSide/WebApi/NoMoreTears.Shared.HostSide.WebApi.csproj" />
+  </Folder>
   <Folder Name="/Shared/Postgres/" />
   <Folder Name="/Shared/Postgres/Abstractions/">
     <Project Path="Shared/Postgres/Abstractions/NoMoreTears.Shared.Postgres.Abstractions.csproj" />

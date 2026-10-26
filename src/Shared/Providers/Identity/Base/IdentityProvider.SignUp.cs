@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Common.Exceptions.Client;
 using NoMoreTears.Shared.Providers.Identity.Contracts.SignUp;
 using NoMoreTears.Shared.Providers.Identity.Contracts.UserActions;
@@ -59,7 +60,7 @@ internal sealed partial class IdentityProvider
             throw new ConflictException(IdentityMessages.DuplicateUser);
         }
 
-        logger.UserRegistered(user.Id);
+        logger.LogInformation("User {UserId} registered.", user.Id);
 
         var ticket = await actionTokens.IssueAsync(user.Id, UserActionPurpose.EmailConfirmation, cancellationToken);
         return new RegistrationResult(user.Id, ticket, _account.RequireConfirmedEmail);

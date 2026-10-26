@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Common.Exceptions.Client;
 using NoMoreTears.Shared.Providers.Identity.Contracts.Passwords;
 using NoMoreTears.Shared.Providers.Identity.Contracts.Sessions;
@@ -218,7 +219,7 @@ internal sealed partial class IdentityProvider
 
         if (locked > 0)
         {
-            logger.AccountLocked(userId, lockoutEndAt);
+            logger.LogWarning("Account {UserId} locked until {LockoutEndAt} after too many failed sign-in attempts.", userId, lockoutEndAt);
         }
     }
 
@@ -234,7 +235,7 @@ internal sealed partial class IdentityProvider
 
         if (revoked > 0)
         {
-            logger.RefreshTokenReuseDetected(session.UserId, session.Id);
+            logger.LogWarning("Refresh token reuse detected for user {UserId}; session {SessionId} revoked.", session.UserId, session.Id);
         }
     }
 }

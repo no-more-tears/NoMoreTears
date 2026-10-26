@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NoMoreTears.Shared.Providers.Identity.Abstractions.Maintenance;
-using NoMoreTears.Shared.Providers.Identity.Diagnostics;
 using NoMoreTears.Shared.Providers.Identity.Persistence;
 using NoMoreTears.Shared.Providers.Identity.Registration.Configuration;
 
@@ -44,7 +43,7 @@ internal sealed class IdentityMaintenanceService(
             .Where(x => x.ExpiresAt <= retentionBoundary)
             .ExecuteDeleteAsync(cancellationToken);
 
-        logger.MaintenanceCompleted(removed);
+        logger.LogInformation("Identity maintenance removed {Count} expired row(s).", removed);
 
         return removed;
     }

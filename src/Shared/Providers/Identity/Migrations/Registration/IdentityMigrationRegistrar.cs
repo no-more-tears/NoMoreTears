@@ -10,20 +10,16 @@ namespace NoMoreTears.Shared.Providers.Identity.Migrations.Registration;
 /// </summary>
 public static class IdentityMigrationRegistrar
 {
-    /// <param name="services">DI service collection.</param>
     extension(IServiceCollection services)
     {
         /// <summary>
         ///     Adds the migration manager for <see cref="IdentityDbContext"/> with this assembly as the migrations host.
         /// </summary>
-        /// <param name="configuration">Application configuration.</param>
-        /// <param name="connectionStringName">Name of the connection string in the configuration.</param>
-        /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
-        public IServiceCollection AddIdentityMigrationManager(
+        public IServiceCollection AddIdentityMigrationManager<TAssembly>(
             IConfiguration configuration,
             string connectionStringName)
         {
-            return services.AddMigrationManager<IdentityDbContext, IdentityDbContextFactory>(
+            return services.AddMigrationManager<IdentityDbContext, TAssembly>(
                 configuration,
                 connectionStringName);
         }

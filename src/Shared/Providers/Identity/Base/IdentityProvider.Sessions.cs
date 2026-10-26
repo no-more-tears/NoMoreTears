@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Providers.Identity.Contracts.Sessions;
-using NoMoreTears.Shared.Providers.Identity.Diagnostics;
 
 namespace NoMoreTears.Shared.Providers.Identity;
 
@@ -53,7 +53,7 @@ internal sealed partial class IdentityProvider
 
         if (count > 0)
         {
-            logger.SessionsRevoked(userId, reason, count);
+            logger.LogInformation("Revoked {Count} session(s) of user {UserId}. Reason={Reason}", count, userId, reason);
         }
     }
 

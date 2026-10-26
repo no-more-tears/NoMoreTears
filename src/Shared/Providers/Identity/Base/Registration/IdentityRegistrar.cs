@@ -17,7 +17,7 @@ using NoMoreTears.Shared.Providers.Identity.Tokens;
 namespace NoMoreTears.Shared.Providers.Identity.Registration;
 
 /// <summary>
-///     Registrar for the identity provider: authentication, MFA, sessions and Postgres persistence.
+///     Registrar for the identity provider.
 /// </summary>
 public static class IdentityRegistrar
 {
@@ -26,15 +26,11 @@ public static class IdentityRegistrar
     /// </summary>
     public const string SectionName = "Identity";
 
-    /// <param name="services">DI service collection.</param>
     extension(IServiceCollection services)
     {
         /// <summary>
-        ///     Registers the identity provider using the fluent builder. Persistence is mandatory,
-        ///     options are validated on application start.
+        ///     Registers the identity provider.
         /// </summary>
-        /// <param name="configure">Identity configuration.</param>
-        /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddIdentityProvider(Action<IdentityProviderBuilder> configure)
         {
             ArgumentNullException.ThrowIfNull(configure);
@@ -49,19 +45,13 @@ public static class IdentityRegistrar
                     $"or {nameof(IdentityProviderBuilder.UseDbContext)}() in configuration.");
             }
 
-            // Builder registrations go first, so the defaults below never override them.
             builder.Apply(services);
-
             return services.AddIdentityDefaults();
         }
 
         /// <summary>
-        ///     Registers the identity provider with options bound from the <see cref="SectionName"/>
-        ///     section of the configuration, then applies the fluent configuration.
+        ///     Registers the identity provider with configuration.
         /// </summary>
-        /// <param name="configuration">Application configuration.</param>
-        /// <param name="configure">Identity configuration.</param>
-        /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddIdentityProvider(
             IConfiguration configuration,
             Action<IdentityProviderBuilder> configure)
@@ -69,7 +59,8 @@ public static class IdentityRegistrar
             ArgumentNullException.ThrowIfNull(configuration);
             ArgumentNullException.ThrowIfNull(configure);
 
-            return services.AddIdentityProvider(builder =>
+            return services
+                .AddIdentityProvider(builder =>
             {
                 builder.Configure(configuration.GetSection(SectionName));
                 configure(builder);
@@ -77,7 +68,7 @@ public static class IdentityRegistrar
         }
 
         /// <summary>
-        ///     Registers validated options, security services, token services and the facade.
+        ///     Registers identity provider services.
         /// </summary>
         private IServiceCollection AddIdentityDefaults()
         {
@@ -91,21 +82,20 @@ public static class IdentityRegistrar
             services.AddValidatedOptions<AccountOptions, AccountOptionsValidator>();
             services.AddValidatedOptions<MaintenanceOptions, MaintenanceOptionsValidator>();
 
-            services.TryAddSingleton<IPasswordHasher, PasswordHasher>();
-            services.TryAddSingleton<DummyPasswordHash>();
-            services.TryAddSingleton<IJwtProvider, JwtProvider>();
-
-            services.TryAddScoped<IUserActionTokenService, UserActionTokenService>();
-            services.TryAddScoped<IMfaChallengeService, MfaChallengeService>();
-            services.TryAddScoped<IIdentityMaintenanceService, IdentityMaintenanceService>();
-
-            services.TryAddScoped<IdentityProvider>();
-            services.TryAddScoped<IIdentityProvider>(sp => sp.GetRequiredService<IdentityProvider>());
-            services.TryAddScoped<ISignUpService>(sp => sp.GetRequiredService<IdentityProvider>());
-            services.TryAddScoped<ISignInService>(sp => sp.GetRequiredService<IdentityProvider>());
-            services.TryAddScoped<IAccountService>(sp => sp.GetRequiredService<IdentityProvider>());
-            services.TryAddScoped<ISessionService>(sp => sp.GetRequiredService<IdentityProvider>());
-            services.TryAddScoped<IUserAdministrationService>(sp => sp.GetRequiredService<IdentityProvider>());
+            services
+                .AddSingleton<IPasswordHasher, PasswordHasher>()
+                .AddSingleton<DummyPasswordHash>()
+                .AddSingleton<IJwtProvider, JwtProvider>()
+                .AddScoped<IUserActionTokenService, UserActionTokenService>()
+                .AddScoped<IMfaChallengeService, MfaChallengeService>()
+                .AddScoped<IIdentityMaintenanceService, IdentityMaintenanceService>()
+                .AddScoped<IdentityProvider>()
+                .AddScoped<IIdentityProvider>(sp => sp.GetRequiredService<IdentityProvider>())
+                .AddScoped<ISignUpService>(sp => sp.GetRequiredService<IdentityProvider>())
+                .AddScoped<ISignInService>(sp => sp.GetRequiredService<IdentityProvider>())
+                .AddScoped<IAccountService>(sp => sp.GetRequiredService<IdentityProvider>())
+                .AddScoped<ISessionService>(sp => sp.GetRequiredService<IdentityProvider>())
+                .AddScoped<IUserAdministrationService>(sp => sp.GetRequiredService<IdentityProvider>());
 
             return services;
         }
