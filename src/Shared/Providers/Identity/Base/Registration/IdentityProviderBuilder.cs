@@ -88,9 +88,6 @@ public sealed class IdentityProviderBuilder
     ///     Stores identity data in Postgres through the Postgres module, drafting the connection
     ///     and tuning blueprint inline.
     /// </summary>
-    /// <remarks>
-    ///     Requires <see cref="IConfiguration"/> and <c>ILoggerFactory</c> to be registered by the host.
-    /// </remarks>
     public IdentityProviderBuilder UsePostgres(
         Action<DbContextBlueprint> draft,
         int poolSize = PostgresRegistrar.DbContextPoolSize)
@@ -161,10 +158,6 @@ public sealed class IdentityProviderBuilder
     ///     Registers JWT bearer authentication for the given scheme, validated with the same options
     ///     the provider issues tokens with. Tokens of revoked sessions are rejected unless disabled.
     /// </summary>
-    /// <remarks>
-    ///     <paramref name="configure"/> runs after the provider defaults; assign handlers on the existing
-    ///     <see cref="JwtBearerOptions.Events"/> instance to keep session validation in place.
-    /// </remarks>
     public IdentityProviderBuilder UseJwtBearer(
         string scheme,
         Action<JwtBearerOptions>? configure = null,
@@ -189,7 +182,6 @@ public sealed class IdentityProviderBuilder
     /// <summary>
     ///     Runs identity maintenance periodically in a hosted service.
     /// </summary>
-    /// <param name="interval">Period between runs; defaults to <see cref="MaintenanceOptions.Interval"/>.</param>
     public IdentityProviderBuilder UseBackgroundCleanup(TimeSpan? interval = null)
     {
         return Register(services =>

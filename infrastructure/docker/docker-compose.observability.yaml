@@ -1,0 +1,32 @@
+version: '3.8'
+name: nomoretears-observability
+
+services:
+  seq:
+    container_name: nomoretears-seq
+    image: datalust/seq:2025.2
+    restart: on-failure
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_ADMIN_PASSWORD:-changeme}
+    ports:
+      - "5341:80"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - seq-data:/data
+    networks:
+      - internal
+
+volumes:
+  seq-data:
+
+networks:
+  internal:
+    name: nomoretears-internal-development
+    driver: bridge
+    external: false

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Postgres.Migrations.Abstractions;
-using NoMoreTears.Shared.Postgres.Migrations.Diagnostics;
 using System.Diagnostics;
 
 namespace NoMoreTears.Shared.Postgres.Migrations;
@@ -39,22 +38,22 @@ public sealed class DbMigrationManager<TDbContext>(
 
             if (pendingMigrations.Count == 0)
             {
-                logger.NoPendingMigrations(dbContextName);
+                logger.LogInformation("Migrations will not be applied for {DbContextName}. No pending migrations", dbContextName);
                 return;
             }
 
             if (logger.IsEnabled(LogLevel.Information))
             {
-                logger.ApplyingMigrations(pendingMigrations.Count, dbContextName, string.Join(", ", pendingMigrations));
+                logger.LogInformation("Applying {Count} pending migrations for {DbContextName}: {Migrations}", pendingMigrations.Count, dbContextName, string.Join(", ", pendingMigrations));
             }
 
             await dbContext.Database.MigrateAsync(cancellationToken);
 
-            logger.MigrationsApplied(dbContextName, stopwatch.ElapsedMilliseconds);
+            logger.LogInformation("Migrations applied successfully for {DbContextName} in {ElapsedMs}ms", dbContextName, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
-            logger.MigrationsFailed(ex, dbContextName, stopwatch.ElapsedMilliseconds);
+            logger.LogError(ex, "An error occurred while applying migrations for {DbContextName} after {ElapsedMs}ms", dbContextName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }

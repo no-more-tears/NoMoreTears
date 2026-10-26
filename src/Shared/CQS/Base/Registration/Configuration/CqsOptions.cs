@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace HauteCouture.Shared.CQS.Registration.Configuration;
+namespace NoMoreTears.Shared.CQS.Registration.Configuration;
 
 /// <summary>
 ///     Configuration options for registering CQS handlers.
@@ -36,11 +36,6 @@ public sealed class CqsOptions
     ///     Indicates whether authorization behavior is used.
     /// </summary>
     internal bool AuthorizationEnabled { get; private set; }
-
-    /// <summary>
-    ///     Indicates whether diagnostic/tracing behavior is enabled in the pipeline.
-    /// </summary>
-    internal bool DiagnosticEnabled { get; private set; }
 
     /// <summary>
     ///     Specifies the assembly to scan for CQS handlers.
@@ -115,23 +110,12 @@ public sealed class CqsOptions
     }
 
     /// <summary>
-    ///     Enables diagnostic/tracing behavior in the CQS pipeline.
-    /// </summary>
-    /// <returns>The current <see cref="CqsOptions"/> instance for fluent configuration.</returns>
-    public CqsOptions UseDiagnostics()
-    {
-        DiagnosticEnabled = true;
-        return this;
-    }
-
-    /// <summary>
     ///     Enables all available pipeline behaviors at once.
     /// </summary>
     /// <returns>The current <see cref="CqsOptions"/> instance for fluent configuration.</returns>
     public CqsOptions UseAllBehaviors()
     {
-        return UseDiagnostics()
-            .UseAuthorization()
+        return UseAuthorization()
             .UseValidation()
             .UseLogging()
             .UsePerformanceTracking()

@@ -1,0 +1,7 @@
+Hello,
+
+Please confirm that {{Email}} is your email address by opening the link below:
+
+{{Link}}
+
+The link expires at {{ExpiresAt}}. If you did not create an account, you can ignore this email.

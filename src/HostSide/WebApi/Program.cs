@@ -2,17 +2,15 @@ using NoMoreTears.HostSide.WebApi.Registration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+var configuration = builder.Configuration;
+var environment = builder.Environment;
+var host = builder.Host;
 
-services.AddHostModules(builder.Configuration);
-services.AddOpenApi();
+services
+    .AddWebApiHost(configuration, environment, host)
+    .AddWebApiHostModules(configuration);
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
+app.UseWebApiHostPipeline();
 
 await app.RunAsync();

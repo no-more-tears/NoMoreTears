@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using NoMoreTears.Shared.Postgres.Diagnostics;
 using System.Data.Common;
 
 namespace NoMoreTears.Shared.Postgres.Interceptors;
@@ -88,12 +87,13 @@ public sealed class SlowDbCommandInterceptor(
             return;
         }
 
-        logger.SlowCommandDetected(
+        logger.LogWarning(
+            "Slow database command detected. Duration={DurationMs}ms > Threshold={ThresholdMs}ms, Source={CommandSource}, CommandId={CommandId}",
             eventData.Duration.TotalMilliseconds,
             threshold.TotalMilliseconds,
             eventData.CommandSource,
             eventData.CommandId);
 
-        logger.SlowCommandSql(command.CommandText);
+        logger.LogDebug("Slow database command SQL: {CommandText}", command.CommandText);
     }
 }

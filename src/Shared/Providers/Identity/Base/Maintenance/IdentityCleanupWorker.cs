@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NoMoreTears.Shared.Providers.Identity.Abstractions.Maintenance;
-using NoMoreTears.Shared.Providers.Identity.Diagnostics;
 using NoMoreTears.Shared.Providers.Identity.Registration.Configuration;
 
 namespace NoMoreTears.Shared.Providers.Identity.Maintenance;
@@ -45,7 +44,7 @@ internal sealed class IdentityCleanupWorker(
         catch (Exception exception) when (exception is not OperationCanceledException)
         {
             // A failed run must not stop the host; the next tick retries.
-            logger.MaintenanceFailed(exception);
+            logger.LogError(exception, "Identity maintenance failed.");
         }
     }
 }

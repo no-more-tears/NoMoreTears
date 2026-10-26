@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\HostSide\Endpoints\NoMoreTears.Shared.HostSide.Endpoints.csproj" />
+    <ProjectReference Include="..\..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
+  </ItemGroup>
+
+</Project>

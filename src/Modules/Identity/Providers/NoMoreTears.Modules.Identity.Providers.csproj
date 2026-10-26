@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\CQS\Base\NoMoreTears.Shared.CQS.csproj" />
     <ProjectReference Include="..\..\..\Shared\Providers\Hosting\NoMoreTears.Shared.Providers.Hosting.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Providers\Identity\Base\NoMoreTears.Shared.Providers.Identity.csproj" />
+    <ProjectReference Include="..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
+    <ProjectReference Include="..\Applications\Services\NoMoreTears.Modules.Identity.Applications.Services.csproj" />
+    <ProjectReference Include="..\HostSide\Endpoints\NoMoreTears.Modules.Identity.HostSide.Endpoints.csproj" />
   </ItemGroup>
 
 </Project>

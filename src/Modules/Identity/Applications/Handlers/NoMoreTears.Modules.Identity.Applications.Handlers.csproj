@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\CQS\Abstractions\NoMoreTears.Shared.CQS.Abstractions.csproj" />
+    <ProjectReference Include="..\Services\NoMoreTears.Modules.Identity.Applications.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>

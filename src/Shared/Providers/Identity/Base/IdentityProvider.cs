@@ -209,7 +209,7 @@ internal sealed partial class IdentityProvider(
 
         if (count > 0)
         {
-            logger.SessionsRevoked(userId, reason, count);
+            logger.LogInformation("Revoked {Count} session(s) of user {UserId}. Reason={Reason}", count, userId, reason);
         }
     }
 

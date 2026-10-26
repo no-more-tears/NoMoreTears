@@ -1,13 +1,13 @@
-﻿using HauteCouture.Shared.CQS.Registration.Configuration;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NoMoreTears.Shared.CQS.Behaviors;
 using NoMoreTears.Shared.CQS.Extensions;
+using NoMoreTears.Shared.CQS.Registration.Configuration;
 
-namespace HauteCouture.Shared.CQS.Registration;
+namespace NoMoreTears.Shared.CQS.Registration;
 
 /// <summary>
-///     Registrar for handlers, validators, and event consumers from a given assembly.
+///     Registrar for handlers and validators.
 /// </summary>
 public static class CqsRegistrar
 {
