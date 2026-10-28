@@ -1,17 +1,3 @@
----
-title: Strategic Design
-document-type: Design Document
-system: NoMoreTears
-scope: Global
-related-docs:
-    - architecture
-    - service-structure
-    - modular-monolith
-tags: [ ddd, strategic-design, subdomains, bounded-contexts, context-mapping, ubiquitous-language, modular-monolith ]
-created-at: 16-10-2026
-last-updated-at: 16-10-2026
----
-
 ## Стратегічний дизайн
 
 Документ виконує роль «бази знань про домен»: наратив бізнес-діяльності, перелік субдоменів із класифікацією та відображення субдоменів на bounded context-и через простір задачі та простір рішення. Відображення «субдомен → bounded context → модуль» прагне бути 1:1, щоб система лягала на модульний моноліт (`modular-monolith.md`) і за потреби виділялась у сервіси. Обсяг свідомо вузький: шість субдоменів, з них три Core.
