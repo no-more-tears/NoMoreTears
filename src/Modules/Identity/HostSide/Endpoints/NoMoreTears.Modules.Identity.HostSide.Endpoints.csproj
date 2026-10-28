@@ -12,6 +12,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Common\Utilities\NoMoreTears.Shared.Common.Utilities.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\HostSide\Endpoints\NoMoreTears.Shared.HostSide.Endpoints.csproj" />
     <ProjectReference Include="..\..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
   </ItemGroup>
