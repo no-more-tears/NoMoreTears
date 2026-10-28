@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NoMoreTears.Shared.Common.Authorization;
-using NoMoreTears.Shared.HostSide.WebApi.Helpers;
+using NoMoreTears.Shared.Common.Utilities.Helpers;
 
 namespace NoMoreTears.Shared.HostSide.WebApi.Modules.Authorization;
 

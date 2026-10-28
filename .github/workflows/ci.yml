@@ -1,0 +1,91 @@
+name: CI
+
+# One workflow for build + SonarQube Cloud analysis.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  # Cancel superseded PR runs, but never interrupt analysis of main
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  SOLUTION: NoMoreTears.slnx
+  SONAR_PROJECT_KEY: no-more-tears_NoMoreTears
+  SONAR_ORGANIZATION: no-more-tears
+
+jobs:
+  build-and-analyze:
+    # The job name is what rulesets see as the required status check
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    env:
+      # Secrets are not passed to PRs from forks and Dependabot may not have it:
+      # in that case the Sonar steps are skipped and only the build runs.
+      SONAR_ENABLED: ${{ secrets.SONAR_TOKEN != '' }}
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0 # full history for accurate blame and new-code detection
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Java (required by the Sonar scanner)
+        if: env.SONAR_ENABLED == 'true'
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - name: Cache Sonar packages
+        if: env.SONAR_ENABLED == 'true'
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Install Sonar scanner
+        if: env.SONAR_ENABLED == 'true'
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Sonar begin
+        if: env.SONAR_ENABLED == 'true'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          dotnet sonarscanner begin
+          /k:"$SONAR_PROJECT_KEY"
+          /o:"$SONAR_ORGANIZATION"
+          /d:sonar.token="$SONAR_TOKEN"
+
+      - name: Restore
+        run: dotnet restore "$SOLUTION"
+
+      - name: Build
+        run: dotnet build "$SOLUTION" --configuration Release --no-restore --no-incremental
+
+      - name: Sonar end
+        if: env.SONAR_ENABLED == 'true'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"

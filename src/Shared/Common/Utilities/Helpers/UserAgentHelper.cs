@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace NoMoreTears.Shared.HostSide.WebApi.Helpers;
+namespace NoMoreTears.Shared.Common.Utilities.Helpers;
 
 /// <summary>
 ///     Helper class for retrieving the client's User-Agent from an HTTP request.
