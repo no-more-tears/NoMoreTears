@@ -10,9 +10,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\HostSide\Endpoints\NoMoreTears.Shared.HostSide.Endpoints.csproj" />

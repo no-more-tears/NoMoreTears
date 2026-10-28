@@ -59,7 +59,7 @@ internal sealed partial class IdentityProvider
         if (user.MfaEnabled)
         {
             await db.SaveChangesAsync(cancellationToken);
-            var challenge = await mfaChallenges.CreateAsync(user.Id, request.Client, cancellationToken);
+            var challenge = await mfaChallenges.CreateAsync(user.Id, user.Email, request.Client, cancellationToken);
 
             return LoginResult.MfaRequired(challenge);
         }

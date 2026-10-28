@@ -3,4 +3,6 @@
 public static class EndpointTag
 {
     public const string Identity = "Identity";
+
+    public const string Users = "Users";
 }

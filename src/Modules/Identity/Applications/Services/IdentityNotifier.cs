@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 using NoMoreTears.Modules.Identity.Applications.Services.Configuration;
 using NoMoreTears.Modules.Notification.Contracts.Emails;
+using NoMoreTears.Shared.Providers.Identity.Contracts.SignIn;
 using NoMoreTears.Shared.Providers.Identity.Contracts.UserActions;
 
 namespace NoMoreTears.Modules.Identity.Applications.Services;
@@ -46,6 +47,25 @@ public sealed class IdentityNotifier(
             cancellationToken);
     }
 
+    /// <inheritdoc />
+    public Task SendMfaCodeAsync(
+        MfaChallenge challenge,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(challenge);
+
+        var model = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["Email"] = challenge.Email,
+            ["Code"] = challenge.Code,
+            ["ExpiresAt"] = FormatExpiresAt(challenge.ExpiresAt)
+        };
+
+        return emailNotifier.SendAsync(
+            new EmailNotification(challenge.Email, EmailTemplates.MfaCode, model),
+            cancellationToken);
+    }
+
     private Task SendAsync(
         string email,
         UserActionTicket ticket,
@@ -66,9 +86,12 @@ public sealed class IdentityNotifier(
         {
             ["Email"] = email,
             ["Link"] = IdentityLinks.Build(urlTemplate, ticket),
-            ["ExpiresAt"] = ticket.ExpiresAt.UtcDateTime.ToString("yyyy-MM-dd HH:mm 'UTC'", CultureInfo.InvariantCulture)
+            ["ExpiresAt"] = FormatExpiresAt(ticket.ExpiresAt)
         };
 
         return emailNotifier.SendAsync(new EmailNotification(email, template, model), cancellationToken);
     }
+
+    private static string FormatExpiresAt(DateTimeOffset expiresAt) =>
+        expiresAt.UtcDateTime.ToString("yyyy-MM-dd HH:mm 'UTC'", CultureInfo.InvariantCulture);
 }

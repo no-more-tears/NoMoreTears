@@ -1,12 +1,11 @@
-﻿using NoMoreTears.Shared.Common.Authorization;
-using NoMoreTears.Shared.Providers.Identity.Contracts.Sessions;
-using NoMoreTears.Shared.Providers.Identity.Contracts.Users;
+﻿using NoMoreTears.Modules.Identity.Contracts.Responses;
+using NoMoreTears.Shared.Common.Authorization;
 
 namespace NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 
 public interface IUserService
 {
-    Task<UserInfo> GetAsync(
+    Task<UserResponse> GetAsync(
         Guid userId,
         CancellationToken cancellationToken);
 
@@ -28,7 +27,7 @@ public interface IUserService
         bool enabled,
         CancellationToken cancellationToken);
 
-    Task<IReadOnlyList<SessionInfo>> GetSessionsAsync(
+    Task<IReadOnlyList<SessionResponse>> GetSessionsAsync(
         Guid userId, 
         Guid? currentSessionId,
         CancellationToken cancellationToken);

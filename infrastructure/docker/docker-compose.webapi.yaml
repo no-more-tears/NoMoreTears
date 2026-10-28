@@ -1,0 +1,35 @@
+version: '3.8'
+name: nomoretears-webapi
+
+# Runs the WebApi host.
+# Requires docker-compose.infra.yaml (postgres, redis, papercut) and docker-compose.observability.yaml (seq)
+# to be running, and the migrations from docker-compose.migrations.yaml to be applied.
+
+services:
+  webapi:
+    container_name: nomoretears-webapi
+    image: nomoretears/webapi:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: HostSide/WebApi/Dockerfile
+    restart: on-failure
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears"
+      RedisCache__Password: ${REDIS_PASSWORD:-p4ssw0rd}
+      Identity__Jwt__SigningKey: ${JWT_SIGNING_KEY:?Set JWT_SIGNING_KEY (at least 32 characters)}
+    ports:
+      - "5080:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - internal
+
+networks:
+  internal:
+    name: nomoretears-internal-development
+    external: true

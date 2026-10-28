@@ -273,7 +273,7 @@ flowchart TD
     L10 --> L11["failed_access_attempts = 0<br/>lockout_end_at = null"]
     L11 --> L12{"mfa_enabled?"}
     L12 -->|"так"| L13[("SaveChanges<br/>IMfaChallengeService.CreateAsync")]
-    L13 --> L14(["LoginResult.MfaRequired<br/>MfaChallenge: ChallengeToken, Code, ExpiresAt"])
+    L13 --> L14(["LoginResult.MfaRequired<br/>MfaChallenge: UserId, Email, ChallengeToken, Code, ExpiresAt"])
     L14 --> L15["Хост доставляє Code користувачу,<br/>клієнту віддає лише ChallengeToken"]
     L12 -->|"ні"| L16[("last_login_at = now<br/>StartSessionAsync, mfaVerified = false")]
     L16 --> L17(["LoginResult.Authenticated<br/>TokenPair"])
@@ -304,7 +304,7 @@ flowchart TD
     M0(["CreateAsync<br/>userId, client"]) --> M1[("UPDATE mfa_challenges SET consumed_at = now<br/>WHERE user_id, consumed_at IS NULL<br/>один відкритий челендж на користувача")]
     M1 --> M2["challengeToken = 32 випадкових байти, base64url<br/>code = CodeLength цифр"]
     M2 --> M3[("INSERT mfa_challenges<br/>challenge_hash = SHA-256 від token<br/>code_hash = SHA-256 від token + ':' + code<br/>client_fingerprint = SHA-256 від UserAgent + DeviceId<br/>expires_at = now + ChallengeLifetime")]
-    M3 --> M4(["MfaChallenge<br/>ChallengeToken, Code, ExpiresAt"])
+    M3 --> M4(["MfaChallenge<br/>UserId, Email, ChallengeToken, Code, ExpiresAt"])
     M4 --> M5["Хост доставляє Code,<br/>клієнт отримує лише ChallengeToken"]
 
     V0(["VerifyMfaRequest<br/>ChallengeToken, Code, Client"]) --> V1["Знайти челендж за SHA-256 від ChallengeToken"]

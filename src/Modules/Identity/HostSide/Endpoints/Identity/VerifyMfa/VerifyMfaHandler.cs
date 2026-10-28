@@ -1,0 +1,28 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using NoMoreTears.Modules.Identity.Applications.Handlers.Commands.VerifyMfa;
+using NoMoreTears.Modules.Identity.Contracts.Requests;
+using NoMoreTears.Modules.Identity.HostSide.Endpoints.Extensions;
+using NoMoreTears.Shared.Common.Authorization;
+
+namespace NoMoreTears.Modules.Identity.HostSide.Endpoints.Identity.VerifyMfa;
+
+public static class VerifyMfaHandler
+{
+    public static async Task<IResult> Handle(
+        [FromBody] VerifyMfaRequest request,
+        [FromServices] ICurrentUserSession currentUserSession,
+        [FromServices] ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var command = new VerifyMfaCommand(
+            request.ChallengeToken,
+            request.Code,
+            currentUserSession.ToClientContext());
+
+        var response = await sender.Send(command, cancellationToken);
+
+        return Results.Ok(response);
+    }
+}

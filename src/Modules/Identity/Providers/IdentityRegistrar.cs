@@ -50,12 +50,18 @@ public static class IdentityRegistrar
     /// <summary>
     ///     Registers identity Applications handlers.
     /// </summary>
+    /// <remarks>
+    ///     Payload logging is not enabled: identity requests and responses carry passwords and tokens.
+    ///     Services log the outcome of each operation instead.
+    /// </remarks>
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
         services
             .AddCqs(options => options
                 .FromAssembly(Applications.Handlers.AssemblyReference.Assembly)
-                .UseAllBehaviors());
+                .UseAuthorization()
+                .UseValidation()
+                .UsePerformanceTracking());
 
         return services;
     }

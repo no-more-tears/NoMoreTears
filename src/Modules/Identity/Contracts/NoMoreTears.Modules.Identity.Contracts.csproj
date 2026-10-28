@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Responses\" />
+    <ProjectReference Include="..\..\..\Shared\Common\Authorization\NoMoreTears.Shared.Common.Authorization.csproj" />
   </ItemGroup>
 
 </Project>

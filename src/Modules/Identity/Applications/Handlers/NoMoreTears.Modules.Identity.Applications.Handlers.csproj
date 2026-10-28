@@ -11,8 +11,5 @@
     <ProjectReference Include="..\Services\NoMoreTears.Modules.Identity.Applications.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
 
 </Project>

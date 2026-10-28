@@ -53,6 +53,11 @@ public sealed class WebApiOptions
     internal bool SwaggerEnabled { get; private set; }
 
     /// <summary>
+    ///     Indicates whether the CORS web module is enabled.
+    /// </summary>
+    internal bool CorsEnabled { get; private set; }
+
+    /// <summary>
     ///     Assemblies to scan for <see cref="IWebModule"/> implementations.
     /// </summary>
     internal Assembly[] Assemblies { get; private set; } = [];
@@ -164,12 +169,22 @@ public sealed class WebApiOptions
     }
 
     /// <summary>
+    ///     Enables the CORS web module (<see cref="Modules.Cors.CorsWebModule"/>).
+    /// </summary>
+    public WebApiOptions UseCors()
+    {
+        CorsEnabled = true;
+        return this;
+    }
+
+    /// <summary>
     ///     Enables all built-in web modules at once.
     /// </summary>
     public WebApiOptions UseAllModules()
     {
         return UseLogging()
             .UseCaching()
+            .UseCors()
             .UseTrafficControl()
             .UseExceptionHandling()
             .UseUserSessions()

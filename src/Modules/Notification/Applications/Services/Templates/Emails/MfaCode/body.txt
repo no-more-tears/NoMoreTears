@@ -1,0 +1,7 @@
+Hello,
+
+Use the code below to complete signing in to {{Email}}:
+
+{{Code}}
+
+The code expires at {{ExpiresAt}}. If you did not try to sign in, change your password; someone may know it.
