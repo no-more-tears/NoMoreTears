@@ -16,4 +16,10 @@ public static class EmailTemplates
     ///     Model: <c>Email</c>, <c>Link</c>, <c>ExpiresAt</c>.
     /// </summary>
     public const string PasswordReset = nameof(PasswordReset);
+
+    /// <summary>
+    ///     Delivers the one-time code that completes a sign-in.
+    ///     Model: <c>Email</c>, <c>Code</c>, <c>ExpiresAt</c>.
+    /// </summary>
+    public const string MfaCode = nameof(MfaCode);
 }

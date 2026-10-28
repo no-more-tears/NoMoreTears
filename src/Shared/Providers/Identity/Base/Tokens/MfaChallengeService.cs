@@ -25,9 +25,11 @@ internal sealed class MfaChallengeService(
     /// <inheritdoc />
     public async Task<MfaChallenge> CreateAsync(
         Guid userId,
+        string email,
         ClientContext client,
         CancellationToken cancellationToken)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(email);
         ArgumentNullException.ThrowIfNull(client);
 
         var now = timeProvider.GetUtcNow();
@@ -54,7 +56,7 @@ internal sealed class MfaChallengeService(
 
         await db.SaveChangesAsync(cancellationToken);
 
-        return new MfaChallenge(challengeToken, code, expiresAt);
+        return new MfaChallenge(userId, email, challengeToken, code, expiresAt);
     }
 
     /// <inheritdoc />

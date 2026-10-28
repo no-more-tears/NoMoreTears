@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Authorization;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Base;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Caching;
+using NoMoreTears.Shared.HostSide.WebApi.Modules.Cors;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.ExceptionHandling;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.HealthCheck;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Logging;
@@ -175,6 +176,11 @@ public static class WebApiRegistrar
         {
             // Adds the caching web module. Requires calling the UseCaching() method.
             modules.Add(new CachingWebModule());
+        }
+        if (options.CorsEnabled)
+        {
+            // Adds the CORS web module. Requires calling the UseCors() method.
+            modules.Add(new CorsWebModule());
         }
         if (options.TrafficControlEnabled)
         {

@@ -17,6 +17,7 @@ public interface IMfaChallengeService
     /// </summary>
     Task<MfaChallenge> CreateAsync(
         Guid userId,
+        string email,
         ClientContext client,
         CancellationToken cancellationToken);
 

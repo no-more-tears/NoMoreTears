@@ -1,0 +1,24 @@
+version: '3.8'
+name: nomoretears-migrations
+
+# Applies database migrations once and exits.
+# Requires docker-compose.infra.yaml to be running (shared network and postgres).
+
+services:
+  identity-migrations:
+    container_name: nomoretears-identity-migrations
+    image: nomoretears/identity-migrations:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Identity/HostSide/Migrations/Dockerfile
+    restart: "no"
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Migrations"
+    networks:
+      - internal
+
+networks:
+  internal:
+    name: nomoretears-internal-development
+    external: true

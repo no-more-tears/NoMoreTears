@@ -1,6 +1,5 @@
-﻿using NoMoreTears.Shared.Providers.Identity.Contracts.Common;
-using NoMoreTears.Shared.Providers.Identity.Contracts.SignIn;
-using NoMoreTears.Shared.Providers.Identity.Contracts.Tokens;
+﻿using NoMoreTears.Modules.Identity.Contracts.Responses;
+using NoMoreTears.Shared.Providers.Identity.Contracts.Common;
 
 namespace NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 
@@ -21,19 +20,19 @@ public interface IIdentityService
         string identifier, 
         CancellationToken cancellationToken);
 
-    Task<LoginResult> LoginAsync(
+    Task<LoginResponse> LoginAsync(
         string identifier,
         string password,
         ClientContext client,
         CancellationToken cancellationToken);
 
-    Task<TokenPair> VerifyMfaAsync(
+    Task<TokenResponse> VerifyMfaAsync(
         string challengeToken,
         string code,
         ClientContext client,
         CancellationToken cancellationToken);
 
-    Task<TokenPair> RefreshAsync(
+    Task<TokenResponse> RefreshAsync(
         string refreshToken,
         ClientContext client,
         CancellationToken cancellationToken);
@@ -54,9 +53,5 @@ public interface IIdentityService
         Guid userId,
         string token,
         string newPassword,
-        CancellationToken cancellationToken);
-
-    Task<bool> IsSessionActiveAsync(
-        Guid sessionId,
         CancellationToken cancellationToken);
 }

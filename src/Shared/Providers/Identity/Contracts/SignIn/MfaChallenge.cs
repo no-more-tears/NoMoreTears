@@ -8,10 +8,14 @@
 ///     <see cref="Code"/> is delivered to the user out of band (for example by email)
 ///     and must never be returned to the client.
 /// </remarks>
+/// <param name="UserId">Identifier of the user the challenge was issued for.</param>
+/// <param name="Email">Email address the code should be delivered to.</param>
 /// <param name="ChallengeToken">Opaque token identifying the challenge.</param>
 /// <param name="Code">One-time verification code.</param>
 /// <param name="ExpiresAt">Moment after which the challenge can no longer be verified.</param>
 public sealed record MfaChallenge(
+    Guid UserId,
+    string Email,
     string ChallengeToken,
     string Code,
     DateTimeOffset ExpiresAt);

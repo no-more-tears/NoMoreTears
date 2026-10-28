@@ -11,6 +11,8 @@ public static class WebModuleOrder
 
     public const int Correlation = 200;
 
+    public const int Cors = 250;
+
     public const int ExceptionHandling = 300;
 
     public const int OpenTelemetry = 400;

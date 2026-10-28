@@ -1,0 +1,13 @@
+# Build context is src/; keep it to sources only.
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.user
+**/*.suo
+**/Dockerfile*
+**/.dockerignore
+**/appsettings.Development.json
+**/Properties/launchSettings.json
+.cr/
