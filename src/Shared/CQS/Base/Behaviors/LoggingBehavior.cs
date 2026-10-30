@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace NoMoreTears.Shared.CQS.Behaviors;
 
@@ -14,20 +13,12 @@ public sealed class LoggingBehavior<TRequest, TResponse>(
     ILogger<LoggingBehavior<TRequest, TResponse>> logger,
     IHttpContextAccessor contextAccessor) 
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull, IRequest<TResponse>
+    where TRequest : notnull
 {
     /// <summary>
     ///     Default fallback value used when HTTP context data is unavailable.
     /// </summary>
     private const string Undefined = "Undefined";
-
-    /// <summary>
-    ///     JSON serialization options used for logging payloads.
-    /// </summary>
-    private static readonly JsonSerializerOptions SerializerOptions = new()
-    { 
-        WriteIndented = false 
-    };
 
     /// <inheritdoc/>
     public async Task<TResponse> Handle(
@@ -63,6 +54,7 @@ public sealed class LoggingBehavior<TRequest, TResponse>(
 
     /// <summary>
     ///     Attempts to serialize the specified payload to JSON for logging purposes.
+    ///     Sensitive properties are masked, see <see cref="LogPayloadSerializer"/>.
     /// </summary>
     private static string TrySerialize<TPayload>(
         TPayload payload,
@@ -75,9 +67,7 @@ public sealed class LoggingBehavior<TRequest, TResponse>(
 
         try
         {
-            // TODO: Once the Common layer has been created,
-            // check the attribute to see if the data is sensitive.
-            return JsonSerializer.Serialize(payload, SerializerOptions);
+            return LogPayloadSerializer.Serialize(payload);
         }
         catch (Exception ex)
         {

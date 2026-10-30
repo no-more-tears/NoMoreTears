@@ -109,7 +109,7 @@ internal sealed partial class IdentityProvider
             return null;
         }
 
-        return await actionTokens.IssueAsync(user.Id, UserActionPurpose.EmailConfirmation, cancellationToken);
+        return await actionTokens.TryIssueAsync(user.Id, UserActionPurpose.EmailConfirmation, cancellationToken);
     }
 
     /// <summary>

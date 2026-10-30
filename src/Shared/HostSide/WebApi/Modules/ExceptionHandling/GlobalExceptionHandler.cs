@@ -29,6 +29,7 @@ public sealed class GlobalExceptionHandler(
         var problemDetails = CreateProblemDetails(exception, statusCode);
 
         logger.LogError(
+            exception,
             "Exception occurred while processing the HTTP {Method} {Path} with status code {StatusCode} and message: {Message}",
             httpContext.Request.Method,
             httpContext.Request.Path,
@@ -66,7 +67,7 @@ public sealed class GlobalExceptionHandler(
             {
                 ValidationException => ("Validation error", exception.Message),
                 BadRequestException or ExternalClientException => ("Bad Request", exception.Message),
-                UnauthorizedException or ExternalAuthException => ("Unauthorized", "You are not authorized to perform this action."),
+                UnauthorizedException or ExternalAuthException => ("Unauthorized", exception.Message),
                 ForbiddenException => ("Forbidden", exception.Message),
                 NotFoundException => ("Not Found", exception.Message),
                 OperationCanceledException or ExternalTimeoutException => ("Request Timeout", "The request timed out. Please try again."),

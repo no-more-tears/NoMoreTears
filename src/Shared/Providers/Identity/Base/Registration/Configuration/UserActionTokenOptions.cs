@@ -23,4 +23,11 @@ public sealed class UserActionTokenOptions
     /// </summary>
     [Range(typeof(TimeSpan), "00:05:00", "1.00:00:00")]
     public TimeSpan PasswordResetLifetime { get; set; } = TimeSpan.FromHours(1);
+
+    /// <summary>
+    ///     Minimum period between two requested tokens of the same purpose for one user.
+    ///     Zero disables the cooldown.
+    /// </summary>
+    [Range(typeof(TimeSpan), "00:00:00", "01:00:00")]
+    public TimeSpan ReissueCooldown { get; set; } = TimeSpan.FromMinutes(1);
 }

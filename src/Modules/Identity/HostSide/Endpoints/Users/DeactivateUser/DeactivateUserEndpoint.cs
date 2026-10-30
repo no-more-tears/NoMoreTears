@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NoMoreTears.Modules.Identity.Contracts.Constants;
+using NoMoreTears.Shared.Common.Authorization;
 using NoMoreTears.Shared.HostSide.Endpoints.Abstractions;
 
 namespace NoMoreTears.Modules.Identity.HostSide.Endpoints.Users.DeactivateUser;
@@ -13,6 +14,6 @@ public sealed class DeactivateUserEndpoint : IEndpoint
         app.MapPost(Routes.Deactivate, DeactivateUserHandler.Handle)
             .WithName(EndpointName.DeactivateUser)
             .WithTags(EndpointTag.Users)
-            .RequireAuthorization();
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.PlatformAdministrator)));
     }
 }
