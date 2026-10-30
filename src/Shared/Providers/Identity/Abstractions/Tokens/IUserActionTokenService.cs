@@ -19,6 +19,16 @@ public interface IUserActionTokenService
         CancellationToken cancellationToken);
 
     /// <summary>
+    ///     Issues a token like <see cref="IssueAsync"/> unless a token of the same purpose
+    ///     was issued within the reissue cooldown, so a mailbox cannot be flooded.
+    /// </summary>
+    /// <returns>The ticket, or <see langword="null"/> while the cooldown lasts.</returns>
+    Task<UserActionTicket?> TryIssueAsync(
+        Guid userId,
+        UserActionPurpose purpose,
+        CancellationToken cancellationToken);
+
+    /// <summary>
     ///     Atomically consumes the token when it belongs to the user, serves the purpose,
     ///     has not been consumed and has not expired.
     /// </summary>

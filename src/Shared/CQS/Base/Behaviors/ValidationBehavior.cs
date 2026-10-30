@@ -12,7 +12,7 @@ namespace NoMoreTears.Shared.CQS.Behaviors;
 /// <typeparam name="TResponse">Type of the response.</typeparam>
 public sealed class ValidationBehavior<TRequest, TResponse>(
     IEnumerable<IValidator<TRequest>> validators): IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull, IRequest<TResponse>
+    where TRequest : notnull
     where TResponse : notnull
 {
     /// <summary> Collection of validators for the current request type. </summary>У

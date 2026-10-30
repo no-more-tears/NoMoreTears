@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NoMoreTears.Modules.Identity.Contracts.Constants;
+using NoMoreTears.Shared.Common.Authorization;
 using NoMoreTears.Shared.HostSide.Endpoints.Abstractions;
 
 namespace NoMoreTears.Modules.Identity.HostSide.Endpoints.Users.ReactivateUser;
@@ -13,6 +14,6 @@ public sealed class ReactivateUserEndpoint : IEndpoint
         app.MapPost(Routes.Reactivate, ReactivateUserHandler.Handle)
             .WithName(EndpointName.ReactivateUser)
             .WithTags(EndpointTag.Users)
-            .RequireAuthorization();
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.PlatformAdministrator)));
     }
 }

@@ -66,6 +66,12 @@ internal sealed partial class IdentityProvider
         ArgumentException.ThrowIfNullOrEmpty(request.CurrentPassword);
         EnsurePasswordPolicy(request.NewPassword);
 
+        // The current password is verified against the hash below, so an ordinal comparison is enough.
+        if (string.Equals(request.CurrentPassword, request.NewPassword, StringComparison.Ordinal))
+        {
+            throw new BadRequestException(IdentityMessages.PasswordReused);
+        }
+
         var user = await FindUserAsync(request.UserId, cancellationToken);
         var verification = VerifyPassword(request.CurrentPassword, user?.PasswordHash);
 
@@ -102,7 +108,7 @@ internal sealed partial class IdentityProvider
             return null;
         }
 
-        return await actionTokens.IssueAsync(user.Id, UserActionPurpose.PasswordReset, cancellationToken);
+        return await actionTokens.TryIssueAsync(user.Id, UserActionPurpose.PasswordReset, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -125,6 +131,12 @@ internal sealed partial class IdentityProvider
 
         var user = await FindUserAsync(request.UserId, cancellationToken)
             ?? throw new UnauthorizedException(IdentityMessages.InvalidToken);
+
+        // Checked only after the token is consumed, otherwise the endpoint would be a password oracle.
+        if (VerifyPassword(request.NewPassword, user.PasswordHash) != PasswordVerificationStatus.Failed)
+        {
+            throw new BadRequestException(IdentityMessages.PasswordReused);
+        }
 
         var now = timeProvider.GetUtcNow();
 

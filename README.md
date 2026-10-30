@@ -21,7 +21,7 @@ Backend-система, яка представляє платформу для 
 ### 2. Використані архітектурні підходи і паттерни
 
 | Підхід / паттерн | Призначення |
-|------------------|-------------|
+|--|--|
 | Modular Monolith | Єдиний деплой із чіткими межами між модулями. |
 | Domain-Driven Design | Моделювання системи таким чином, що вся складність розміщена в єдиному місці. |
 | Event-Driven Architecture | Взаємодія модулів через контракти у вигляді подій. |
@@ -30,7 +30,10 @@ Backend-система, яка представляє платформу для 
 
 ### 3. Навігація в документації
 
-TODO
+| Область | Документація |
+|--|--|
+| Public API | [docs/public-api.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/public-api.md) |
+| Domain | [docs/domain-driven-design.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/domain-driven-design.md) |
 
 ### 4. Як запустити систему
 

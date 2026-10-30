@@ -80,28 +80,30 @@ internal sealed class MfaChallengeService(
         if (challenge is null
             || challenge.ConsumedAt is not null
             || challenge.ExpiresAt <= now
-            || challenge.FailedAttempts >= _options.MaxAttempts
             || !TokenSecret.FixedTimeEquals(challenge.ClientFingerprint, ComputeFingerprint(client)))
         {
             return null;
         }
 
-        if (!TokenSecret.FixedTimeEquals(challenge.CodeHash, ComputeCodeHash(challengeToken, code)))
-        {
-            await db.MfaChallenges
-                .Where(x => x.Id == challenge.Id && x.ConsumedAt == null)
-                .ExecuteUpdateAsync(
-                    s => s.SetProperty(x => x.FailedAttempts, x => x.FailedAttempts + 1),
-                    cancellationToken);
+        var maxAttempts = _options.MaxAttempts;
 
+        // Every guess reserves an attempt before the code is compared, so parallel requests
+        // cannot exceed the limit by all reading the same counter.
+        var reserved = await db.MfaChallenges
+            .Where(x => x.Id == challenge.Id && x.ConsumedAt == null && x.FailedAttempts < maxAttempts)
+            .ExecuteUpdateAsync(
+                s => s.SetProperty(x => x.FailedAttempts, x => x.FailedAttempts + 1),
+                cancellationToken);
+
+        if (reserved != 1
+            || !TokenSecret.FixedTimeEquals(challenge.CodeHash, ComputeCodeHash(challengeToken, code)))
+        {
             return null;
         }
 
         // The conditional update guarantees a challenge is consumed by exactly one caller.
-        var maxAttempts = _options.MaxAttempts;
-
         var consumed = await db.MfaChallenges
-            .Where(x => x.Id == challenge.Id && x.ConsumedAt == null && x.FailedAttempts < maxAttempts)
+            .Where(x => x.Id == challenge.Id && x.ConsumedAt == null)
             .ExecuteUpdateAsync(s => s.SetProperty(x => x.ConsumedAt, now), cancellationToken);
 
         return consumed == 1 ? challenge.UserId : null;

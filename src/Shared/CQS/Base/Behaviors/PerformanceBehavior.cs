@@ -13,7 +13,7 @@ namespace NoMoreTears.Shared.CQS.Behaviors;
 public sealed class PerformanceBehavior<TRequest, TResponse>(
     ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : notnull
 {
     private const int WarningThresholdMilliseconds = 800;
 
