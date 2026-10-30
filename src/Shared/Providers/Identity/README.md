@@ -45,7 +45,7 @@ services.AddIdentityProvider(identity => identity
   "Jwt": { "Issuer": "nomoretears", "Audience": "nomoretears-api", "SigningKey": "<32+ випадкових символів>", "AccessTokenLifetime": "00:15:00", "ClockSkew": "00:00:30" },
   "Sessions": { "RefreshTokenLifetime": "7.00:00:00", "SessionLifetime": "30.00:00:00", "RevokedSessionRetention": "30.00:00:00" },
   "Mfa": { "CodeLength": 6, "ChallengeLifetime": "00:05:00", "MaxAttempts": 5 },
-  "UserActionTokens": { "EmailConfirmationLifetime": "1.00:00:00", "PasswordResetLifetime": "01:00:00" },
+  "UserActionTokens": { "EmailConfirmationLifetime": "1.00:00:00", "PasswordResetLifetime": "01:00:00", "ReissueCooldown": "00:01:00" },
   "Passwords": { "WorkFactor": 12, "MinimumLength": 8, "MaximumLength": 128 },
   "Account": { "RequireConfirmedEmail": true, "MaxFailedAccessAttempts": 5, "LockoutDuration": "00:15:00" }
 }

@@ -27,6 +27,8 @@ internal static class IdentityMessages
 
     public const string UserNotFound = "User not found.";
 
+    public const string PasswordReused = "The new password must differ from the current password.";
+
     public static string PasswordTooShort(int minimumLength) =>
         string.Create(CultureInfo.InvariantCulture, $"The password must be at least {minimumLength} characters long.");
 

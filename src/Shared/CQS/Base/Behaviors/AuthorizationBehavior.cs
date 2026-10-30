@@ -14,7 +14,7 @@ public sealed class AuthorizationBehavior<TRequest, TResponse>(
     IEnumerable<IAuthorizationHandler<TRequest>> handlers,
     ICurrentUserSession currentUser)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull, IRequest<TResponse>
+    where TRequest : notnull, IBaseRequest
 {
     /// <summary>Collection of authorization handlers for the current request type.</summary>
     private readonly IReadOnlyList<IAuthorizationHandler<TRequest>> _handlers =

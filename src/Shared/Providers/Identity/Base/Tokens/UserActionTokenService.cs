@@ -62,6 +62,24 @@ internal sealed class UserActionTokenService(
     }
 
     /// <inheritdoc />
+    public async Task<UserActionTicket?> TryIssueAsync(
+        Guid userId,
+        UserActionPurpose purpose,
+        CancellationToken cancellationToken)
+    {
+        var issuedAfter = timeProvider.GetUtcNow() - _options.ReissueCooldown;
+
+        // Superseded tokens keep their creation time until the purge, so they still count.
+        var coolingDown = await db.UserActionTokens.AnyAsync(
+            x => x.UserId == userId && x.Purpose == purpose && x.CreatedAt > issuedAfter,
+            cancellationToken);
+
+        return coolingDown
+            ? null
+            : await IssueAsync(userId, purpose, cancellationToken);
+    }
+
+    /// <inheritdoc />
     public async Task<bool> ConsumeAsync(
         Guid userId,
         UserActionPurpose purpose,
