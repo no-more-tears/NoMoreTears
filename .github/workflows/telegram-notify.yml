@@ -1,0 +1,123 @@
+name: Telegram notifications
+
+# Notifies a Telegram chat about pull request activity and CI results.
+# Separate from ci.yml on purpose: it reacts to the CI workflow via workflow_run,
+# so the build itself stays untouched.
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, review_requested, closed]
+  workflow_run:
+    workflows: [CI] # must match `name:` in ci.yml
+    types: [completed]
+
+permissions:
+  contents: read
+
+env:
+  MESSAGE_FILE: /tmp/message.html
+
+jobs:
+  notify:
+    name: Telegram notify
+    runs-on: ubuntu-latest
+    # TELEGRAM_* are environment secrets, so the job must reference that environment
+    environment: staging
+    env:
+      # Secrets are not passed to PRs from forks: in that case the job just does nothing.
+      TELEGRAM_ENABLED: ${{ secrets.TELEGRAM_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
+
+    steps:
+      - name: Compose pull request message
+        if: env.TELEGRAM_ENABLED == 'true' && github.event_name == 'pull_request' && github.event.pull_request.draft == false
+        env:
+          # Untrusted values go through env, never straight into the script body
+          PR_ACTION: ${{ github.event.action }}
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_BASE: ${{ github.event.pull_request.base.ref }}
+          PR_REVIEWER: ${{ github.event.requested_reviewer.login || github.event.requested_team.name }}
+          REPO: ${{ github.repository }}
+        run: |
+          esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<< "$1"; }
+
+          case "$PR_ACTION" in
+            opened)           LABEL="Pull request opened" ;;
+            reopened)         LABEL="Pull request reopened" ;;
+            ready_for_review) LABEL="Pull request ready for review" ;;
+            review_requested) LABEL="Review requested" ;;
+            closed)
+              if [ "$PR_MERGED" = "true" ]; then LABEL="Pull request merged"; else LABEL="Pull request closed without merge"; fi ;;
+            *) exit 0 ;;
+          esac
+
+          {
+            echo "<b>${LABEL}</b>"
+            echo "<a href=\"${PR_URL}\">#${PR_NUMBER} $(esc "$PR_TITLE")</a>"
+            echo
+            echo "<b>Repository:</b> <code>$(esc "$REPO")</code>"
+            echo "<b>Branch:</b> <code>$(esc "$PR_HEAD")</code> into <code>$(esc "$PR_BASE")</code>"
+            echo "<b>Author:</b> $(esc "$PR_AUTHOR")"
+            if [ "$PR_ACTION" = "review_requested" ]; then
+              echo "<b>Reviewer:</b> $(esc "$PR_REVIEWER")"
+              echo
+              echo "@tearsprince для тебе новий огляд"
+            fi
+          } > "$MESSAGE_FILE"
+
+      - name: Compose build message
+        # Cancelled runs are skipped: they are superseded PR runs, not real results
+        if: env.TELEGRAM_ENABLED == 'true' && github.event_name == 'workflow_run' && github.event.workflow_run.conclusion != 'cancelled'
+        env:
+          RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          RUN_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_EVENT: ${{ github.event.workflow_run.event }}
+          RUN_ACTOR: ${{ github.event.workflow_run.triggering_actor.login }}
+          RUN_COMMIT: ${{ github.event.workflow_run.head_commit.message }}
+          RUN_PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+          REPO: ${{ github.repository }}
+        run: |
+          esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<< "$1"; }
+
+          case "$RUN_CONCLUSION" in
+            success) LABEL="Build succeeded" ;;
+            failure) LABEL="Build failed" ;;
+            *)       LABEL="Build finished: ${RUN_CONCLUSION}" ;;
+          esac
+
+          COMMIT_TITLE="$(head -n 1 <<< "$RUN_COMMIT")"
+          SHORT_SHA="${RUN_SHA:0:7}"
+          SOURCE="$RUN_EVENT"
+          if [ -n "$RUN_PR" ]; then SOURCE="pull request #${RUN_PR}"; fi
+
+          {
+            echo "<b>${LABEL}</b>"
+            echo "<a href=\"${RUN_URL}\">View run</a>"
+            echo
+            echo "<b>Repository:</b> <code>$(esc "$REPO")</code>"
+            echo "<b>Branch:</b> <code>$(esc "$RUN_BRANCH")</code> (${SOURCE})"
+            echo "<b>Commit:</b> <code>${SHORT_SHA}</code> $(esc "$COMMIT_TITLE")"
+            echo "<b>Triggered by:</b> $(esc "$RUN_ACTOR")"
+          } > "$MESSAGE_FILE"
+
+      - name: Send to Telegram
+        if: env.TELEGRAM_ENABLED == 'true'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          # Nothing composed means the event was filtered out (draft, cancelled, ...)
+          [ -s "$MESSAGE_FILE" ] || { echo "Nothing to send"; exit 0; }
+
+          curl -sS --fail-with-body -X POST \
+            "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text@${MESSAGE_FILE}" \
+            --data-urlencode "parse_mode=HTML" \
+            --data-urlencode "disable_web_page_preview=true"
