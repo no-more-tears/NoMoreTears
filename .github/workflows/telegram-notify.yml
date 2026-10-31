@@ -21,8 +21,6 @@ jobs:
   notify:
     name: Telegram notify
     runs-on: ubuntu-latest
-    # TELEGRAM_* are environment secrets, so the job must reference that environment
-    environment: staging
     env:
       # Secrets are not passed to PRs from forks: in that case the job just does nothing.
       TELEGRAM_ENABLED: ${{ secrets.TELEGRAM_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
