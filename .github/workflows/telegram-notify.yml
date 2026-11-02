@@ -3,6 +3,9 @@ name: Telegram notifications
 # Notifies a Telegram chat about pull request activity and CI results.
 # Separate from ci.yml on purpose: it reacts to the CI workflow via workflow_run,
 # so the build itself stays untouched.
+#
+# Reviewer pings: GitHub login -> Telegram username via repository secrets named
+# <LOGIN>_TELEGRAM_USERNAME (upper case, "-" replaced with "_").
 
 on:
   pull_request:
@@ -38,10 +41,27 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_HEAD: ${{ github.event.pull_request.head.ref }}
           PR_BASE: ${{ github.event.pull_request.base.ref }}
-          PR_REVIEWER: ${{ github.event.requested_reviewer.login || github.event.requested_team.name }}
+          # All reviewers currently requested on the PR (users and teams)
+          PR_REVIEWERS: ${{ toJSON(github.event.pull_request.requested_reviewers.*.login) }}
+          PR_REVIEW_TEAMS: ${{ toJSON(github.event.pull_request.requested_teams.*.name) }}
+          # The reviewer added by this particular event (empty for team requests)
+          EVENT_REVIEWER: ${{ github.event.requested_reviewer.login }}
+          # Used only to look up <LOGIN>_TELEGRAM_USERNAME; never printed
+          SECRETS_JSON: ${{ toJSON(secrets) }}
           REPO: ${{ github.repository }}
         run: |
           esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<< "$1"; }
+
+          # GitHub login -> "@telegram_username", or nothing if no secret is configured
+          tg_mention() {
+            local key value
+            key="$(tr '[:lower:]-' '[:upper:]_' <<< "$1")_TELEGRAM_USERNAME"
+            value="$(jq -r --arg k "$key" \
+              'to_entries[] | select((.key | ascii_upcase) == $k) | .value' <<< "$SECRETS_JSON" | head -n 1)"
+            value="${value#@}"
+            [ -n "$value" ] && echo "@${value}"
+            return 0
+          }
 
           case "$PR_ACTION" in
             opened)           LABEL="Pull request opened" ;;
@@ -60,10 +80,21 @@ jobs:
             echo "<b>Repository:</b> <code>$(esc "$REPO")</code>"
             echo "<b>Branch:</b> <code>$(esc "$PR_HEAD")</code> into <code>$(esc "$PR_BASE")</code>"
             echo "<b>Author:</b> $(esc "$PR_AUTHOR")"
+
             if [ "$PR_ACTION" = "review_requested" ]; then
-              echo "<b>Reviewer:</b> $(esc "$PR_REVIEWER")"
-              echo
-              echo "@tearsprince для тебе новий огляд"
+              REVIEWERS="$(jq -r '. + $teams | join(", ")' --argjson teams "$PR_REVIEW_TEAMS" <<< "$PR_REVIEWERS")"
+              [ -n "$REVIEWERS" ] && echo "<b>Reviewers:</b> $(esc "$REVIEWERS")"
+
+              # Ping only the reviewer added by this event, so nobody is pinged twice
+              if [ -n "$EVENT_REVIEWER" ]; then
+                MENTION="$(tg_mention "$EVENT_REVIEWER")"
+                if [ -n "$MENTION" ]; then
+                  echo
+                  echo "${MENTION}, a new review is waiting for you. Please take a look as soon as possible so it can be approved."
+                else
+                  echo "No Telegram username configured for ${EVENT_REVIEWER}" >&2
+                fi
+              fi
             fi
           } > "$MESSAGE_FILE"
 
