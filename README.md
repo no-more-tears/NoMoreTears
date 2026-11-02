@@ -34,6 +34,7 @@ Backend-система, яка представляє платформу для 
 |--|--|
 | Public API | [docs/public-api.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/public-api.md) |
 | Domain | [docs/domain-driven-design.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/domain-driven-design.md) |
+| Architecture | [docs/architecture.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/architecture.md) |
 
 ### 4. Як запустити систему
 
