@@ -12,8 +12,13 @@
   <Folder Name="/Shared/Providers/Identity/Migrations/">
     <Project Path="Shared/Providers/Identity/Migrations/NoMoreTears.Shared.Providers.Identity.Migrations.csproj" />
   </Folder>
+  <Folder Name="/Shared/RabbitMq/" />
+  <Folder Name="/Shared/RabbitMq/Abstractions/" />
+  <Folder Name="/Shared/RabbitMq/Base/" />
+  <Folder Name="/Shared/RabbitMq/Primitives/" />
   <Folder Name="/Solution Items/">
     <File Path="../.github/workflows/ci.yml" />
+    <File Path="../.github/workflows/telegram-notify.yml" />
     <File Path="../infrastructure/docker/.env.example" />
     <File Path="../infrastructure/docker/docker-compose.infra.yaml" />
     <File Path="../infrastructure/docker/docker-compose.migrations.yaml" />
@@ -41,6 +46,9 @@
   </Folder>
   <Folder Name="/Modules/" />
   <Folder Name="/Modules/Dispatch/" />
+  <Folder Name="/Modules/Dispatch/Domain/">
+    <Project Path="Modules/Dispatch/Domain/NoMoreTears.Modules.Dispatch.Domain.csproj" />
+  </Folder>
   <Folder Name="/Modules/Identity/" />
   <Folder Name="/Modules/Identity/Applications/" />
   <Folder Name="/Modules/Identity/Applications/Handlers/">
@@ -63,6 +71,9 @@
     <Project Path="Modules/Identity/Providers/NoMoreTears.Modules.Identity.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Masters/" />
+  <Folder Name="/Modules/Masters/Domain/">
+    <Project Path="Modules/Masters/Domain/NoMoreTears.Modules.Masters.Domain.csproj" />
+  </Folder>
   <Folder Name="/Modules/Notification/" />
   <Folder Name="/Modules/Notification/Applications/" />
   <Folder Name="/Modules/Notification/Applications/Services/">
@@ -75,7 +86,13 @@
     <Project Path="Modules/Notification/Providers/NoMoreTears.Modules.Notification.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Requests/" />
+  <Folder Name="/Modules/Requests/Domain/">
+    <Project Path="Modules/Requests/Domain/NoMoreTears.Modules.Requests.Domain.csproj" />
+  </Folder>
   <Folder Name="/Modules/Trust/" />
+  <Folder Name="/Modules/Trust/Domain/">
+    <Project Path="Modules/Trust/Domain/NoMoreTears.Modules.Trust.Domain.csproj" />
+  </Folder>
   <Folder Name="/Shared/" />
   <Folder Name="/Shared/Common/" />
   <Folder Name="/Shared/Common/Authorization/">
@@ -98,7 +115,9 @@
   <Folder Name="/Shared/CQS/Primitives/">
     <Project Path="Shared/CQS/Primitives/NoMoreTears.Shared.CQS.Primitives.csproj" />
   </Folder>
-  <Folder Name="/Shared/Domain/" />
+  <Folder Name="/Shared/Domain/">
+    <Project Path="Shared/Domain/NoMoreTears.Shared.Domain.csproj" />
+  </Folder>
   <Folder Name="/Shared/HostSide/" />
   <Folder Name="/Shared/HostSide/Endpoints/">
     <Project Path="Shared/HostSide/Endpoints/NoMoreTears.Shared.HostSide.Endpoints.csproj" />
@@ -106,6 +125,7 @@
   <Folder Name="/Shared/HostSide/RateLimit/">
     <Project Path="Shared/HostSide/RateLimit/NoMoreTears.Shared.HostSide.RateLimit.csproj" />
   </Folder>
+  <Folder Name="/Shared/HostSide/SignalR/" />
   <Folder Name="/Shared/HostSide/WebApi/">
     <Project Path="Shared/HostSide/WebApi/NoMoreTears.Shared.HostSide.WebApi.csproj" />
   </Folder>

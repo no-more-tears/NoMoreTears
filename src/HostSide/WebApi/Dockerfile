@@ -15,8 +15,12 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS runtime
 WORKDIR /app
 
+# Alpine images run in invariant globalization mode; ICU is required for localized responses (uk).
+RUN apk add --no-cache icu-libs icu-data-full
+
 ENV ASPNETCORE_ENVIRONMENT=Docker \
-    ASPNETCORE_HTTP_PORTS=8080
+    ASPNETCORE_HTTP_PORTS=8080 \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 COPY --from=build /app .
 

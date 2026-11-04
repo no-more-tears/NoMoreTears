@@ -45,6 +45,7 @@ public static class HostRegistrar
                     .FromAssemblies(assembly)
                     .UseCaching()
                     .UseLogging()
+                    .UseLocalization()
                     .UseCors()
                     .UseExceptionHandling()
                     .UseTrafficControl()

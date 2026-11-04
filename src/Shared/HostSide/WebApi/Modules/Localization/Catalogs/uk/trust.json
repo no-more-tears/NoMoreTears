@@ -1,0 +1,55 @@
+﻿{
+  // Modules/Trust/Domain.
+  "Cannot {0} a review in status '{1}'.": "Дія «{0:t}» недоступна для відгуку у статусі «{1:t}».",
+  "Cannot {0} an incident in status '{1}'.": "Дія «{0:t}» недоступна для інциденту у статусі «{1:t}».",
+  "Cannot {0} a measure in status '{1}'.": "Дія «{0:t}» недоступна для тимчасового заходу у статусі «{1:t}».",
+
+  // Reviews and reputation.
+  "Rating must be from 1 to 5, but was {0}.": "Оцінка має бути від 1 до 5, отримано {0}.",
+  "Review comment must contain from 1 to {0} characters.": "Текст відгуку має містити від 1 до {0} символів.",
+  "A review can be left only for a completed request.": "Відгук можна залишити лише для завершеної заявки.",
+  "Only the client of the request can leave a review.": "Відгук може залишити лише клієнт заявки.",
+  "A review can be left within {0} days after completion.": "Відгук можна залишити протягом {0} {0:plural:дня|днів|днів} після завершення заявки.",
+  "Incident '{0}' is not the incident that froze the review.": "Інцидент '{0}' не є тим, що заморозив відгук.",
+  "All reviews must belong to the master.": "Усі відгуки мають належати майстру.",
+  "Platform average rating must be from 1 to 5.": "Середня оцінка платформи має бути від 1 до 5.",
+  "Completed and no-show counters exceed accepted or total requests.": "Лічильники завершених заявок і неявок перевищують кількість прийнятих або всіх заявок.",
+
+  // Requests as seen by Trust.
+  "Request, client and master identifiers must not be empty.": "Ідентифікатори заявки, клієнта й майстра не можуть бути порожніми.",
+  "An accepted request must have a master.": "Прийнята заявка повинна мати майстра.",
+  "Only a completed or failed request has a finish moment.": "Момент завершення має лише завершена або зірвана заявка.",
+  "The client and the master must be different users.": "Клієнт і майстер мають бути різними користувачами.",
+  "The party is not a participant of the request.": "Ця сторона не є учасником заявки.",
+
+  // Complaints, incidents and appeals.
+  "A complaint is possible only for a request in progress, completed or failed.": "Скарга можлива лише на заявку у виконанні, завершену або зірвану.",
+  "A complaint can be submitted within {0} days after the request finished.": "Скаргу можна подати протягом {0} {0:plural:дня|днів|днів} після завершення заявки.",
+  "Complaints of this client are accepted only with media evidence.": "Скарги цього клієнта приймаються лише з медіадоказами.",
+  "Statement must contain from 1 to {0} characters.": "Заява має містити від 1 до {0} символів.",
+  "Justification must contain from 1 to {0} characters.": "Обґрунтування має містити від 1 до {0} символів.",
+  "Evidence can contain at most {0} files.": "Докази можуть містити не більше ніж {0} {0:plural:файл|файли|файлів}.",
+  "Evidence file size must be from 1 to {0} bytes.": "Розмір файлу доказів має бути від 1 до {0} байтів.",
+  "Evidence collection closed at {0}.": "Збір доказів завершився о {0}.",
+  "A decision can be made only after evidence collection ends at {0}.": "Рішення можна ухвалити лише після завершення збору доказів о {0}.",
+  "Only a party of the incident can perform this action.": "Цю дію може виконати лише учасник інциденту.",
+  "An appeal can be submitted until {0}.": "Апеляцію можна подати до {0}.",
+  "The appeal window is open until {0}.": "Строк подання апеляції триває до {0}.",
+
+  // Sanctions.
+  "A sanction requires an incident with a confirmed violation.": "Санкція потребує інциденту з підтвердженим порушенням.",
+  "Only a party of the incident can be sanctioned.": "Санкцію можна накласти лише на учасника інциденту.",
+  "Sanction step must be from {0} to {1}.": "Крок санкції має бути від {0} до {1}.",
+  "The ladder requires at least step {0}.": "Драбина санкцій вимагає щонайменше кроку {0}.",
+  "Sanction '{0}' is not active.": "Санкція '{0}' не діє.",
+  "Only PlatformSupport or PlatformAdministrator can lift a sanction.": "Зняти санкцію може лише PlatformSupport або PlatformAdministrator.",
+
+  // Temporary measures.
+  "Rule '{0}' applies only to a participant with role '{1}'.": "Правило '{0}' застосовується лише до учасника з роллю «{1:t}».",
+  "Explanation must contain from 1 to {0} characters.": "Пояснення має містити від 1 до {0} символів.",
+  "Only the subject of the measure can contest it.": "Оскаржити захід може лише особа, до якої його застосовано.",
+  "The measure can be escalated only after {0}.": "Захід можна ескалювати лише після {0}.",
+  "The measure has not reached its end.": "Строк дії заходу ще не минув.",
+  "A measure is reviewed by PlatformSupport or PlatformAdministrator.": "Захід переглядає PlatformSupport або PlatformAdministrator.",
+  "An escalated measure is reviewed by PlatformAdministrator.": "Ескальований захід переглядає PlatformAdministrator."
+}

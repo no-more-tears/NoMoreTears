@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Base;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.HealthCheck.Configuration;
+
 using System.Reflection;
 
 namespace NoMoreTears.Shared.HostSide.WebApi.Registration.Configuration;
@@ -56,6 +57,11 @@ public sealed class WebApiOptions
     ///     Indicates whether the CORS web module is enabled.
     /// </summary>
     internal bool CorsEnabled { get; private set; }
+
+    /// <summary>
+    ///     Indicates whether the localization web module is enabled.
+    /// </summary>
+    internal bool LocalizationEnabled { get; private set; }
 
     /// <summary>
     ///     Assemblies to scan for <see cref="IWebModule"/> implementations.
@@ -178,11 +184,21 @@ public sealed class WebApiOptions
     }
 
     /// <summary>
+    ///     Enables the localization web module (<see cref="Modules.Localization.LocalizationWebModule"/>).
+    /// </summary>
+    public WebApiOptions UseLocalization()
+    {
+        LocalizationEnabled = true;
+        return this;
+    }
+
+    /// <summary>
     ///     Enables all built-in web modules at once.
     /// </summary>
     public WebApiOptions UseAllModules()
     {
         return UseLogging()
+            .UseLocalization()
             .UseCaching()
             .UseCors()
             .UseTrafficControl()

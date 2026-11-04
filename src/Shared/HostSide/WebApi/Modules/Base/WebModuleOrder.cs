@@ -9,6 +9,8 @@ public static class WebModuleOrder
 
     public const int Logging = 100;
 
+    public const int Localization = 150;
+
     public const int Correlation = 200;
 
     public const int Cors = 250;

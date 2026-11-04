@@ -9,6 +9,7 @@ using NoMoreTears.Shared.HostSide.WebApi.Modules.Caching;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Cors;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.ExceptionHandling;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.HealthCheck;
+using NoMoreTears.Shared.HostSide.WebApi.Modules.Localization;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Logging;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Swagger;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.TrafficControl;
@@ -171,6 +172,11 @@ public static class WebApiRegistrar
         {
             // Adds the logging web module. Requires calling the UseLogging() method.
             modules.Add(new LoggingWebModule());
+        }
+        if (options.LocalizationEnabled)
+        {
+            // Adds the localization web module. Requires calling the UseLocalization() method.
+            modules.Add(new LocalizationWebModule());
         }
         if (options.CachingEnabled)
         {

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Common.Exceptions.Client;
 using NoMoreTears.Shared.Common.Exceptions.Integration;
 using NoMoreTears.Shared.Common.Exceptions.Server;
+using NoMoreTears.Shared.Domain;
 using System.Net;
 
 namespace NoMoreTears.Shared.HostSide.WebApi.Modules.ExceptionHandling;
@@ -75,6 +76,7 @@ public sealed class GlobalExceptionHandler(
                 GoneException => ("Gone", exception.Message),
                 TooManyRequestsException => ("Too Many Requests", exception.Message),
                 ServiceUnavailableException or ExternalUnavailableException => ("Service Unavailable", "The service is temporarily unavailable. Please try again later."),
+                DomainException => ("Business rule violation", exception.Message),
                 _ => ("Internal Server Error", "An unexpected error occurred. Please contact support if the problem persists.")
             };
         }
@@ -109,6 +111,8 @@ public sealed class GlobalExceptionHandler(
             GoneException => HttpStatusCode.Gone,
             TooManyRequestsException => HttpStatusCode.TooManyRequests,
             ServiceUnavailableException or ExternalUnavailableException => HttpStatusCode.ServiceUnavailable,
+            // A domain invariant or business rule was violated: the request is well-formed but cannot be applied.
+            DomainException => HttpStatusCode.UnprocessableContent,
             _ => HttpStatusCode.InternalServerError
         };
     }
@@ -125,6 +129,7 @@ public sealed class GlobalExceptionHandler(
         StatusCodes.Status408RequestTimeout => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.7",
         StatusCodes.Status409Conflict => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8",
         StatusCodes.Status410Gone => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.9",
+        StatusCodes.Status422UnprocessableEntity => "https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.21",
         StatusCodes.Status429TooManyRequests => "https://datatracker.ietf.org/doc/html/rfc6585#section-4",
         StatusCodes.Status503ServiceUnavailable => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.4",
         _ => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"
