@@ -1,0 +1,32 @@
+﻿{
+  // Titles of ProblemDetails written by the exception handler and by endpoints.
+  "Validation error": "Помилка валідації",
+  "Business rule violation": "Порушення бізнес-правила",
+  "Bad Request": "Некоректний запит",
+  "Unauthorized": "Неавторизовано",
+  "Forbidden": "Доступ заборонено",
+  "Not Found": "Не знайдено",
+  "Request Timeout": "Час очікування запиту вичерпано",
+  "Conflict": "Конфлікт",
+  "Gone": "Ресурс більше недоступний",
+  "Too Many Requests": "Забагато запитів",
+  "Service Unavailable": "Сервіс недоступний",
+  "Internal Server Error": "Внутрішня помилка сервера",
+
+  // Generic details.
+  "The request timed out. Please try again.": "Час очікування запиту вичерпано. Спробуйте ще раз.",
+  "The service is temporarily unavailable. Please try again later.": "Сервіс тимчасово недоступний. Спробуйте пізніше.",
+  "An unexpected error occurred. Please contact support if the problem persists.": "Сталася неочікувана помилка. Якщо проблема повторюється, зверніться до служби підтримки.",
+  "User is not authenticated.": "Користувача не автентифіковано.",
+
+  // Rate limiting (Shared/HostSide/Endpoints).
+  "You have exceeded the allowed number of requests.": "Ви перевищили дозволену кількість запитів.",
+  "You have exceeded the allowed number of requests. Please try again in {0} seconds.": "Ви перевищили дозволену кількість запитів. Спробуйте ще раз через {0} {0:plural:секунду|секунди|секунд}.",
+  "You are sending requests too fast. Please try again in {0} seconds.": "Ви надсилаєте запити занадто часто. Спробуйте ще раз через {0} {0:plural:секунду|секунди|секунд}.",
+
+  // CQS (Shared/CQS).
+  "Field '{0}': {1}": "Поле '{0}': {1:t}",
+  "Access denied for operation '{0}'. Required roles: {1}.": "Доступ до операції '{0}' заборонено. Потрібні ролі: {1}.",
+  "Page number must be greater than {0}.": "Номер сторінки має бути більшим за {0}.",
+  "Page size must not exceed {0} items.": "Розмір сторінки не може перевищувати {0} елементів."
+}

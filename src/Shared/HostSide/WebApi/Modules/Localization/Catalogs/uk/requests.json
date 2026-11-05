@@ -1,0 +1,26 @@
+﻿{
+  // Modules/Requests/Domain.
+  "Cannot {0} a request in status '{1}'.": "Дія «{0:t}» недоступна для заявки у статусі «{1:t}».",
+  "Request content can be changed only while it is a draft, current status is '{0}'.": "Зміст заявки можна змінювати лише в статусі «Чернетка», поточний статус «{0:t}».",
+  "Cancelling a request after acceptance requires a reason.": "Скасування заявки після прийняття потребує причини.",
+  "A client can have at most {0} published requests at the same time.": "Клієнт може мати одночасно не більше ніж {0} {0:plural:опубліковану заявку|опубліковані заявки|опублікованих заявок}.",
+  "A request can contain at most {0} media files.": "Заявка може містити не більше ніж {0} {0:plural:медіафайл|медіафайли|медіафайлів}.",
+  "Incident '{0}' is not the open incident of the request.": "Інцидент '{0}' не є відкритим інцидентом цієї заявки.",
+  "Media file '{0}' is not attached to the request.": "Медіафайл '{0}' не прикріплено до заявки.",
+  "Media file '{0}' is already attached.": "Медіафайл '{0}' уже прикріплено.",
+  "Media file size must be from 1 to {0} bytes.": "Розмір медіафайлу має бути від 1 до {0} байтів.",
+  "A client cannot accept their own request.": "Клієнт не може прийняти власну заявку.",
+  "A refusal by the master requires a reason.": "Відмова майстра потребує причини.",
+  "Acceptance waiting period must be positive.": "Строк очікування прийняття має бути додатним.",
+  "Published requests limit must be at least 1.": "Ліміт опублікованих заявок має бути щонайменше 1.",
+  "Address must not be empty.": "Адреса не може бути порожньою.",
+  "Address must not exceed {0} characters.": "Адреса не може перевищувати {0} символів.",
+  "Description must contain at least {0} characters.": "Опис має містити щонайменше {0} {0:plural:символ|символи|символів}.",
+  "Description must not exceed {0} characters.": "Опис не може перевищувати {0} символів.",
+  "Arrival interval must be positive.": "Інтервал прибуття має бути додатним.",
+  "Only the assigned master can perform this action.": "Цю дію може виконати лише призначений майстер.",
+  "Only the client of the request can perform this action.": "Цю дію може виконати лише клієнт заявки.",
+  "A no-show can be reported only after {0}.": "Неявку можна зафіксувати лише після {0}.",
+  "The request can be completed automatically only after {0}.": "Заявку можна завершити автоматично лише після {0}.",
+  "The request can expire only after {0}.": "Заявка може стати простроченою лише після {0}."
+}

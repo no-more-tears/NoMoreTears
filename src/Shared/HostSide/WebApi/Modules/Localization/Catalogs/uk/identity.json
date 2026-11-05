@@ -1,0 +1,54 @@
+﻿{
+  // Identity provider (Shared/Providers/Identity).
+  "Invalid credentials.": "Невірні облікові дані.",
+  "The token is invalid or has expired.": "Токен недійсний або термін його дії минув.",
+  "The refresh token is invalid or has expired.": "Токен оновлення недійсний або термін його дії минув.",
+  "The verification code is invalid or has expired.": "Код підтвердження недійсний або термін його дії минув.",
+  "The account is temporarily locked after too many failed sign-in attempts.": "Обліковий запис тимчасово заблоковано через забагато невдалих спроб входу.",
+  "The account has been deactivated.": "Обліковий запис деактивовано.",
+  "The email address has not been confirmed.": "Адресу електронної пошти не підтверджено.",
+  "Multi-factor authentication requires a confirmed email address.": "Для багатофакторної автентифікації потрібна підтверджена адреса електронної пошти.",
+  "A user with this email or username already exists.": "Користувач із такою електронною поштою або іменем користувача вже існує.",
+  "User not found.": "Користувача не знайдено.",
+  "The new password must differ from the current password.": "Новий пароль має відрізнятися від поточного.",
+  "The password must be at least {0} characters long.": "Пароль має містити щонайменше {0} {0:plural:символ|символи|символів}.",
+  "The password must be at most {0} characters long.": "Пароль має містити не більше ніж {0} {0:plural:символ|символи|символів}.",
+
+  // Services and authorization handlers (Modules/Identity).
+  "Administrators cannot remove their own administrator role.": "Адміністратор не може зняти з себе роль адміністратора.",
+
+  // Validators (Modules/Identity/Applications/Handlers).
+  "At least one role is required.": "Потрібно вказати щонайменше одну роль.",
+  "Email is not a valid email address.": "Некоректна адреса електронної пошти.",
+  "Email is required.": "Потрібно вказати електронну пошту.",
+  "Email or username is required.": "Потрібно вказати електронну пошту або ім'я користувача.",
+  "New password must differ from the current password.": "Новий пароль має відрізнятися від поточного.",
+  "Role is not supported.": "Роль не підтримується.",
+  "Session id is required.": "Потрібно вказати ідентифікатор сесії.",
+  "User id is required.": "Потрібно вказати ідентифікатор користувача.",
+  "Username can only contain letters, digits, dots, underscores and hyphens.": "Ім'я користувача може містити лише літери, цифри, крапки, підкреслення та дефіси.",
+  "Verification code can only contain digits.": "Код підтвердження може містити лише цифри.",
+  "Verification code is required.": "Потрібно вказати код підтвердження.",
+  "Email must not exceed {0} characters.": "Електронна пошта не може перевищувати {0} символів.",
+  "Username must be at least {0} characters long.": "Ім'я користувача має містити щонайменше {0} {0:plural:символ|символи|символів}.",
+  "Username must not exceed {0} characters.": "Ім'я користувача не може перевищувати {0} символів.",
+  "Verification code must not exceed {0} characters.": "Код підтвердження не може перевищувати {0} символів.",
+  "Email or username must not exceed {0} characters.": "Електронна пошта або ім'я користувача не може перевищувати {0} символів.",
+
+  // Rules with {PropertyName}; the property name is translated with the entries below.
+  "{0} is required.": "{0:t}: обов'язкове поле.",
+  "{0} must not exceed {1} characters.": "{0:t}: не більше ніж {1} {1:plural:символ|символи|символів}.",
+  "{0} must be at least {1} characters long.": "{0:t}: щонайменше {1} {1:plural:символ|символи|символів}.",
+  "{0} must contain at least one uppercase letter.": "{0:t}: має містити щонайменше одну велику літеру.",
+  "{0} must contain at least one lowercase letter.": "{0:t}: має містити щонайменше одну малу літеру.",
+  "{0} must contain at least one digit.": "{0:t}: має містити щонайменше одну цифру.",
+  "{0} must contain at least one special character.": "{0:t}: має містити щонайменше один спеціальний символ.",
+
+  // Display names of properties produced by FluentValidation.
+  "Password": "Пароль",
+  "Current Password": "Поточний пароль",
+  "New Password": "Новий пароль",
+  "Token": "Токен",
+  "Refresh Token": "Токен оновлення",
+  "Challenge Token": "Токен підтвердження входу"
+}

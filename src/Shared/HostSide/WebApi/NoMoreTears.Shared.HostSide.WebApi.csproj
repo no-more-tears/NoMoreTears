@@ -30,8 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Central translation catalogs: Modules/Localization/Catalogs/{culture}/{area}.json. Add one line per culture. -->
+    <EmbeddedResource Include="Modules\Localization\Catalogs\uk\*.json" LogicalName="Localization.uk.%(Filename).json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\Authorization\NoMoreTears.Shared.Common.Authorization.csproj" />
     <ProjectReference Include="..\..\Common\Exceptions\NoMoreTears.Shared.Common.Exceptions.csproj" />
+    <ProjectReference Include="..\..\Domain\NoMoreTears.Shared.Domain.csproj" />
     <ProjectReference Include="..\..\Common\Utilities\NoMoreTears.Shared.Common.Utilities.csproj" />
     <ProjectReference Include="..\RateLimit\NoMoreTears.Shared.HostSide.RateLimit.csproj" />
   </ItemGroup>
