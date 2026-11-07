@@ -13,6 +13,13 @@ public sealed class DbContextBlueprint
     public string ConnectionString { get; private set; } = string.Empty;
 
     /// <summary>
+    ///     Database schema name. Applied as the default schema of the model
+    ///     (see <c>ModelBuilder.UseConfiguredSchema</c>) and as the schema of the migrations history table.
+    ///     When <c>null</c>, the provider default (<c>public</c>) is used.
+    /// </summary>
+    public string? Schema { get; private set; }
+
+    /// <summary>
     ///    Maximum time that a database command is allowed to execute before timing out.
     /// </summary>
     public int CommandTimeout { get; private set; } = 30;
@@ -28,7 +35,7 @@ public sealed class DbContextBlueprint
     public TimeSpan MaxRetryDelay { get; private set; } = TimeSpan.FromSeconds(10);
 
     /// <summary>
-    ///     Maximum delay between retry attempts for transient database failures. 
+    ///     Maximum number of retry attempts for transient database failures.
     /// </summary>
     public int MaxRetryCount { get; private set; } = 5;
 
@@ -65,6 +72,20 @@ public sealed class DbContextBlueprint
     }
 
     /// <summary>
+    ///     Sets the database schema name for the DbContext.
+    /// </summary>
+    /// <remarks>
+    ///     The name is used as is, the <see cref="NamingStyle"/> is not applied to it.
+    /// </remarks>
+    public DbContextBlueprint WithSchema(string schema)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(schema);
+
+        Schema = schema;
+        return this;
+    }
+
+    /// <summary>
     ///     Sets the command timeout for database operations in seconds.
     /// </summary>
     public DbContextBlueprint WithCommandTimeout(int commandTimeout)
@@ -87,7 +108,7 @@ public sealed class DbContextBlueprint
     ///     specifying the maximum delay between retries and the maximum number of retry attempts.
     /// </summary>
     public DbContextBlueprint WithRetryOnFailure(
-        TimeSpan maxRetryDelay, 
+        TimeSpan maxRetryDelay,
         int maxRetryCount)
     {
         MaxRetryDelay = maxRetryDelay;

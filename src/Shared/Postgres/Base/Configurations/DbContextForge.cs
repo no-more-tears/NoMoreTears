@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NoMoreTears.Shared.Postgres.Extensions;
@@ -42,7 +43,7 @@ public abstract class DbContextForge<TDbContext>(
 
     /// <inheritdoc />
     public void Configure(
-        DbContextOptionsBuilder<TDbContext> optionsBuilder, 
+        DbContextOptionsBuilder<TDbContext> optionsBuilder,
         Action<NpgsqlDbContextOptionsBuilder> optionsAction)
     {
         var blueprint = Draft(new DbContextBlueprint());
@@ -66,6 +67,13 @@ public abstract class DbContextForge<TDbContext>(
                         maxRetryCount: blueprint.MaxRetryCount,
                         maxRetryDelay: blueprint.MaxRetryDelay,
                         errorCodesToAdd: null);
+
+                // The migrations history table lives in the same schema as the module's tables.
+                // The default schema of the model is applied via ModelBuilder.UseConfiguredSchema.
+                if (!string.IsNullOrWhiteSpace(blueprint.Schema))
+                {
+                    builder.MigrationsHistoryTable(HistoryRepository.DefaultTableName, blueprint.Schema);
+                }
 
                 // Additional custom options customization provided by the caller.
                 optionsAction(builder);
