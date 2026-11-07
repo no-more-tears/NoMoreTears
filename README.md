@@ -18,17 +18,26 @@ Backend-система, яка представляє платформу для 
   </table>
 </div>
 
-### 2. Використані архітектурні підходи і паттерни
+### 2. Статус репозиторію
+
+| Гілка | CI | Останній коміт | Коміти |
+|--|--|--|--|
+| main | [![main](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml) | ![last commit](https://img.shields.io/github/last-commit/no-more-tears/NoMoreTears/main) | ![commits](https://img.shields.io/github/commit-activity/t/no-more-tears/NoMoreTears/main) |
+| development | [![development](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml/badge.svg?branch=development&event=push)](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml) | ![last commit](https://img.shields.io/github/last-commit/no-more-tears/NoMoreTears/development) | ![commits](https://img.shields.io/github/commit-activity/t/no-more-tears/NoMoreTears/development) |
+
+![open PRs](https://img.shields.io/github/issues-pr/no-more-tears/NoMoreTears) ![closed PRs](https://img.shields.io/github/issues-pr-closed/no-more-tears/NoMoreTears)
+
+### 3. Використані архітектурні підходи і паттерни
 
 | Підхід / паттерн | Призначення |
 |--|--|
 | Modular Monolith | Єдиний деплой із чіткими межами між модулями. |
 | Domain-Driven Design | Моделювання системи таким чином, що вся складність розміщена в єдиному місці. |
 | Event-Driven Architecture | Взаємодія модулів через контракти у вигляді подій. |
-| Clean Architecture | Seperation of Concerns в горизонтальному вигляді. |
+| Clean Architecture | Separation of Concerns в горизонтальному вигляді. |
 | Outbox/Inbox | Надійна доставка та ідемпотентна обробка повідомлень. |
 
-### 3. Навігація в документації
+### 4. Навігація в документації
 
 | Область | Документація |
 |--|--|
@@ -36,10 +45,10 @@ Backend-система, яка представляє платформу для 
 | Domain | [docs/domain-driven-design.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/domain-driven-design.md) |
 | Architecture | [docs/architecture.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/architecture.md) |
 
-### 4. Як запустити систему
+### 5. Як запустити систему
 
 TODO
 
-### 5. Ліцензія
+### 6. Ліцензія
 
 Проект ліцензовано під [MIT License](https://github.com/no-more-tears/NoMoreTears/blob/main/LICENSE).

@@ -13,9 +13,15 @@
     <Project Path="Shared/Providers/Identity/Migrations/NoMoreTears.Shared.Providers.Identity.Migrations.csproj" />
   </Folder>
   <Folder Name="/Shared/RabbitMq/" />
-  <Folder Name="/Shared/RabbitMq/Abstractions/" />
-  <Folder Name="/Shared/RabbitMq/Base/" />
-  <Folder Name="/Shared/RabbitMq/Primitives/" />
+  <Folder Name="/Shared/RabbitMq/Abstractions/">
+    <Project Path="Shared/RabbitMq/Abstractions/NoMoreTears.Shared.RabbitMq.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/RabbitMq/Base/">
+    <Project Path="Shared/RabbitMq/Base/NoMoreTears.Shared.RabbitMq.csproj" />
+  </Folder>
+  <Folder Name="/Shared/RabbitMq/Contracts/">
+    <Project Path="Shared/RabbitMq/Contracts/NoMoreTears.Shared.RabbitMq.Contracts.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="../.github/workflows/ci.yml" />
     <File Path="../.github/workflows/telegram-notify.yml" />
@@ -31,7 +37,6 @@
     <File Path="../infrastructure/scripts/run-docker-infra.sh" />
     <File Path="../infrastructure/scripts/run-docker-observability.sh" />
     <File Path="../infrastructure/scripts/run-migrations.sh" />
-    <File Path="../infrastructure/scripts/run-staging-all.sh" />
     <File Path="../infrastructure/scripts/run-webapi.sh" />
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
@@ -117,6 +122,9 @@
   </Folder>
   <Folder Name="/Shared/Domain/">
     <Project Path="Shared/Domain/NoMoreTears.Shared.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Shared/FileStorage/">
+    <Project Path="Shared/FileStorage/NoMoreTears.Shared.FileStorage.csproj" />
   </Folder>
   <Folder Name="/Shared/HostSide/" />
   <Folder Name="/Shared/HostSide/Endpoints/">

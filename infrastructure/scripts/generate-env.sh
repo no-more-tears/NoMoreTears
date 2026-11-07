@@ -68,11 +68,19 @@ REDIS_PASSWORD=$(random_string 24)
 # Seq
 SEQ_ADMIN_PASSWORD=$(random_string 24)
 
+# RabbitMQ
+RABBITMQ_DEFAULT_USER=rabbitmq
+RABBITMQ_DEFAULT_PASS=$(random_string 24)
+
+# MinIO (root password must be at least 8 characters)
+MINIO_ROOT_USER=minioadmin
+MINIO_ROOT_PASSWORD=$(random_string 24)
+
 # WebApi (JWT signing key must be at least 32 characters)
 JWT_SIGNING_KEY=$(random_string 64)
 EOF
 ) || fail "failed to write $ENV_FILE"
 
 info ".env generated: $ENV_FILE"
-info "Note: Postgres, pgAdmin and Seq apply passwords only on first start."
+info "Note: Postgres, pgAdmin, Seq and RabbitMQ apply passwords only on first start."
 info "If their volumes already exist, run 'docker compose -f <file> down -v' first, or the new passwords will not match."
