@@ -8,12 +8,15 @@ Backend-система, яка представляє платформу для 
   <table>
     <tr>
       <td align="center" valign="middle"><strong>Використані<br>технології</strong></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/dotnet.svg" height="42"/><br><sub>.NET 10</sub></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/efcore.svg" height="42"/><br><sub>Entity Framework<br>Core</sub></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/postgres.svg" height="42"/><br><sub>PostgreSQL</sub></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/docker.svg" height="42"/><br><sub>Docker</sub></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/redis.svg" height="42"/><br><sub>Redis</sub></td>
-      <td align="center" valign="top"><img src="docs/assets/logos/rabbitmq.svg" height="42"/><br><sub>RabbitMQ</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/dotnet.svg" height="42" alt=".NET 10"/><br><sub>.NET 10</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/efcore.svg" height="42" alt="Entity Framework Core"/><br><sub>Entity Framework<br>Core</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/mediatr.svg" height="42" alt="MediatR"/><br><sub>MediatR</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/masstransit.svg" height="42" alt="MassTransit"/><br><sub>MassTransit</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/postgres.svg" height="42" alt="PostgreSQL"/><br><sub>PostgreSQL</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/docker.svg" height="42" alt="Docker"/><br><sub>Docker</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/redis.svg" height="42" alt="Redis"/><br><sub>Redis</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/rabbitmq.svg" height="42" alt="RabbitMQ"/><br><sub>RabbitMQ</sub></td>
+      <td align="center" valign="top"><img src="docs/assets/logos/minio.svg" height="42" alt="MinIO"/><br><sub>MinIO</sub></td>
     </tr>
   </table>
 </div>

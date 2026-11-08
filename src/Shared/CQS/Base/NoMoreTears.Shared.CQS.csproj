@@ -7,16 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviors\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Microsoft.AspNetCore.Http" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Postgres\Abstractions\NoMoreTears.Shared.Postgres.Abstractions.csproj" />
     <ProjectReference Include="..\Abstractions\NoMoreTears.Shared.CQS.Abstractions.csproj" />
   </ItemGroup>
 
