@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Postgres\Base\NoMoreTears.Shared.Postgres.csproj" />
+    <ProjectReference Include="..\..\Domain\NoMoreTears.Modules.Masters.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -10,5 +10,9 @@ internal sealed class IdentityDbContextDraft(Action<DbContextBlueprint> draft)
     /// <summary>
     ///     Applies the delegate to the blueprint.
     /// </summary>
-    public void Apply(DbContextBlueprint blueprint) => draft(blueprint);
+    public void Apply(DbContextBlueprint blueprint)
+    {
+        blueprint.EnableVerboseDiagnostics(false);
+        draft(blueprint);
+    }
 }

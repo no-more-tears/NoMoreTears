@@ -26,6 +26,7 @@
     <File Path="../.github/workflows/ci.yml" />
     <File Path="../.github/workflows/telegram-notify.yml" />
     <File Path="../infrastructure/docker/.env.example" />
+    <File Path="../infrastructure/docker/docker-compose.consumers.yaml" />
     <File Path="../infrastructure/docker/docker-compose.infra.yaml" />
     <File Path="../infrastructure/docker/docker-compose.migrations.yaml" />
     <File Path="../infrastructure/docker/docker-compose.observability.yaml" />
@@ -33,6 +34,7 @@
     <File Path="../infrastructure/scripts/generate-env.sh" />
     <File Path="../infrastructure/scripts/lib/common.sh" />
     <File Path="../infrastructure/scripts/lib/dotnet-host.sh" />
+    <File Path="../infrastructure/scripts/run-consumers.sh" />
     <File Path="../infrastructure/scripts/run-development-all.sh" />
     <File Path="../infrastructure/scripts/run-docker-infra.sh" />
     <File Path="../infrastructure/scripts/run-docker-observability.sh" />
@@ -76,16 +78,63 @@
     <Project Path="Modules/Identity/Providers/NoMoreTears.Modules.Identity.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Masters/" />
+  <Folder Name="/Modules/Masters/Applications/" />
+  <Folder Name="/Modules/Masters/Applications/Handlers/">
+    <Project Path="Modules/Masters/Applications/Handlers/NoMoreTears.Modules.Masters.Applications.Handlers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/Applications/Services/">
+    <Project Path="Modules/Masters/Applications/Services/NoMoreTears.Modules.Masters.Applications.Services.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/Contracts/">
+    <Project Path="Modules/Masters/Contracts/NoMoreTears.Modules.Masters.Contracts.csproj" />
+  </Folder>
   <Folder Name="/Modules/Masters/Domain/">
     <Project Path="Modules/Masters/Domain/NoMoreTears.Modules.Masters.Domain.csproj" />
   </Folder>
+  <Folder Name="/Modules/Masters/HostSide/" />
+  <Folder Name="/Modules/Masters/HostSide/Consumers/">
+    <Project Path="Modules/Masters/HostSide/Consumers/NoMoreTears.Modules.Masters.HostSide.Consumers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/HostSide/Endpoints/">
+    <Project Path="Modules/Masters/HostSide/Endpoints/NoMoreTears.Modules.Masters.HostSide.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/HostSide/Migrations/">
+    <Project Path="Modules/Masters/HostSide/Migrations/NoMoreTears.Modules.Masters.HostSide.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/Infrastructures/" />
+  <Folder Name="/Modules/Masters/Infrastructures/DataAccess/">
+    <Project Path="Modules/Masters/Infrastructures/DataAccess/NoMoreTears.Modules.Masters.Infrastructures.DataAccess.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Masters/Providers/">
+    <Project Path="Modules/Masters/Providers/NoMoreTears.Modules.Masters.Providers.csproj" />
+  </Folder>
   <Folder Name="/Modules/Notification/" />
   <Folder Name="/Modules/Notification/Applications/" />
+  <Folder Name="/Modules/Notification/Applications/Handlers/">
+    <Project Path="Modules/Notification/Applications/Handlers/NoMoreTears.Modules.Notification.Applications.Handlers.csproj" />
+  </Folder>
   <Folder Name="/Modules/Notification/Applications/Services/">
     <Project Path="Modules/Notification/Applications/Services/NoMoreTears.Modules.Notification.Applications.Services.csproj" />
   </Folder>
   <Folder Name="/Modules/Notification/Contracts/">
     <Project Path="Modules/Notification/Contracts/NoMoreTears.Modules.Notification.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/Domain/">
+    <Project Path="Modules/Notification/Domain/NoMoreTears.Modules.Notification.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/HostSide/" />
+  <Folder Name="/Modules/Notification/HostSide/Endpoints/">
+    <Project Path="Modules/Notification/HostSide/Endpoints/NoMoreTears.Modules.Notification.HostSide.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/HostSide/Migrations/">
+    <Project Path="Modules/Notification/HostSide/Migrations/NoMoreTears.Modules.Notification.HostSide.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/HostSide/SignalR/">
+    <Project Path="Modules/Notification/HostSide/SignalR/NoMoreTears.Modules.Notification.HostSide.SignalR.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Notification/Infrastructures/" />
+  <Folder Name="/Modules/Notification/Infrastructures/DataAccess/">
+    <Project Path="Modules/Notification/Infrastructures/DataAccess/NoMoreTears.Modules.Notification.Infrastructures.DataAccess.csproj" />
   </Folder>
   <Folder Name="/Modules/Notification/Providers/">
     <Project Path="Modules/Notification/Providers/NoMoreTears.Modules.Notification.Providers.csproj" />
@@ -95,6 +144,9 @@
     <Project Path="Modules/Requests/Domain/NoMoreTears.Modules.Requests.Domain.csproj" />
   </Folder>
   <Folder Name="/Modules/Trust/" />
+  <Folder Name="/Modules/Trust/Contracts/">
+    <Project Path="Modules/Trust/Contracts/NoMoreTears.Modules.Trust.Contracts.csproj" />
+  </Folder>
   <Folder Name="/Modules/Trust/Domain/">
     <Project Path="Modules/Trust/Domain/NoMoreTears.Modules.Trust.Domain.csproj" />
   </Folder>
@@ -106,7 +158,9 @@
   <Folder Name="/Shared/Common/Exceptions/">
     <Project Path="Shared/Common/Exceptions/NoMoreTears.Shared.Common.Exceptions.csproj" />
   </Folder>
-  <Folder Name="/Shared/Common/Pagination/" />
+  <Folder Name="/Shared/Common/Pagination/">
+    <Project Path="Shared/Common/Pagination/NoMoreTears.Shared.Common.Pagination.csproj" />
+  </Folder>
   <Folder Name="/Shared/Common/Utilities/">
     <Project Path="Shared/Common/Utilities/NoMoreTears.Shared.Common.Utilities.csproj" />
   </Folder>
@@ -133,7 +187,9 @@
   <Folder Name="/Shared/HostSide/RateLimit/">
     <Project Path="Shared/HostSide/RateLimit/NoMoreTears.Shared.HostSide.RateLimit.csproj" />
   </Folder>
-  <Folder Name="/Shared/HostSide/SignalR/" />
+  <Folder Name="/Shared/HostSide/SignalR/">
+    <Project Path="Shared/HostSide/SignalR/NoMoreTears.Shared.HostSide.SignalR.csproj" />
+  </Folder>
   <Folder Name="/Shared/HostSide/WebApi/">
     <Project Path="Shared/HostSide/WebApi/NoMoreTears.Shared.HostSide.WebApi.csproj" />
   </Folder>

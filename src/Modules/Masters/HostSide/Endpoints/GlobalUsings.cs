@@ -1,0 +1,10 @@
+﻿global using MediatR;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Routing;
+global using NoMoreTears.Modules.Masters.Contracts.Constants;
+global using NoMoreTears.Modules.Masters.Contracts.Requests;
+global using NoMoreTears.Shared.Common.Authorization;
+global using NoMoreTears.Shared.HostSide.Endpoints.Abstractions;
+global using NoMoreTears.Shared.HostSide.Endpoints.Extensions;

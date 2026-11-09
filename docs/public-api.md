@@ -34,3 +34,11 @@
 | Модуль | Документація |
 |--|--|
 | Identity | [Identity/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Identity/HostSide/Endpoints/README.md) |
+| Masters | [Masters/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Masters/HostSide/Endpoints/README.md) |
+| Notification (HTTP + SignalR) | [Notification/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Notification/HostSide/Endpoints/README.md) |
+
+### Асинхронні операції
+
+- Завантаження файлів (Masters) повертає `202 Accepted` із заголовком `Location` на ресурс статусу. Результат приходить SignalR-сповіщенням.
+- Листи (Identity) надсилає модуль Notification асинхронно, після фіксації транзакції (transactional outbox).
+- Одночасна зміна того самого ресурсу повертає `409 Conflict`: дані треба перечитати й повторити дію.

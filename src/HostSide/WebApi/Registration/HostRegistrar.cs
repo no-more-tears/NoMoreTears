@@ -1,4 +1,5 @@
 ﻿using NoMoreTears.Modules.Identity.Providers;
+using NoMoreTears.Modules.Masters.Providers;
 using NoMoreTears.Modules.Notification.Providers;
 using NoMoreTears.Shared.Common.Authorization;
 using NoMoreTears.Shared.Common.Authorization.Registration;
@@ -7,6 +8,7 @@ using NoMoreTears.Shared.HostSide.WebApi.Modules.HealthCheck.Contributors.Postgr
 using NoMoreTears.Shared.HostSide.WebApi.Modules.HealthCheck.Contributors.Redis;
 using NoMoreTears.Shared.HostSide.WebApi.Registration;
 using NoMoreTears.Shared.Providers.Hosting;
+using NoMoreTears.Shared.RabbitMq.Registration;
 using System.Reflection;
 
 namespace NoMoreTears.HostSide.WebApi.Registration;
@@ -21,12 +23,14 @@ public static class HostRegistrar
     extension (IServiceCollection services)
     {
         /// <summary>
-        ///     Adds WebApi host modules.
+        ///     Adds WebApi host modules and the bus they share (registered after the modules described their messaging).
         /// </summary>
         public IServiceCollection AddWebApiHostModules(IConfiguration configuration) =>
             services.AddModules(configuration,
                 new NotificationModule(),
-                new IdentityModule());
+                new IdentityModule(),
+                new MastersModule())
+                .AddRabbitMq(configuration);
 
         /// <summary>
         ///     Registers all services required by the WebApi host.

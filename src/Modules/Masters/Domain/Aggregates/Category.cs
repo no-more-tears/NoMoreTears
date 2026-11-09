@@ -31,6 +31,14 @@ public sealed class Category : AuditableEntity<Guid>
     /// </summary>
     public bool IsActive => Status is CategoryStatus.Active && !IsDeleted;
 
+    /// <summary>
+    ///     Used only by persistence to materialize the category.
+    /// </summary>
+    private Category()
+    {
+        Name = null!;
+    }
+
     private Category(
         Guid id,
         CategoryName name,

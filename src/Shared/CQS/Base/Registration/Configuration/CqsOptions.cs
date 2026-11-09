@@ -38,6 +38,11 @@ public sealed class CqsOptions
     internal bool AuthorizationEnabled { get; private set; }
 
     /// <summary>
+    ///     Indicates whether commands run inside the unit of work of their module.
+    /// </summary>
+    internal bool TransactionsEnabled { get; private set; }
+
+    /// <summary>
     ///     Specifies the assembly to scan for CQS handlers.
     /// </summary>
     /// <param name="assembly">Assembly.</param>
@@ -106,6 +111,17 @@ public sealed class CqsOptions
     public CqsOptions UseAuthorization()
     {
         AuthorizationEnabled = true;
+        return this;
+    }
+
+    /// <summary>
+    ///     Runs commands inside the unit of work of their module. The module must register
+    ///     an <c>ITransactionalScope</c> keyed by its handlers assembly (see <c>AddTransactionalScope</c>).
+    /// </summary>
+    /// <returns>The current <see cref="CqsOptions"/> instance for fluent configuration.</returns>
+    public CqsOptions UseTransactions()
+    {
+        TransactionsEnabled = true;
         return this;
     }
 

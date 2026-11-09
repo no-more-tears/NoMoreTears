@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NoMoreTears.Shared.CQS.Behaviors;
 using NoMoreTears.Shared.CQS.Extensions;
 using NoMoreTears.Shared.CQS.Registration.Configuration;
@@ -58,6 +59,10 @@ public static class CqsRegistrar
             {
                 services.AddCachingBehavior();
             }
+            if (cqsOptions.TransactionsEnabled)
+            {
+                services.AddTransactionalBehavior();
+            }
 
             return services;
         }
@@ -68,7 +73,8 @@ public static class CqsRegistrar
         /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddLoggingBehavior()
         {
-            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>)));
+            return services;
         }
 
         /// <summary>
@@ -77,7 +83,8 @@ public static class CqsRegistrar
         /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddPerformanceBehavior()
         {
-            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>)));
+            return services;
         }
 
         /// <summary>
@@ -86,7 +93,8 @@ public static class CqsRegistrar
         /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddCachingBehavior()
         {
-            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>)));
+            return services;
         }
 
         /// <summary>
@@ -95,7 +103,19 @@ public static class CqsRegistrar
         /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddValidationBehavior()
         {
-            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>)));
+            return services;
+        }
+
+        /// <summary>
+        ///     Registers the transactional pipeline behavior. Register it after the other behaviors,
+        ///     so that it stays the innermost one.
+        /// </summary>
+        /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
+        public IServiceCollection AddTransactionalBehavior()
+        {
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(TransactionalBehavior<,>)));
+            return services;
         }
 
         /// <summary>
@@ -104,7 +124,8 @@ public static class CqsRegistrar
         /// <returns>Modified <see cref="IServiceCollection"/>.</returns>
         public IServiceCollection AddAuthorizationBehavior()
         {
-            return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+            services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>)));
+            return services;
         }
     }
 }

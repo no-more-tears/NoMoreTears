@@ -102,6 +102,16 @@ public sealed class Master: AuditableEntity<Guid>
     /// </summary>
     public IReadOnlyCollection<Sanction> Sanctions => _sanctions.AsReadOnly();
 
+    /// <summary>
+    ///     Used only by persistence to materialize the profile.
+    /// </summary>
+    private Master()
+    {
+        FullName = null!;
+        ServiceArea = null!;
+        WorkSchedule = null!;
+    }
+
     private Master(
         Guid id,
         FullName fullName,
@@ -551,11 +561,12 @@ public sealed class Master: AuditableEntity<Guid>
 
     /// <summary>
     ///     Suspends feed access, as a sanction (step 3) or as a temporary measure until human review.
+    ///     A measure without an end date lasts until it is lifted.
     /// </summary>
     public void Suspend(
         Guid sanctionId,
         DateTimeOffset imposedAt,
-        DateTimeOffset expiresAt)
+        DateTimeOffset? expiresAt)
     {
         ApplySanction(Sanction.Create(sanctionId, SanctionKind.Suspension, imposedAt, expiresAt));
     }
@@ -607,6 +618,11 @@ public sealed class Master: AuditableEntity<Guid>
     {
         return _categories.Exists(category => category.CategoryId == categoryId && category.IsVerified);
     }
+
+    /// <summary>
+    ///     Returns whether a sanction or measure with the given identifier has been applied.
+    /// </summary>
+    public bool HasSanction(Guid sanctionId) => _sanctions.Exists(applied => applied.Id == sanctionId);
 
     /// <summary>
     ///     Returns whether a restriction is in effect at the given moment.

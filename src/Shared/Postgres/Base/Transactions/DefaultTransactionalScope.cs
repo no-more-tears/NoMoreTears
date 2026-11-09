@@ -13,12 +13,19 @@ internal sealed class DefaultTransactionalScope : ITransactionalScope
     private readonly DbContext _dbContext;
 
     /// <inheritdoc />
+    public TransactionMode Mode { get; }
+
+    /// <inheritdoc />
     public bool HasActiveTransaction => _dbContext.Database.CurrentTransaction is not null;
 
-    public DefaultTransactionalScope(DbContext dbContext)
+    public DefaultTransactionalScope(
+        DbContext dbContext,
+        TransactionMode mode)
     {
         ArgumentNullException.ThrowIfNull(dbContext);
+
         _dbContext = dbContext;
+        Mode = mode;
     }
 
     /// <inheritdoc />
@@ -38,4 +45,8 @@ internal sealed class DefaultTransactionalScope : ITransactionalScope
     /// <inheritdoc />
     public IExecutionStrategy CreateExecutionStrategy() =>
         _dbContext.Database.CreateExecutionStrategy();
+
+    /// <inheritdoc />
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken) =>
+        _dbContext.SaveChangesAsync(cancellationToken);
 }

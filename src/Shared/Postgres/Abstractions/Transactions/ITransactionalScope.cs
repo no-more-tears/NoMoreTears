@@ -10,6 +10,11 @@ namespace NoMoreTears.Shared.Postgres.Abstractions.Transactions;
 public interface ITransactionalScope
 {
     /// <summary>
+    ///     How commands bound to this scope are wrapped.
+    /// </summary>
+    TransactionMode Mode { get; }
+
+    /// <summary>
     ///     Indicates whether a transaction is currently open on the underlying <see cref="DbContext"/>.
     /// </summary>
     bool HasActiveTransaction { get; }
@@ -24,4 +29,10 @@ public interface ITransactionalScope
     ///     Creates the execution strategy configured for the underlying <see cref="DbContext"/>.
     /// </summary>
     IExecutionStrategy CreateExecutionStrategy();
+
+    /// <summary>
+    ///     Saves pending changes of the underlying <see cref="DbContext"/>,
+    ///     for example messages added to the transactional outbox after the services saved their data.
+    /// </summary>
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

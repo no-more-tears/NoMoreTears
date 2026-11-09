@@ -1,0 +1,74 @@
+﻿{
+  "values": {
+    "UntilLifted": "до зняття",
+    "Warning": "попередження",
+    "Restriction": "обмеження",
+    "Suspension": "призупинення доступу до стрічки",
+    "Deverification": "позбавлення верифікації",
+    "Avatar": "фото профілю",
+    "IdentityDocument": "документ, що посвідчує особу",
+    "QualificationDocument": "документ про кваліфікацію"
+  },
+  "texts": {
+    "masters.verification.submitted": {
+      "title": "Профіль надіслано на верифікацію",
+      "body": "Ми перевіримо ваші документи, категорії та зону обслуговування і повідомимо про результат."
+    },
+    "masters.verification.verified": {
+      "title": "Профіль верифіковано",
+      "body": "Вітаємо! Тепер ви отримуєте заявки у стрічці за підтвердженими категоріями та зоною."
+    },
+    "masters.verification.rejected": {
+      "title": "Верифікацію відхилено",
+      "body": "Причина: {{reason}}. Виправте профіль і надішліть його повторно."
+    },
+    "masters.verification.revoked": {
+      "title": "Верифікацію скасовано",
+      "body": "Доступ до стрічки закрито. Повторна верифікація з новими документами можлива з {{reverificationAllowedFrom}}."
+    },
+    "masters.verification.restored": {
+      "title": "Верифікацію відновлено",
+      "body": "Санкцію знято, ваш профіль знову верифікований."
+    },
+    "masters.category.verified": {
+      "title": "Категорію підтверджено",
+      "body": "Вашу кваліфікацію в категорії підтверджено."
+    },
+    "masters.category.rejected": {
+      "title": "Категорію відхилено",
+      "body": "Кваліфікацію в категорії не підтверджено. Причина: {{reason}}."
+    },
+    "masters.service-area.verified": {
+      "title": "Зону обслуговування підтверджено",
+      "body": "Ви отримуватимете заявки з підтвердженої зони."
+    },
+    "masters.service-area.rejected": {
+      "title": "Зону обслуговування відхилено",
+      "body": "Причина: {{reason}}. Змініть зону і надішліть профіль повторно."
+    },
+    "masters.verification-hold.placed": {
+      "title": "Верифікацію призупинено",
+      "body": "Верифікацію призупинено до перевірки людиною. Причина: {{reason}}."
+    },
+    "masters.verification-hold.released": {
+      "title": "Перевірку завершено",
+      "body": "Призупинення верифікації знято, розгляд профілю продовжиться."
+    },
+    "masters.sanction.applied": {
+      "title": "Застосовано санкцію",
+      "body": "До вашого профілю застосовано санкцію: {{kind:t}}. Строк дії: {{expiresAt:t}}. Ви можете оскаржити рішення."
+    },
+    "masters.sanction.lifted": {
+      "title": "Санкцію знято",
+      "body": "Санкцію «{{kind:t}}» знято з вашого профілю."
+    },
+    "masters.upload.completed": {
+      "title": "Файл прийнято",
+      "body": "Файл «{{fileName}}» ({{purpose:t}}) перевірено та додано до профілю."
+    },
+    "masters.upload.failed": {
+      "title": "Файл не прийнято",
+      "body": "Файл «{{fileName}}» ({{purpose:t}}) не прийнято. Причина: {{reason}}."
+    }
+  }
+}

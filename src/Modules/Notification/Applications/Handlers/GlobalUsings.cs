@@ -1,0 +1,9 @@
+﻿global using NoMoreTears.Modules.Notification.Applications.Handlers.Events;
+global using NoMoreTears.Modules.Notification.Applications.Services.Abstractions;
+global using NoMoreTears.Modules.Notification.Applications.Services.Messaging;
+global using NoMoreTears.Modules.Notification.Contracts.Events;
+global using NoMoreTears.Modules.Notification.Contracts.Responses;
+global using NoMoreTears.Shared.CQS.Abstractions.Handlers;
+global using NoMoreTears.Shared.CQS.Primitives.Commands;
+global using NoMoreTears.Shared.CQS.Primitives.Queries;
+global using NoMoreTears.Shared.RabbitMq.Abstractions;

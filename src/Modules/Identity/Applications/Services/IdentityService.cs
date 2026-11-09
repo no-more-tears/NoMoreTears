@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
+using Microsoft.Extensions.Options;
+using NoMoreTears.Modules.Identity.Applications.Services.Configuration;
 using NoMoreTears.Modules.Identity.Applications.Services.Mappings;
+using NoMoreTears.Modules.Identity.Applications.Services.Results;
+using NoMoreTears.Modules.Identity.Contracts.Events;
 using NoMoreTears.Modules.Identity.Contracts.Responses;
 using NoMoreTears.Shared.Providers.Identity.Abstractions;
 using NoMoreTears.Shared.Providers.Identity.Contracts.Common;
@@ -15,11 +19,14 @@ namespace NoMoreTears.Modules.Identity.Applications.Services;
 /// </summary>
 public sealed class IdentityService(
     IIdentityProvider identityProvider,
-    IIdentityNotifier identityNotifier,
+    IOptions<IdentityLinkOptions> linkOptions,
+    TimeProvider timeProvider,
     ILogger<IdentityService> logger) : IIdentityService
 {
+    private readonly IdentityLinkOptions _links = linkOptions.Value;
+
     /// <inheritdoc />
-    public async Task<Guid> RegisterAsync(
+    public async Task<RegistrationOutcome> RegisterAsync(
         string email,
         string? username,
         string password,
@@ -28,13 +35,12 @@ public sealed class IdentityService(
         var registerRequest = new RegisterRequest(email, password, username);
         var registrationResult = await identityProvider.RegisterAsync(registerRequest, cancellationToken);
 
-        await identityNotifier.SendEmailConfirmationAsync(
-            registrationResult.EmailConfirmation.Email,
-            registrationResult.EmailConfirmation,
-            cancellationToken);
+        var emailConfirmation = registrationResult.EmailConfirmation.ToEmailConfirmationRequestedEvent(
+            _links.EmailConfirmationUrl,
+            timeProvider.GetUtcNow());
 
         logger.LogInformation("User {UserId} registered successfully", registrationResult.UserId);
-        return registrationResult.UserId;
+        return new RegistrationOutcome(registrationResult.UserId, emailConfirmation);
     }
 
     /// <inheritdoc />
@@ -50,7 +56,7 @@ public sealed class IdentityService(
     }
 
     /// <inheritdoc />
-    public async Task ResendEmailConfirmationAsync(
+    public async Task<EmailConfirmationRequestedEvent?> ResendEmailConfirmationAsync(
         string identifier,
         CancellationToken cancellationToken)
     {
@@ -59,15 +65,15 @@ public sealed class IdentityService(
         // Unknown and already confirmed accounts are not reported to the caller.
         if (ticket is null)
         {
-            return;
+            return null;
         }
 
-        await identityNotifier.SendEmailConfirmationAsync(ticket.Email, ticket, cancellationToken);
-        logger.LogInformation("Confirmation email resent to user {UserId}", ticket.UserId);
+        logger.LogInformation("Email confirmation requested again for user {UserId}", ticket.UserId);
+        return ticket.ToEmailConfirmationRequestedEvent(_links.EmailConfirmationUrl, timeProvider.GetUtcNow());
     }
 
     /// <inheritdoc />
-    public async Task<LoginResponse> LoginAsync(
+    public async Task<LoginOutcome> LoginAsync(
         string identifier,
         string password,
         ClientContext client,
@@ -78,15 +84,15 @@ public sealed class IdentityService(
 
         if (loginResult.IsMfaRequired)
         {
-            await identityNotifier.SendMfaCodeAsync(loginResult.MfaChallenge, cancellationToken);
             logger.LogInformation("MFA challenge issued for user {UserId}", loginResult.MfaChallenge.UserId);
-        }
-        else
-        {
-            logger.LogInformation("User logged in and session {SessionId} started", loginResult.Tokens.SessionId);
+
+            return new LoginOutcome(
+                loginResult.ToResponse(),
+                loginResult.MfaChallenge.ToMfaCodeIssuedEvent(timeProvider.GetUtcNow()));
         }
 
-        return loginResult.ToResponse();
+        logger.LogInformation("User logged in and session {SessionId} started", loginResult.Tokens.SessionId);
+        return new LoginOutcome(loginResult.ToResponse(), null);
     }
 
     /// <inheritdoc />
@@ -137,7 +143,7 @@ public sealed class IdentityService(
     }
 
     /// <inheritdoc />
-    public async Task ForgotPasswordAsync(
+    public async Task<PasswordResetRequestedEvent?> ForgotPasswordAsync(
         string identifier,
         CancellationToken cancellationToken)
     {
@@ -146,11 +152,11 @@ public sealed class IdentityService(
         // Unknown accounts are not reported to the caller.
         if (ticket is null)
         {
-            return;
+            return null;
         }
 
-        await identityNotifier.SendPasswordResetAsync(ticket.Email, ticket, cancellationToken);
-        logger.LogInformation("Password reset email sent to user {UserId}", ticket.UserId);
+        logger.LogInformation("Password reset requested for user {UserId}", ticket.UserId);
+        return ticket.ToPasswordResetRequestedEvent(_links.PasswordResetUrl, timeProvider.GetUtcNow());
     }
 
     /// <inheritdoc />

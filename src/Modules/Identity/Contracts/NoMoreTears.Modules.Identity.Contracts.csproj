@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Common\Authorization\NoMoreTears.Shared.Common.Authorization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\RabbitMq\Contracts\NoMoreTears.Shared.RabbitMq.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

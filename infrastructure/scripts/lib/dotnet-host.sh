@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the .NET host projects (WebApi, migrations). Source it, do not execute it.
+# Runs the .NET host projects (WebApi, Masters consumers, Notification SignalR, migrations). Source it, do not execute it.
 # Expected location: infrastructure/scripts/lib/dotnet-host.sh
 #
 # Development: 'dotnet run' from the source tree, local credentials come from infrastructure/docker/.env.
@@ -10,7 +10,15 @@
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 WEBAPI_PROJECT="HostSide/WebApi/NoMoreTears.HostSide.WebApi.csproj"
-MIGRATIONS_PROJECT="Modules/Identity/HostSide/Migrations/NoMoreTears.Modules.Identity.HostSide.Migrations.csproj"
+MASTERS_CONSUMERS_PROJECT="Modules/Masters/HostSide/Consumers/NoMoreTears.Modules.Masters.HostSide.Consumers.csproj"
+NOTIFICATION_SIGNALR_PROJECT="Modules/Notification/HostSide/SignalR/NoMoreTears.Modules.Notification.HostSide.SignalR.csproj"
+
+# Applied in this order; every module owns its schema.
+MIGRATIONS_PROJECTS=(
+    "Modules/Identity/HostSide/Migrations/NoMoreTears.Modules.Identity.HostSide.Migrations.csproj"
+    "Modules/Masters/HostSide/Migrations/NoMoreTears.Modules.Masters.HostSide.Migrations.csproj"
+    "Modules/Notification/HostSide/Migrations/NoMoreTears.Modules.Notification.HostSide.Migrations.csproj"
+)
 
 # Loads infrastructure/docker/.env unless another file is given.
 load_development_env() {
@@ -36,6 +44,39 @@ export_development_webapi_settings() {
     export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears)}"
     export RedisCache__Password="${RedisCache__Password:-$REDIS_PASSWORD}"
     export Identity__Jwt__SigningKey="${Identity__Jwt__SigningKey:-$JWT_SIGNING_KEY}"
+    export_development_messaging_settings
+    export_development_storage_settings
+}
+
+# RabbitMQ credentials of every host with a bus.
+export_development_messaging_settings() {
+    require_vars RABBITMQ_DEFAULT_USER RABBITMQ_DEFAULT_PASS
+
+    export RabbitMqSettings__Username="${RabbitMqSettings__Username:-$RABBITMQ_DEFAULT_USER}"
+    export RabbitMqSettings__Password="${RabbitMqSettings__Password:-$RABBITMQ_DEFAULT_PASS}"
+}
+
+# MinIO credentials of the hosts that store files.
+export_development_storage_settings() {
+    require_vars MINIO_ROOT_USER MINIO_ROOT_PASSWORD
+
+    export FileStorageSettings__AccessKey="${FileStorageSettings__AccessKey:-$MINIO_ROOT_USER}"
+    export FileStorageSettings__SecretKey="${FileStorageSettings__SecretKey:-$MINIO_ROOT_PASSWORD}"
+}
+
+export_development_masters_consumers_settings() {
+    export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears.Masters.Consumers)}"
+    export_development_messaging_settings
+    export_development_storage_settings
+}
+
+export_development_notification_signalr_settings() {
+    require_vars REDIS_PASSWORD JWT_SIGNING_KEY
+
+    export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears.Notification.SignalR)}"
+    export SignalR__RedisPassword="${SignalR__RedisPassword:-$REDIS_PASSWORD}"
+    export Identity__Jwt__SigningKey="${Identity__Jwt__SigningKey:-$JWT_SIGNING_KEY}"
+    export_development_messaging_settings
 }
 
 # run_development_migrations [app args]
@@ -44,9 +85,14 @@ export_development_webapi_settings() {
 run_development_migrations() {
     local connection_string
 
+    local project
+
     connection_string="$(development_postgres_connection_string NoMoreTears.Migrations)"
-    ConnectionStrings__Postgres="$connection_string" \
-        run_development_host "$MIGRATIONS_PROJECT" DOTNET_ENVIRONMENT "" "$@"
+
+    for project in "${MIGRATIONS_PROJECTS[@]}"; do
+        ConnectionStrings__Postgres="$connection_string" \
+            run_development_host "$project" DOTNET_ENVIRONMENT "" "$@" || return 1
+    done
 }
 
 # run_development_host <project path relative to src> <environment variable> <launch profile or ""> [app args]

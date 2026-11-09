@@ -1,0 +1,51 @@
+version: '3.8'
+name: nomoretears-consumers
+
+x-messaging: &messaging
+  RabbitMqSettings__Username: ${RABBITMQ_DEFAULT_USER:-rabbitmq}
+  RabbitMqSettings__Password: ${RABBITMQ_DEFAULT_PASS:-rabbitmqp4ss}
+
+services:
+  masters-consumers:
+    image: nomoretears/masters-consumers:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Masters/HostSide/Consumers/Dockerfile
+    restart: on-failure
+    environment:
+      <<: *messaging
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Masters.Consumers"
+      FileStorageSettings__AccessKey: ${MINIO_ROOT_USER:-minioadmin}
+      FileStorageSettings__SecretKey: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    networks:
+      - internal
+
+  notification-signalr:
+    container_name: nomoretears-notification-signalr
+    image: nomoretears/notification-signalr:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Notification/HostSide/SignalR/Dockerfile
+    restart: on-failure
+    environment:
+      <<: *messaging
+      ASPNETCORE_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Notification.SignalR"
+      SignalR__RedisPassword: ${REDIS_PASSWORD:-p4ssw0rd}
+      Identity__Jwt__SigningKey: ${JWT_SIGNING_KEY:?Set JWT_SIGNING_KEY (at least 32 characters)}
+    ports:
+      - "5090:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - internal
+
+networks:
+  internal:
+    name: nomoretears-internal-development
+    external: true

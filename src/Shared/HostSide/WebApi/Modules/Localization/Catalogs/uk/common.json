@@ -28,5 +28,7 @@
   "Field '{0}': {1}": "Поле '{0}': {1:t}",
   "Access denied for operation '{0}'. Required roles: {1}.": "Доступ до операції '{0}' заборонено. Потрібні ролі: {1}.",
   "Page number must be greater than {0}.": "Номер сторінки має бути більшим за {0}.",
-  "Page size must not exceed {0} items.": "Розмір сторінки не може перевищувати {0} елементів."
+  "Page size must not exceed {0} items.": "Розмір сторінки не може перевищувати {0} елементів.",
+  "Page size must be greater than {0}.": "Розмір сторінки має бути більшим за {0}.",
+  "The resource was changed by another operation. Reload it and try again.": "Ресурс змінено іншою операцією. Оновіть дані та спробуйте ще раз."
 }
