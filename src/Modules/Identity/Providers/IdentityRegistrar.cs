@@ -1,10 +1,17 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NoMoreTears.Modules.Identity.Applications.Services;
 using NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 using NoMoreTears.Modules.Identity.Applications.Services.Configuration;
 using NoMoreTears.Modules.Identity.HostSide.Endpoints;
+using NoMoreTears.Modules.Identity.Applications.Services.Messaging;
 using NoMoreTears.Shared.CQS.Registration;
+using NoMoreTears.Shared.Postgres.Abstractions.Transactions;
+using NoMoreTears.Shared.Postgres.Extensions;
+using NoMoreTears.Shared.Postgres.Registration;
+using NoMoreTears.Shared.Providers.Identity.Persistence;
+using NoMoreTears.Shared.RabbitMq.Registration;
 using NoMoreTears.Shared.HostSide.Endpoints.Registration;
 
 namespace NoMoreTears.Modules.Identity.Providers;
@@ -39,8 +46,9 @@ public static class IdentityRegistrar
             .AddOptions<IdentityLinkOptions>()
             .Bind(configuration.GetSection(IdentityLinkOptions.SectionName));
 
+        services.TryAddSingleton(TimeProvider.System);
+
         services
-            .AddScoped<IIdentityNotifier, IdentityNotifier>()
             .AddScoped<IIdentityService, IdentityService>()
             .AddScoped<IUserService, UserService>();
 
@@ -61,7 +69,14 @@ public static class IdentityRegistrar
                 .FromAssembly(Applications.Handlers.AssemblyReference.Assembly)
                 .UseAuthorization()
                 .UseValidation()
-                .UsePerformanceTracking());
+                .UsePerformanceTracking()
+                .UseTransactions());
+
+        // Identity services save their own changes (failed sign-in counters, revocations must survive a failed
+        // command), so commands are not wrapped in a transaction: only the outbox messages are saved afterwards.
+        services.AddTransactionalScope<IdentityDbContext>(
+            Applications.Handlers.AssemblyReference.Assembly,
+            TransactionMode.SaveChanges);
 
         return services;
     }
@@ -75,5 +90,15 @@ public static class IdentityRegistrar
             .AddEndpoints(HostSide.Endpoints.AssemblyReference.Assembly);
 
         return services;
+    }
+
+    /// <summary>
+    ///     Describes the messaging of the module on the shared bus of the host: the transactional outbox in the
+    ///     identity schema. Identity only publishes events (emails to deliver); it has no consumers.
+    /// </summary>
+    public static IServiceCollection AddMessaging(this IServiceCollection services)
+    {
+        return services.AddRabbitMqModule<IIdentityOutbox>("identity", module => module
+            .UsePostgresOutbox<IIdentityOutbox, IdentityDbContext>());
     }
 }

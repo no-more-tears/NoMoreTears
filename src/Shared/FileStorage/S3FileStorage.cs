@@ -103,6 +103,38 @@ public sealed class S3FileStorage(
         }
     }
 
+    public async Task DeleteFileAsync(
+        string bucketName,
+        string fileName,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var removeObjectArgs = new RemoveObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(fileName);
+
+            await minioClient.RemoveObjectAsync(removeObjectArgs, cancellationToken);
+
+            logger.LogInformation(
+                "File '{FileName}' removed from bucket '{BucketName}'",
+                fileName, bucketName);
+        }
+        catch (Exception ex) when (ex is ObjectNotFoundException or BucketNotFoundException)
+        {
+            // Already removed.
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new FileStorageException(
+                $"Failed to remove file '{fileName}' from bucket '{bucketName}'.", ex);
+        }
+    }
+
     private async Task EnsureBucketExistsAsync(
         string bucketName,
         CancellationToken cancellationToken)

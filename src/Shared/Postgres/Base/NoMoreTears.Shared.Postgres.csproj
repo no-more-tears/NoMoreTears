@@ -8,11 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" />
+    <PackageReference Include="MassTransit.EntityFrameworkCore" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\NoMoreTears.Shared.Domain.csproj" />
     <ProjectReference Include="..\Abstractions\NoMoreTears.Shared.Postgres.Abstractions.csproj" />
+    <ProjectReference Include="..\..\RabbitMq\Base\NoMoreTears.Shared.RabbitMq.csproj" />
   </ItemGroup>
 
 </Project>

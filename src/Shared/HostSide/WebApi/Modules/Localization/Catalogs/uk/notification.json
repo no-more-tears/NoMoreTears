@@ -1,0 +1,29 @@
+﻿{
+  // Modules/Notification/Domain.
+  "Link must be a relative route of at most {0} characters.": "Посилання має бути відносним маршрутом довжиною не більше ніж {0} символів.",
+  "Notification data must contain at most {0} entries.": "Дані сповіщення можуть містити не більше ніж {0} записів.",
+  "Notification data keys must contain from 1 to {0} characters.": "Ключі даних сповіщення мають містити від 1 до {0} символів.",
+  "Notification data values must contain at most {0} characters.": "Значення даних сповіщення можуть містити не більше ніж {0} символів.",
+  "A failed delivery must have an error.": "Невдала доставка має містити помилку.",
+  "A delivery must have at least one attempt.": "Доставка має містити щонайменше одну спробу.",
+  "Title": "Заголовок",
+  "Body": "Текст",
+  "Type": "Тип",
+  "Template": "Шаблон",
+
+  // Modules/Notification/Applications.
+  "Notification '{0}' was not found.": "Сповіщення '{0}' не знайдено.",
+  "Notification category '{0}' is unknown.": "Категорія сповіщень '{0}' невідома.",
+  "At least one notification id is required.": "Потрібно вказати щонайменше один ідентифікатор сповіщення.",
+  "At most {0} notifications can be changed at once.": "За один раз можна змінити не більше ніж {0} {0:plural:сповіщення|сповіщення|сповіщень}.",
+
+  // Field names of Notification validators.
+  "Recipient id": "Ідентифікатор отримувача",
+  "Notification id": "Ідентифікатор сповіщення",
+  "Source event id": "Ідентифікатор події",
+  "Notification type": "Тип сповіщення",
+  "Notification data": "Дані сповіщення",
+  "Change": "Зміна",
+  "Email address": "Адреса електронної пошти",
+  "Email template": "Шаблон листа"
+}

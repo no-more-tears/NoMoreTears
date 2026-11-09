@@ -63,6 +63,16 @@ public static class MasterRules
     public const int MaxStorageKeyLength = 1024;
 
     /// <summary>
+    ///     Maximum length of the original name of an uploaded file.
+    /// </summary>
+    public const int MaxFileNameLength = 255;
+
+    /// <summary>
+    ///     Duration of a restriction (sanction ladder, step 2) when Trust does not give an end date.
+    /// </summary>
+    public const int DefaultRestrictionDurationInDays = 7;
+
+    /// <summary>
     ///     Months after revocation of verification before a master can apply again.
     /// </summary>
     public const int ReverificationWaitingPeriodInMonths = 12;

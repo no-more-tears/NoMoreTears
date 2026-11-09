@@ -1,11 +1,13 @@
-﻿using NoMoreTears.Modules.Identity.Contracts.Responses;
+﻿using NoMoreTears.Modules.Identity.Applications.Services.Results;
+using NoMoreTears.Modules.Identity.Contracts.Events;
+using NoMoreTears.Modules.Identity.Contracts.Responses;
 using NoMoreTears.Shared.Providers.Identity.Contracts.Common;
 
 namespace NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 
 public interface IIdentityService
 {
-    Task<Guid> RegisterAsync(
+    Task<RegistrationOutcome> RegisterAsync(
         string email,
         string? username,
         string password,
@@ -16,11 +18,11 @@ public interface IIdentityService
         string token,
         CancellationToken cancellationToken);
 
-    Task ResendEmailConfirmationAsync(
+    Task<EmailConfirmationRequestedEvent?> ResendEmailConfirmationAsync(
         string identifier, 
         CancellationToken cancellationToken);
 
-    Task<LoginResponse> LoginAsync(
+    Task<LoginOutcome> LoginAsync(
         string identifier,
         string password,
         ClientContext client,
@@ -45,7 +47,7 @@ public interface IIdentityService
         Guid userId,
         CancellationToken cancellationToken);
 
-    Task ForgotPasswordAsync(
+    Task<PasswordResetRequestedEvent?> ForgotPasswordAsync(
         string identifier,
         CancellationToken cancellationToken);
 

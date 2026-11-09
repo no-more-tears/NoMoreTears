@@ -177,6 +177,11 @@ The layer that is the entry point for executing all logic. It is responsible for
 - Add a reference to the `Applications.Services` project.
 - Handlers must not log anything.
 - Handlers must remain as simple and clean as possible.
+- Publish events through `IEventPublisher<TModuleOutbox>` after the service call. Commands run in the unit of work of the module (`TransactionalBehavior`, keyed by the handlers assembly), which saves the MassTransit transactional outbox together with the data and commits once.
+
+#### Transactional outbox and inbox
+
+A host has one bus. Every module describes its messaging with `AddRabbitMqModule<TModuleOutbox>(prefix, module => module.UsePostgresOutbox<TModuleOutbox, TDbContext>())` (queues prefixed with the module name, outbox and inbox in the schema of the module); the host calls `AddRabbitMq(configuration)` once after the modules. `UsePostgresOutbox` comes from `Shared.Postgres` and makes `IEventPublisher<TModuleOutbox>` write to the outbox of that modules DbContext; the context adds the `InboxState`, `OutboxMessage` and `OutboxState` tables with `ModelBuilder.AddTransactionalOutbox()`. Events published by handlers are delivered only after the commit; consumers ignore redelivered messages (inbox) and their own published events wait for their transaction. A module whose services must keep their changes when a command fails (Identity) uses `TransactionMode.SaveChanges` instead of a transaction.
 
 ## 5. Contracts
 

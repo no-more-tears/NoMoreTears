@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\CQS\Base\NoMoreTears.Shared.CQS.csproj" />
     <ProjectReference Include="..\..\..\Shared\Providers\Hosting\NoMoreTears.Shared.Providers.Hosting.csproj" />
+    <ProjectReference Include="..\..\..\Shared\RabbitMq\Base\NoMoreTears.Shared.RabbitMq.csproj" />
     <ProjectReference Include="..\..\..\Shared\Providers\Identity\Base\NoMoreTears.Shared.Providers.Identity.csproj" />
     <ProjectReference Include="..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
     <ProjectReference Include="..\Applications\Services\NoMoreTears.Modules.Identity.Applications.Services.csproj" />

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NoMoreTears.Shared.Postgres.Extensions;
 using NoMoreTears.Shared.Providers.Identity.Persistence.Entities;
 
 namespace NoMoreTears.Shared.Providers.Identity.Persistence;
@@ -49,5 +50,8 @@ public sealed class IdentityDbContext(
     {
         modelBuilder.HasDefaultSchema(Schema);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityDbContext).Assembly);
+
+        // Transactional outbox and inbox of the Identity module bus (MassTransit).
+        modelBuilder.AddTransactionalOutbox();
     }
 }

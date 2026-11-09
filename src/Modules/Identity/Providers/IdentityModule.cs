@@ -22,6 +22,7 @@ public sealed class IdentityModule : IModule
                 .UseJwtBearer())
             .AddApplications(configuration.GetSection(CommonIdentityRegistrar.SectionName))
             .AddEndpoints()
+            .AddMessaging()
             .AddAuthorization();
     }
 }

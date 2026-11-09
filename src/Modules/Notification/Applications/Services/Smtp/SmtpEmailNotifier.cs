@@ -8,7 +8,7 @@ using MimeKit;
 using NoMoreTears.Modules.Notification.Applications.Services.Abstractions;
 using NoMoreTears.Modules.Notification.Applications.Services.Configuration;
 using NoMoreTears.Modules.Notification.Applications.Services.Templates;
-using NoMoreTears.Modules.Notification.Contracts.Emails;
+using NoMoreTears.Modules.Notification.Applications.Services.Emails;
 using NoMoreTears.Shared.Common.Exceptions.Integration;
 
 namespace NoMoreTears.Modules.Notification.Applications.Services.Smtp;

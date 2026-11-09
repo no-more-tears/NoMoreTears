@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NoMoreTears.Shared.Postgres.Migrations.Abstractions;
@@ -13,10 +14,12 @@ public static class MigrationRegistrar
     /// <summary>
     ///     Adds the migration manager with registered DbContext and assembly for migrations host.
     /// </summary>
+    /// <param name="schema">Schema of the migrations history table; <c>null</c> keeps the provider default.</param>
     public static IServiceCollection AddMigrationManager<TDbContext, TAssembly>(
         this IServiceCollection services, 
         IConfiguration configuration,
-        string connectionString)
+        string connectionString,
+        string? schema = null)
         where TDbContext : DbContext
     {
         services
@@ -33,6 +36,12 @@ public static class MigrationRegistrar
                                 maxRetryCount: 3,
                                 maxRetryDelay: TimeSpan.FromSeconds(30),
                                 errorCodesToAdd: null);
+
+                        // The history table lives in the schema of the module tables.
+                        if (!string.IsNullOrWhiteSpace(schema))
+                        {
+                            builder.MigrationsHistoryTable(HistoryRepository.DefaultTableName, schema);
+                        }
                     });
             })
             .AddSingleton<IDbMigrationManager, DbMigrationManager<TDbContext>>();

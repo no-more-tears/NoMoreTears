@@ -1,0 +1,74 @@
+﻿{
+  "values": {
+    "UntilLifted": "until lifted",
+    "Warning": "warning",
+    "Restriction": "restriction",
+    "Suspension": "feed suspension",
+    "Deverification": "revocation of verification",
+    "Avatar": "profile photo",
+    "IdentityDocument": "identity document",
+    "QualificationDocument": "qualification document"
+  },
+  "texts": {
+    "masters.verification.submitted": {
+      "title": "Profile submitted for verification",
+      "body": "We will check your documents, categories and service area and let you know the result."
+    },
+    "masters.verification.verified": {
+      "title": "Profile verified",
+      "body": "Congratulations! You now receive requests in your feed for the confirmed categories and area."
+    },
+    "masters.verification.rejected": {
+      "title": "Verification rejected",
+      "body": "Reason: {{reason}}. Fix the profile and submit it again."
+    },
+    "masters.verification.revoked": {
+      "title": "Verification revoked",
+      "body": "Your feed access is closed. You can apply again with new documents from {{reverificationAllowedFrom}}."
+    },
+    "masters.verification.restored": {
+      "title": "Verification restored",
+      "body": "The sanction was lifted, your profile is verified again."
+    },
+    "masters.category.verified": {
+      "title": "Category confirmed",
+      "body": "Your qualification in the category is confirmed."
+    },
+    "masters.category.rejected": {
+      "title": "Category rejected",
+      "body": "Your qualification in the category was not confirmed. Reason: {{reason}}."
+    },
+    "masters.service-area.verified": {
+      "title": "Service area confirmed",
+      "body": "You will receive requests from the confirmed area."
+    },
+    "masters.service-area.rejected": {
+      "title": "Service area rejected",
+      "body": "Reason: {{reason}}. Change the area and submit the profile again."
+    },
+    "masters.verification-hold.placed": {
+      "title": "Verification on hold",
+      "body": "Verification is on hold until a human check. Reason: {{reason}}."
+    },
+    "masters.verification-hold.released": {
+      "title": "Check completed",
+      "body": "The verification hold was released, the review of your profile continues."
+    },
+    "masters.sanction.applied": {
+      "title": "Sanction applied",
+      "body": "A sanction was applied to your profile: {{kind:t}}. Valid until: {{expiresAt:t}}. You can appeal the decision."
+    },
+    "masters.sanction.lifted": {
+      "title": "Sanction lifted",
+      "body": "The sanction \"{{kind:t}}\" was lifted from your profile."
+    },
+    "masters.upload.completed": {
+      "title": "File accepted",
+      "body": "The file \"{{fileName}}\" ({{purpose:t}}) was checked and added to your profile."
+    },
+    "masters.upload.failed": {
+      "title": "File rejected",
+      "body": "The file \"{{fileName}}\" ({{purpose:t}}) was not accepted. Reason: {{reason}}."
+    }
+  }
+}

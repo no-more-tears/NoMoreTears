@@ -18,6 +18,32 @@ services:
     networks:
       - internal
 
+  masters-migrations:
+    container_name: nomoretears-masters-migrations
+    image: nomoretears/masters-migrations:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Masters/HostSide/Migrations/Dockerfile
+    restart: "no"
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Migrations"
+    networks:
+      - internal
+
+  notification-migrations:
+    container_name: nomoretears-notification-migrations
+    image: nomoretears/notification-migrations:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Notification/HostSide/Migrations/Dockerfile
+    restart: "no"
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Migrations"
+    networks:
+      - internal
+
 networks:
   internal:
     name: nomoretears-internal-development

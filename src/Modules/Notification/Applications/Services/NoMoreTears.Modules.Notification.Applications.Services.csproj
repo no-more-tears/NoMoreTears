@@ -9,6 +9,8 @@
   <ItemGroup>
     <!-- Templates ship inside the assembly: Templates/Emails/{Template}/subject.txt, body.html, body.txt. -->
     <EmbeddedResource Include="Templates\Emails\**\*.txt;Templates\Emails\**\*.html" />
+    <!-- Texts of in-app notifications: Templates/Notifications/{culture}.json. -->
+    <EmbeddedResource Include="Templates\Notifications\*.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +23,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Common\Exceptions\NoMoreTears.Shared.Common.Exceptions.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Common\Pagination\NoMoreTears.Shared.Common.Pagination.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Postgres\Abstractions\NoMoreTears.Shared.Postgres.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\RabbitMq\Abstractions\NoMoreTears.Shared.RabbitMq.Abstractions.csproj" />
     <ProjectReference Include="..\..\Contracts\NoMoreTears.Modules.Notification.Contracts.csproj" />
+    <ProjectReference Include="..\..\Domain\NoMoreTears.Modules.Notification.Domain.csproj" />
   </ItemGroup>
 
 </Project>

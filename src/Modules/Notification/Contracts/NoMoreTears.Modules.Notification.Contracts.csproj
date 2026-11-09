@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\RabbitMq\Contracts\NoMoreTears.Shared.RabbitMq.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

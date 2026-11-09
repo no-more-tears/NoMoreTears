@@ -1,8 +1,8 @@
 version: '3.8'
 name: nomoretears-webapi
 
-# Runs the WebApi host.
-# Requires docker-compose.infra.yaml (postgres, redis, papercut) and docker-compose.observability.yaml (seq)
+# Runs the WebApi host. The hosts that consume events are in docker-compose.consumers.yaml.
+# Requires docker-compose.infra.yaml (postgres, redis, papercut, rabbitmq, minio) and docker-compose.observability.yaml (seq)
 # to be running, and the migrations from docker-compose.migrations.yaml to be applied.
 
 services:
@@ -18,6 +18,10 @@ services:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears"
       RedisCache__Password: ${REDIS_PASSWORD:-p4ssw0rd}
       Identity__Jwt__SigningKey: ${JWT_SIGNING_KEY:?Set JWT_SIGNING_KEY (at least 32 characters)}
+      RabbitMqSettings__Username: ${RABBITMQ_DEFAULT_USER:-rabbitmq}
+      RabbitMqSettings__Password: ${RABBITMQ_DEFAULT_PASS:-rabbitmqp4ss}
+      FileStorageSettings__AccessKey: ${MINIO_ROOT_USER:-minioadmin}
+      FileStorageSettings__SecretKey: ${MINIO_ROOT_PASSWORD:-minioadmin}
     ports:
       - "5080:8080"
     healthcheck:
