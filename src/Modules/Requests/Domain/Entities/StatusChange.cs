@@ -43,6 +43,14 @@ public sealed class StatusChange
     /// </summary>
     public DateTimeOffset OccurredAt { get; }
 
+    /// <summary>
+    ///     Used only by persistence to materialize the status change.
+    /// </summary>
+    private StatusChange()
+    {
+        Initiator = null!;
+    }
+
     private StatusChange(
         Guid id,
         RequestStatus? from,

@@ -22,12 +22,7 @@ using NoMoreTears.Shared.Postgres.Abstractions.Repositories;
 namespace NoMoreTears.Modules.Masters.Applications.Services;
 
 /// <summary>
-///     Asynchronous acceptance of files (staging pattern):
-///     <list type="number">
-///         <item>the API stores the raw file in the temporary bucket, registers a pending upload and answers at once;</item>
-///         <item>a consumer checks the content (signature, size), copies it to the permanent private bucket and attaches it;</item>
-///         <item>files that are no longer referenced are removed by another consumer after the change is committed.</item>
-///     </list>
+///     Asynchronous acceptance of files (staging pattern).
 /// </summary>
 public sealed class FileUploadService(
     IRepository<FileUpload, Guid> uploads,

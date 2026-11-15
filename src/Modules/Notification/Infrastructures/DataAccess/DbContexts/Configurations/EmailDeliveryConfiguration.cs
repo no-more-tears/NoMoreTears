@@ -39,7 +39,6 @@ public sealed class EmailDeliveryConfiguration : IEntityTypeConfiguration<EmailD
 
         builder.Property(delivery => delivery.CompletedAt).IsRequired();
 
-        // One event leads to at most one delivery.
         builder.HasIndex(delivery => delivery.SourceEventId).IsUnique();
         builder.HasIndex(delivery => new { delivery.RecipientId, delivery.CompletedAt });
     }

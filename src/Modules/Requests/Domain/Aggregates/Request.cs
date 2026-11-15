@@ -110,6 +110,15 @@ public sealed class Request : AuditableEntity<Guid>
     /// </summary>
     public bool IsRepublished => PublicationCount > 1;
 
+    /// <summary>
+    ///     Used only by persistence to materialize the request.
+    /// </summary>
+    private Request()
+    {
+        Address = null!;
+        Description = null!;
+    }
+
     private Request(
         Guid id,
         Guid clientId,

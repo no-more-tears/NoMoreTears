@@ -35,10 +35,12 @@
 |--|--|
 | Identity | [Identity/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Identity/HostSide/Endpoints/README.md) |
 | Masters | [Masters/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Masters/HostSide/Endpoints/README.md) |
+| Requests | [Requests/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Requests/HostSide/Endpoints/README.md) |
 | Notification (HTTP + SignalR) | [Notification/Endpoints/README.md](https://github.com/no-more-tears/NoMoreTears/blob/main/src/Modules/Notification/HostSide/Endpoints/README.md) |
 
 ### Асинхронні операції
 
-- Завантаження файлів (Masters) повертає `202 Accepted` із заголовком `Location` на ресурс статусу. Результат приходить SignalR-сповіщенням.
+- Завантаження файлів (Masters, фото заявок Requests) повертає `202 Accepted` із заголовком `Location` на ресурс статусу. Результат приходить SignalR-сповіщенням.
+- Строки заявок (прострочення очікування, автоматичне завершення) обробляє фоновий хост Requests, тому статус змінюється із затримкою до хвилини після строку.
 - Листи (Identity) надсилає модуль Notification асинхронно, після фіксації транзакції (transactional outbox).
 - Одночасна зміна того самого ресурсу повертає `409 Conflict`: дані треба перечитати й повторити дію.

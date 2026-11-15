@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="MassTransit.Abstractions" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
   </ItemGroup>
 
   <ItemGroup>

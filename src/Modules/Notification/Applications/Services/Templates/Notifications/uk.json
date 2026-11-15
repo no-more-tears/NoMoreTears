@@ -7,7 +7,9 @@
     "Deverification": "позбавлення верифікації",
     "Avatar": "фото профілю",
     "IdentityDocument": "документ, що посвідчує особу",
-    "QualificationDocument": "документ про кваліфікацію"
+    "QualificationDocument": "документ про кваліфікацію",
+    "NoShow": "майстер не прибув",
+    "MasterRefusal": "майстер відмовився від виконання"
   },
   "texts": {
     "masters.verification.submitted": {
@@ -69,6 +71,42 @@
     "masters.upload.failed": {
       "title": "Файл не прийнято",
       "body": "Файл «{{fileName}}» ({{purpose:t}}) не прийнято. Причина: {{reason}}."
+    },
+    "requests.request.accepted": {
+      "title": "Заявку прийнято",
+      "body": "Майстер прийняв вашу заявку. Орієнтовний час прибуття: {{expectedArrivalAt}}."
+    },
+    "requests.request.marked-as-done": {
+      "title": "Роботу позначено як виконану",
+      "body": "Майстер позначив роботу як виконану. Підтвердіть завершення або заперечте до {{confirmationDeadline}}, інакше заявка завершиться автоматично."
+    },
+    "requests.request.completed": {
+      "title": "Заявку завершено",
+      "body": "Заявку завершено {{completedAt}}."
+    },
+    "requests.request.completion-objected": {
+      "title": "Завершення заперечено",
+      "body": "Клієнт заперечив завершення, заявка знову у виконанні. Причина: {{reason}}."
+    },
+    "requests.request.failed": {
+      "title": "Заявку зірвано",
+      "body": "Заявку зірвано: {{kind:t}}. {{reason}}"
+    },
+    "requests.request.cancelled": {
+      "title": "Заявку скасовано",
+      "body": "Клієнт скасував прийняту вами заявку. Причина: {{reason}}."
+    },
+    "requests.request.expired": {
+      "title": "Заявку ніхто не прийняв",
+      "body": "Строк очікування прийняття сплив {{acceptanceDeadline}}. Продовжте заявку або скасуйте її."
+    },
+    "requests.media.completed": {
+      "title": "Фото прийнято",
+      "body": "Фото «{{fileName}}» перевірено та додано до заявки."
+    },
+    "requests.media.failed": {
+      "title": "Фото не прийнято",
+      "body": "Фото «{{fileName}}» не прийнято. Причина: {{reason}}."
     }
   }
 }

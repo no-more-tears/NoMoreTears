@@ -58,7 +58,6 @@ public static class MastersRegistrar
         /// <summary>
         ///     Registers application services and the object storage.
         /// </summary>
-        /// <param name="configuration">Root configuration (module section and <c>FileStorageSettings</c>).</param>
         public IServiceCollection AddMastersServices(IConfiguration configuration)
         {
             ArgumentNullException.ThrowIfNull(configuration);
@@ -83,9 +82,6 @@ public static class MastersRegistrar
         /// <summary>
         ///     Registers handlers with authorization, validation, performance tracking and transactions.
         /// </summary>
-        /// <remarks>
-        ///     Payload logging is not enabled: services log the outcome of each operation instead.
-        /// </remarks>
         public IServiceCollection AddMastersHandlers()
         {
             return services.AddCqs(options => options
@@ -117,7 +113,6 @@ public static class MastersRegistrar
         /// <summary>
         ///     Describes the messaging of the module on the shared bus of the host.
         /// </summary>
-        /// <param name="consumers">Consumers hosted by the caller; none in the WebApi host.</param>
         public IServiceCollection AddMastersMessaging(Action<RabbitMqModuleBuilder<IMastersOutbox>>? consumers = null)
         {
             return services.AddRabbitMqModule<IMastersOutbox>(EndpointPrefix, module =>

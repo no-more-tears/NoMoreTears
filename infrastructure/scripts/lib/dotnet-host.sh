@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the .NET host projects (WebApi, Masters consumers, Notification SignalR, migrations). Source it, do not execute it.
+# Runs the .NET host projects (WebApi, Masters and Requests consumers, Requests background jobs, Notification SignalR, migrations). Source it, do not execute it.
 # Expected location: infrastructure/scripts/lib/dotnet-host.sh
 #
 # Development: 'dotnet run' from the source tree, local credentials come from infrastructure/docker/.env.
@@ -11,12 +11,15 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 WEBAPI_PROJECT="HostSide/WebApi/NoMoreTears.HostSide.WebApi.csproj"
 MASTERS_CONSUMERS_PROJECT="Modules/Masters/HostSide/Consumers/NoMoreTears.Modules.Masters.HostSide.Consumers.csproj"
+REQUESTS_CONSUMERS_PROJECT="Modules/Requests/HostSide/Consumers/NoMoreTears.Modules.Requests.HostSide.Consumers.csproj"
+REQUESTS_BACKGROUND_JOBS_PROJECT="Modules/Requests/HostSide/BackgroundJobs/NoMoreTears.Modules.Requests.HostSide.BackgroundJobs.csproj"
 NOTIFICATION_SIGNALR_PROJECT="Modules/Notification/HostSide/SignalR/NoMoreTears.Modules.Notification.HostSide.SignalR.csproj"
 
 # Applied in this order; every module owns its schema.
 MIGRATIONS_PROJECTS=(
     "Modules/Identity/HostSide/Migrations/NoMoreTears.Modules.Identity.HostSide.Migrations.csproj"
     "Modules/Masters/HostSide/Migrations/NoMoreTears.Modules.Masters.HostSide.Migrations.csproj"
+    "Modules/Requests/HostSide/Migrations/NoMoreTears.Modules.Requests.HostSide.Migrations.csproj"
     "Modules/Notification/HostSide/Migrations/NoMoreTears.Modules.Notification.HostSide.Migrations.csproj"
 )
 
@@ -68,6 +71,17 @@ export_development_masters_consumers_settings() {
     export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears.Masters.Consumers)}"
     export_development_messaging_settings
     export_development_storage_settings
+}
+
+export_development_requests_consumers_settings() {
+    export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears.Requests.Consumers)}"
+    export_development_messaging_settings
+    export_development_storage_settings
+}
+
+export_development_requests_background_jobs_settings() {
+    export ConnectionStrings__Postgres="${ConnectionStrings__Postgres:-$(development_postgres_connection_string NoMoreTears.Requests.BackgroundJobs)}"
+    export_development_messaging_settings
 }
 
 export_development_notification_signalr_settings() {

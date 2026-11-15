@@ -140,8 +140,38 @@
     <Project Path="Modules/Notification/Providers/NoMoreTears.Modules.Notification.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Requests/" />
+  <Folder Name="/Modules/Requests/Applications/" />
+  <Folder Name="/Modules/Requests/Applications/Handlers/">
+    <Project Path="Modules/Requests/Applications/Handlers/NoMoreTears.Modules.Requests.Applications.Handlers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/Applications/Services/">
+    <Project Path="Modules/Requests/Applications/Services/NoMoreTears.Modules.Requests.Applications.Services.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/Contracts/">
+    <Project Path="Modules/Requests/Contracts/NoMoreTears.Modules.Requests.Contracts.csproj" />
+  </Folder>
   <Folder Name="/Modules/Requests/Domain/">
     <Project Path="Modules/Requests/Domain/NoMoreTears.Modules.Requests.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/HostSide/" />
+  <Folder Name="/Modules/Requests/HostSide/BackgroundJobs/">
+    <Project Path="Modules/Requests/HostSide/BackgroundJobs/NoMoreTears.Modules.Requests.HostSide.BackgroundJobs.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/HostSide/Consumers/">
+    <Project Path="Modules/Requests/HostSide/Consumers/NoMoreTears.Modules.Requests.HostSide.Consumers.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/HostSide/Endpoints/">
+    <Project Path="Modules/Requests/HostSide/Endpoints/NoMoreTears.Modules.Requests.HostSide.Endpoints.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/HostSide/Migrations/">
+    <Project Path="Modules/Requests/HostSide/Migrations/NoMoreTears.Modules.Requests.HostSide.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/Infrastructures/" />
+  <Folder Name="/Modules/Requests/Infrastructures/DataAccess/">
+    <Project Path="Modules/Requests/Infrastructures/DataAccess/NoMoreTears.Modules.Requests.Infrastructures.DataAccess.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Requests/Providers/">
+    <Project Path="Modules/Requests/Providers/NoMoreTears.Modules.Requests.Providers.csproj" />
   </Folder>
   <Folder Name="/Modules/Trust/" />
   <Folder Name="/Modules/Trust/Contracts/">

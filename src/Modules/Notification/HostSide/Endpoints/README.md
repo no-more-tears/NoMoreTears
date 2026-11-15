@@ -55,6 +55,15 @@
 | `masters.sanction.lifted` | `masterId`, `sanctionId`, `kind` |
 | `masters.upload.completed` | `masterId`, `uploadId`, `purpose`, `fileName`, `categoryId`, `documentId` |
 | `masters.upload.failed` | `masterId`, `uploadId`, `purpose`, `fileName`, `reason` |
+| `requests.request.accepted` | `requestId`, `masterId`, `expectedArrivalAt` (клієнту) |
+| `requests.request.marked-as-done` | `requestId`, `masterId`, `confirmationDeadline` (клієнту) |
+| `requests.request.completed` | `requestId`, `completedAt` (майстру; клієнту лише при автоматичному завершенні) |
+| `requests.request.completion-objected` | `requestId`, `reason` (майстру) |
+| `requests.request.failed` | `requestId`, `kind` (`NoShow` майстру, `MasterRefusal` клієнту), `reason` |
+| `requests.request.cancelled` | `requestId`, `reason` (майстру, якщо скасовано після прийняття) |
+| `requests.request.expired` | `requestId`, `acceptanceDeadline` (клієнту) |
+| `requests.media.completed` | `requestId`, `uploadId`, `mediaFileId`, `fileName` (клієнту) |
+| `requests.media.failed` | `requestId`, `uploadId`, `fileName`, `reason` (клієнту) |
 
 ## 1. HTTP (WebApi)
 

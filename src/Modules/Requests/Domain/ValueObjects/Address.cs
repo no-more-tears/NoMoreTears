@@ -17,6 +17,15 @@ public sealed record Address
     /// </summary>
     public Coordinates Coordinates { get; }
 
+    /// <summary>
+    ///     Used only by persistence to materialize the address.
+    /// </summary>
+    private Address()
+    {
+        Value = null!;
+        Coordinates = null!;
+    }
+
     private Address(
         string value,
         Coordinates coordinates)

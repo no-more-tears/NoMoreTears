@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Runs every host that consumes events at once: the Masters consumers and the Notification SignalR host.
+# Runs every asynchronous host at once: the Masters and Requests consumers, the Requests background jobs
+# and the Notification SignalR host.
 # Usage: infrastructure/scripts/run-consumers.sh [--docker]
 #
-#   (no option)  Development: both hosts run with 'dotnet run' in parallel; Ctrl+C stops both,
-#                and if one host stops, the other is stopped too. Credentials come from infrastructure/docker/.env.
+#   (no option)  Development: the hosts run with 'dotnet run' in parallel; Ctrl+C stops all of them,
+#                and if one host stops, the others are stopped too. Credentials come from infrastructure/docker/.env.
 #   --docker     Builds and starts docker-compose.consumers.yaml in the background.
 #
 # Requires docker-compose.infra.yaml to be running and the migrations to be applied (run-migrations.sh).
@@ -23,7 +24,7 @@ load_development_env
 require_command dotnet
 
 # Both hosts share projects, so they are built once up front instead of by two concurrent 'dotnet run'.
-for project in "$MASTERS_CONSUMERS_PROJECT" "$NOTIFICATION_SIGNALR_PROJECT"; do
+for project in "$MASTERS_CONSUMERS_PROJECT" "$REQUESTS_CONSUMERS_PROJECT" "$REQUESTS_BACKGROUND_JOBS_PROJECT" "$NOTIFICATION_SIGNALR_PROJECT"; do
     info "Building $(basename "$project" .csproj)..."
     dotnet build "$SRC_DIR/$project" --nologo -v q || fail "failed to build $project"
 done
@@ -40,6 +41,18 @@ trap stop_hosts INT TERM EXIT
 (
     export_development_masters_consumers_settings
     run_host "$MASTERS_CONSUMERS_PROJECT" DOTNET_ENVIRONMENT Development --no-build --no-launch-profile
+) &
+pids+=($!)
+
+(
+    export_development_requests_consumers_settings
+    run_host "$REQUESTS_CONSUMERS_PROJECT" DOTNET_ENVIRONMENT Development --no-build --no-launch-profile
+) &
+pids+=($!)
+
+(
+    export_development_requests_background_jobs_settings
+    run_host "$REQUESTS_BACKGROUND_JOBS_PROJECT" DOTNET_ENVIRONMENT Development --no-build --no-launch-profile
 ) &
 pids+=($!)
 

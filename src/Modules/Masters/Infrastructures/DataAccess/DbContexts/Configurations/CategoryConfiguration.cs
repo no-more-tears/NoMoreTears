@@ -39,7 +39,6 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.Ignore(category => category.IsActive);
 
-        // The catalog has no duplicate names among categories that were not deleted.
         builder.HasIndex(category => category.Name)
             .IsUnique()
             .HasFilter($"\"{nameof(Category.IsDeleted)}\" = false");

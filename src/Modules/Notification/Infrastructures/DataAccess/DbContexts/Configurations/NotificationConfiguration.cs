@@ -69,11 +69,9 @@ public sealed class NotificationConfiguration : IEntityTypeConfiguration<Notific
 
         builder.Ignore(notification => notification.IsRead);
 
-        // One event of another module creates at most one notification per recipient.
         builder.HasIndex(notification => new { notification.SourceEventId, notification.RecipientId })
             .IsUnique();
 
-        // The list of a user, newest first; partial indexes keep the unread and undelivered lookups small.
         builder.HasIndex(notification => new { notification.RecipientId, notification.CreatedAt });
 
         builder.HasIndex(notification => notification.RecipientId)

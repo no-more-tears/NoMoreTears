@@ -21,6 +21,35 @@ services:
     networks:
       - internal
 
+  requests-consumers:
+    image: nomoretears/requests-consumers:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Requests/HostSide/Consumers/Dockerfile
+    restart: on-failure
+    environment:
+      <<: *messaging
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Requests.Consumers"
+      FileStorageSettings__AccessKey: ${MINIO_ROOT_USER:-minioadmin}
+      FileStorageSettings__SecretKey: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    networks:
+      - internal
+
+  # Deadlines of requests; the jobs take an advisory lock, so several instances are safe.
+  requests-background-jobs:
+    image: nomoretears/requests-background-jobs:${IMAGE_TAG:-local}
+    build:
+      context: ../../src
+      dockerfile: Modules/Requests/HostSide/BackgroundJobs/Dockerfile
+    restart: on-failure
+    environment:
+      <<: *messaging
+      DOTNET_ENVIRONMENT: Docker
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-nomoretears};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-changeme};ApplicationName=NoMoreTears.Requests.BackgroundJobs"
+    networks:
+      - internal
+
   notification-signalr:
     container_name: nomoretears-notification-signalr
     image: nomoretears/notification-signalr:${IMAGE_TAG:-local}
