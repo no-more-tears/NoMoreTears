@@ -48,6 +48,21 @@ public static class RequestRules
     public const int DefaultPublishedRequestsLimit = 3;
 
     /// <summary>
+    ///     Limit of simultaneously published requests while a publication restriction of Trust is active.
+    /// </summary>
+    public const int RestrictedPublishedRequestsLimit = 1;
+
+    /// <summary>
+    ///     Maximum length of the original name of an uploaded file.
+    /// </summary>
+    public const int MaxFileNameLength = 255;
+
+    /// <summary>
+    ///     Maximum length of a category name in the catalog snapshot.
+    /// </summary>
+    public const int MaxCategoryNameLength = 100;
+
+    /// <summary>
     ///     Default period during which a published request waits for acceptance.
     /// </summary>
     public static readonly TimeSpan DefaultAcceptanceWaitingPeriod = TimeSpan.FromHours(24);

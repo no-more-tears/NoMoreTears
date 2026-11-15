@@ -7,7 +7,9 @@
     "Deverification": "revocation of verification",
     "Avatar": "profile photo",
     "IdentityDocument": "identity document",
-    "QualificationDocument": "qualification document"
+    "QualificationDocument": "qualification document",
+    "NoShow": "the master did not arrive",
+    "MasterRefusal": "the master refused the work"
   },
   "texts": {
     "masters.verification.submitted": {
@@ -69,6 +71,42 @@
     "masters.upload.failed": {
       "title": "File rejected",
       "body": "The file \"{{fileName}}\" ({{purpose:t}}) was not accepted. Reason: {{reason}}."
+    },
+    "requests.request.accepted": {
+      "title": "Request accepted",
+      "body": "A master accepted your request. Expected arrival: {{expectedArrivalAt}}."
+    },
+    "requests.request.marked-as-done": {
+      "title": "Work marked as done",
+      "body": "The master marked the work as done. Confirm the completion or object to it until {{confirmationDeadline}}, otherwise the request completes automatically."
+    },
+    "requests.request.completed": {
+      "title": "Request completed",
+      "body": "The request was completed on {{completedAt}}."
+    },
+    "requests.request.completion-objected": {
+      "title": "Completion objected",
+      "body": "The client objected to the completion, the request is in progress again. Reason: {{reason}}."
+    },
+    "requests.request.failed": {
+      "title": "Request failed",
+      "body": "The request failed: {{kind:t}}. {{reason}}"
+    },
+    "requests.request.cancelled": {
+      "title": "Request cancelled",
+      "body": "The client cancelled the request you accepted. Reason: {{reason}}."
+    },
+    "requests.request.expired": {
+      "title": "Nobody accepted the request",
+      "body": "The waiting for acceptance ended on {{acceptanceDeadline}}. Extend the request or cancel it."
+    },
+    "requests.media.completed": {
+      "title": "Photo accepted",
+      "body": "The photo \"{{fileName}}\" was checked and attached to the request."
+    },
+    "requests.media.failed": {
+      "title": "Photo rejected",
+      "body": "The photo \"{{fileName}}\" was not accepted. Reason: {{reason}}."
     }
   }
 }

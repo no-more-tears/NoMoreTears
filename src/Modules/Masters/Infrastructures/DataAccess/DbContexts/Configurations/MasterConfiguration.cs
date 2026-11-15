@@ -23,7 +23,6 @@ public sealed class MasterConfiguration : IEntityTypeConfiguration<Master>
 
         builder.ConfigureAuditableEntity<Master, Guid>();
 
-        // Sanctions from Trust and edits by the master may arrive at the same time.
         builder.UseOptimisticConcurrency();
 
         ConfigureProfile(builder);
@@ -199,7 +198,6 @@ public sealed class MasterConfiguration : IEntityTypeConfiguration<Master>
             sanctions.WithOwner().HasForeignKey(MasterIdColumn);
             sanctions.HasKey(sanction => sanction.Id);
 
-            // The identifier comes from Trust (sanction or temporary measure).
             sanctions.Property(sanction => sanction.Id).ValueGeneratedNever();
 
             sanctions.Property(sanction => sanction.Kind)

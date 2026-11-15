@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "NoMoreTears.Modules.Requests.HostSide.Migrations": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

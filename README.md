@@ -1,3 +1,11 @@
+[![contributors](https://img.shields.io/github/contributors/no-more-tears/NoMoreTears)](https://github.com/no-more-tears/NoMoreTears/graphs/contributors)
+[![docs](https://img.shields.io/badge/docs-available-blue)](https://github.com/no-more-tears/NoMoreTears/tree/main/docs)
+[![ci](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml)
+[![repo size](https://img.shields.io/github/repo-size/no-more-tears/NoMoreTears)](https://github.com/no-more-tears/NoMoreTears)
+[![open pull requests](https://img.shields.io/github/issues-pr/no-more-tears/NoMoreTears)](https://github.com/no-more-tears/NoMoreTears/pulls?q=is%3Apr+is%3Aopen)
+[![closed pull requests](https://img.shields.io/github/issues-pr-closed/no-more-tears/NoMoreTears)](https://github.com/no-more-tears/NoMoreTears/pulls?q=is%3Apr+is%3Aclosed)
+[![merged pull requests](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fsearch%2Fissues%3Fq%3Drepo%3Ano-more-tears%2FNoMoreTears%2Bis%3Apr%2Bis%3Amerged&query=%24.total_count&label=pull%20requests&suffix=%20merged&color=blueviolet)](https://github.com/no-more-tears/NoMoreTears/pulls?q=is%3Apr+is%3Amerged)
+
 ## NoMoreTears
 
 Backend-система, яка представляє платформу для пошуку, підбору та виклику верифікованих профільних спеціалістів (майстрів) для вирішення побутових і технічних проблем клієнтів: ремонт техніки, сантехніка, електрика, клінінг і т.п. Frontend-система доступна за цим посиланням: [NoMoreTears-frontend](https://github.com/no-more-tears/NoMoreTears-frontend)
@@ -21,16 +29,7 @@ Backend-система, яка представляє платформу для 
   </table>
 </div>
 
-### 2. Статус репозиторію
-
-| Гілка | CI | Останній коміт | Коміти |
-|--|--|--|--|
-| main | [![main](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml) | ![last commit](https://img.shields.io/github/last-commit/no-more-tears/NoMoreTears/main) | ![commits](https://img.shields.io/github/commit-activity/t/no-more-tears/NoMoreTears/main) |
-| development | [![development](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml/badge.svg?branch=development&event=push)](https://github.com/no-more-tears/NoMoreTears/actions/workflows/ci.yml) | ![last commit](https://img.shields.io/github/last-commit/no-more-tears/NoMoreTears/development) | ![commits](https://img.shields.io/github/commit-activity/t/no-more-tears/NoMoreTears/development) |
-
-![open PRs](https://img.shields.io/github/issues-pr/no-more-tears/NoMoreTears) ![closed PRs](https://img.shields.io/github/issues-pr-closed/no-more-tears/NoMoreTears)
-
-### 3. Використані архітектурні підходи і паттерни
+### 2. Використані архітектурні підходи і паттерни
 
 | Підхід / паттерн | Призначення |
 |--|--|
@@ -40,7 +39,7 @@ Backend-система, яка представляє платформу для 
 | Clean Architecture | Separation of Concerns в горизонтальному вигляді. |
 | Outbox/Inbox | Надійна доставка та ідемпотентна обробка повідомлень. |
 
-### 4. Навігація в документації
+### 3. Навігація в документації
 
 | Область | Документація |
 |--|--|
@@ -48,10 +47,10 @@ Backend-система, яка представляє платформу для 
 | Domain | [docs/domain-driven-design.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/domain-driven-design.md) |
 | Architecture | [docs/architecture.md](https://github.com/no-more-tears/NoMoreTears/blob/main/docs/architecture.md) |
 
-### 5. Як запустити систему
+### 4. Як запустити систему
 
 TODO
 
-### 6. Ліцензія
+### 5. Ліцензія
 
 Проект ліцензовано під [MIT License](https://github.com/no-more-tears/NoMoreTears/blob/main/LICENSE).

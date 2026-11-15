@@ -62,7 +62,6 @@ public static class NotificationRegistrar
         ///     Registers application services. Real-time delivery is a no-op unless the host registers its own
         ///     <see cref="IRealtimeNotifier"/> (the SignalR host does).
         /// </summary>
-        /// <param name="configuration">Root configuration.</param>
         public IServiceCollection AddNotificationServices(IConfiguration configuration)
         {
             ArgumentNullException.ThrowIfNull(configuration);
@@ -138,7 +137,6 @@ public static class NotificationRegistrar
         ///     Describes the messaging of the module on the shared bus of the host.
         ///     The host registers the bus itself with <c>AddRabbitMq</c> after all modules.
         /// </summary>
-        /// <param name="consumers">Consumers hosted by the caller; none in the WebApi host.</param>
         public IServiceCollection AddNotificationMessaging(Action<RabbitMqModuleBuilder<INotificationOutbox>>? consumers = null)
         {
             return services.AddRabbitMqModule<INotificationOutbox>(EndpointPrefix, module =>

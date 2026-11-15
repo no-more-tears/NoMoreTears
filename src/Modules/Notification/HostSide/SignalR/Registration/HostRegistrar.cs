@@ -6,8 +6,10 @@ using NoMoreTears.Modules.Notification.Contracts.Events;
 using NoMoreTears.Modules.Notification.HostSide.SignalR.Consumers.Identity;
 using NoMoreTears.Modules.Notification.HostSide.SignalR.Consumers.Masters;
 using NoMoreTears.Modules.Notification.HostSide.SignalR.Consumers.Notifications;
+using NoMoreTears.Modules.Notification.HostSide.SignalR.Consumers.Requests;
 using NoMoreTears.Modules.Notification.HostSide.SignalR.Realtime;
 using NoMoreTears.Modules.Notification.Providers;
+using NoMoreTears.Modules.Requests.Contracts.Events;
 using NoMoreTears.Shared.Common.Authorization;
 using NoMoreTears.Shared.Common.Authorization.Registration;
 using NoMoreTears.Shared.HostSide.SignalR.Registration;
@@ -90,6 +92,16 @@ public static class HostRegistrar
             .AddConsumer<MasterSanctionAppliedEvent, MasterSanctionAppliedEventConsumer>()
             .AddConsumer<MasterSanctionLiftedEvent, MasterSanctionLiftedEventConsumer>()
             .AddConsumer<MasterFileUploadCompletedEvent, MasterFileUploadCompletedEventConsumer>()
-            .AddConsumer<MasterFileUploadFailedEvent, MasterFileUploadFailedEventConsumer>();
+            .AddConsumer<MasterFileUploadFailedEvent, MasterFileUploadFailedEventConsumer>()
+            // Requests: in-app notifications of clients and masters (FR-NTF-02).
+            .AddConsumer<RequestAcceptedEvent, RequestAcceptedEventConsumer>()
+            .AddConsumer<RequestMarkedAsDoneEvent, RequestMarkedAsDoneEventConsumer>()
+            .AddConsumer<RequestCompletedEvent, RequestCompletedEventConsumer>()
+            .AddConsumer<RequestCompletionObjectedEvent, RequestCompletionObjectedEventConsumer>()
+            .AddConsumer<RequestFailedEvent, RequestFailedEventConsumer>()
+            .AddConsumer<RequestCancelledEvent, RequestCancelledEventConsumer>()
+            .AddConsumer<RequestExpiredEvent, RequestExpiredEventConsumer>()
+            .AddConsumer<RequestMediaUploadCompletedEvent, RequestMediaUploadCompletedEventConsumer>()
+            .AddConsumer<RequestMediaUploadFailedEvent, RequestMediaUploadFailedEventConsumer>();
     }
 }

@@ -22,5 +22,33 @@
   "Only the client of the request can perform this action.": "Цю дію може виконати лише клієнт заявки.",
   "A no-show can be reported only after {0}.": "Неявку можна зафіксувати лише після {0}.",
   "The request can be completed automatically only after {0}.": "Заявку можна завершити автоматично лише після {0}.",
-  "The request can expire only after {0}.": "Заявка може стати простроченою лише після {0}."
+  "The request can expire only after {0}.": "Заявка може стати простроченою лише після {0}.",
+  "Publication of requests is blocked until {0}.": "Публікацію заявок заблоковано до {0}.",
+  "Publication of requests is blocked until the restriction is lifted.": "Публікацію заявок заблоковано до зняття обмеження.",
+  "The master has no access to requests of this category.": "Майстер не має доступу до заявок цієї категорії.",
+  "A restriction must expire after it is imposed.": "Обмеження має закінчуватися після його накладення.",
+  "The restriction is already lifted.": "Обмеження вже знято.",
+
+  // Modules/Requests/Applications.
+  "Request '{0}' was not found.": "Заявку '{0}' не знайдено.",
+  "Request status '{0}' is unknown.": "Статус заявки '{0}' невідомий.",
+  "Media file '{0}' was not found.": "Медіафайл '{0}' не знайдено.",
+  "Restriction kind '{0}' is unknown.": "Тип обмеження '{0}' невідомий.",
+  "The request has already been accepted by another master.": "Заявку вже прийняв інший майстер.",
+  "Coordinates of the address are required.": "Потрібно вказати координати адреси.",
+  "A client can manage only the own requests.": "Клієнт може керувати лише власними заявками.",
+  "A master can act only on the own behalf.": "Майстер може діяти лише від власного імені.",
+  "Arrival interval must be 2, 6 or 24 hours.": "Інтервал прибуття має становити 2, 6 або 24 години.",
+  "Batch size must be greater than 0.": "Розмір пакета має бути більшим за 0.",
+  "Categories are required.": "Потрібно вказати категорії.",
+
+  // Field names of Requests validators ("{0} is required.").
+  "Client id": "Ідентифікатор клієнта",
+  "Request id": "Ідентифікатор заявки",
+  "Media file id": "Ідентифікатор медіафайлу",
+  "Incident id": "Ідентифікатор інциденту",
+  "Restriction id": "Ідентифікатор обмеження",
+  "Restriction kind": "Тип обмеження",
+  "Description": "Опис",
+  "Address": "Адреса"
 }

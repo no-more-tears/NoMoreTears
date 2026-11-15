@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
+  </ItemGroup>
+
 </Project>

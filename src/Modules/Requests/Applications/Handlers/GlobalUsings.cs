@@ -1,0 +1,9 @@
+﻿global using NoMoreTears.Modules.Requests.Applications.Handlers.Events;
+global using NoMoreTears.Modules.Requests.Applications.Services.Abstractions;
+global using NoMoreTears.Modules.Requests.Applications.Services.Messaging;
+global using NoMoreTears.Modules.Requests.Contracts.Events;
+global using NoMoreTears.Modules.Requests.Contracts.Responses;
+global using NoMoreTears.Shared.CQS.Abstractions.Handlers;
+global using NoMoreTears.Shared.CQS.Primitives.Commands;
+global using NoMoreTears.Shared.CQS.Primitives.Queries;
+global using NoMoreTears.Shared.RabbitMq.Abstractions;

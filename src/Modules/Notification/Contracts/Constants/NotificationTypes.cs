@@ -35,4 +35,22 @@ public static class NotificationTypes
     public const string UploadCompleted = "masters.upload.completed";
 
     public const string UploadFailed = "masters.upload.failed";
+
+    public const string RequestAccepted = "requests.request.accepted";
+
+    public const string RequestMarkedAsDone = "requests.request.marked-as-done";
+
+    public const string RequestCompleted = "requests.request.completed";
+
+    public const string RequestCompletionObjected = "requests.request.completion-objected";
+
+    public const string RequestFailed = "requests.request.failed";
+
+    public const string RequestCancelled = "requests.request.cancelled";
+
+    public const string RequestExpired = "requests.request.expired";
+
+    public const string RequestMediaCompleted = "requests.media.completed";
+
+    public const string RequestMediaFailed = "requests.media.failed";
 }

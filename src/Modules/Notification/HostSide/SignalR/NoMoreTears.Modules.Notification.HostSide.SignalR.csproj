@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\..\..\Shared\Providers\Identity\Base\NoMoreTears.Shared.Providers.Identity.csproj" />
     <ProjectReference Include="..\..\..\Identity\Contracts\NoMoreTears.Modules.Identity.Contracts.csproj" />
     <ProjectReference Include="..\..\..\Masters\Contracts\NoMoreTears.Modules.Masters.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Requests\Contracts\NoMoreTears.Modules.Requests.Contracts.csproj" />
     <ProjectReference Include="..\..\Providers\NoMoreTears.Modules.Notification.Providers.csproj" />
   </ItemGroup>
 

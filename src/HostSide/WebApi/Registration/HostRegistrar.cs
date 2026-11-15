@@ -1,6 +1,7 @@
 ﻿using NoMoreTears.Modules.Identity.Providers;
 using NoMoreTears.Modules.Masters.Providers;
 using NoMoreTears.Modules.Notification.Providers;
+using NoMoreTears.Modules.Requests.Providers;
 using NoMoreTears.Shared.Common.Authorization;
 using NoMoreTears.Shared.Common.Authorization.Registration;
 using NoMoreTears.Shared.HostSide.WebApi.Modules.Caching;
@@ -29,7 +30,8 @@ public static class HostRegistrar
             services.AddModules(configuration,
                 new NotificationModule(),
                 new IdentityModule(),
-                new MastersModule())
+                new MastersModule(),
+                new RequestsModule())
                 .AddRabbitMq(configuration);
 
         /// <summary>

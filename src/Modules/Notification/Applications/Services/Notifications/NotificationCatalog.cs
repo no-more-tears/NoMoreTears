@@ -24,6 +24,8 @@ public static class NotificationCatalog
     private const string VerificationLink = "/master/profile/verification";
     private const string DocumentsLink = "/master/profile/documents";
     private const string SanctionsLink = "/master/profile/sanctions";
+    private const string ClientRequestsLink = "/requests";
+    private const string MasterJobsLink = "/master/jobs";
 
     private static readonly FrozenDictionary<string, NotificationDefinition> Definitions =
         new Dictionary<string, NotificationDefinition>(StringComparer.Ordinal)
@@ -42,7 +44,16 @@ public static class NotificationCatalog
             [NotificationTypes.SanctionApplied] = new(NotificationCategory.Sanction, NotificationSeverity.Critical, SanctionsLink),
             [NotificationTypes.SanctionLifted] = new(NotificationCategory.Sanction, NotificationSeverity.Info, SanctionsLink),
             [NotificationTypes.UploadCompleted] = new(NotificationCategory.Profile, NotificationSeverity.Success, DocumentsLink),
-            [NotificationTypes.UploadFailed] = new(NotificationCategory.Profile, NotificationSeverity.Warning, ProfileLink)
+            [NotificationTypes.UploadFailed] = new(NotificationCategory.Profile, NotificationSeverity.Warning, ProfileLink),
+            [NotificationTypes.RequestAccepted] = new(NotificationCategory.Request, NotificationSeverity.Success, ClientRequestsLink),
+            [NotificationTypes.RequestMarkedAsDone] = new(NotificationCategory.Request, NotificationSeverity.Info, ClientRequestsLink),
+            [NotificationTypes.RequestCompleted] = new(NotificationCategory.Request, NotificationSeverity.Success, null),
+            [NotificationTypes.RequestCompletionObjected] = new(NotificationCategory.Request, NotificationSeverity.Warning, MasterJobsLink),
+            [NotificationTypes.RequestFailed] = new(NotificationCategory.Request, NotificationSeverity.Warning, null),
+            [NotificationTypes.RequestCancelled] = new(NotificationCategory.Request, NotificationSeverity.Warning, MasterJobsLink),
+            [NotificationTypes.RequestExpired] = new(NotificationCategory.Request, NotificationSeverity.Warning, ClientRequestsLink),
+            [NotificationTypes.RequestMediaCompleted] = new(NotificationCategory.Request, NotificationSeverity.Success, ClientRequestsLink),
+            [NotificationTypes.RequestMediaFailed] = new(NotificationCategory.Request, NotificationSeverity.Warning, ClientRequestsLink)
         }.ToFrozenDictionary(StringComparer.Ordinal);
 
     /// <summary>

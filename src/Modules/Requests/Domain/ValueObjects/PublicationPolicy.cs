@@ -1,4 +1,6 @@
-﻿using NoMoreTears.Modules.Requests.Domain.Exceptions;
+﻿using NoMoreTears.Modules.Requests.Domain.Aggregates;
+using NoMoreTears.Modules.Requests.Domain.Enums;
+using NoMoreTears.Modules.Requests.Domain.Exceptions;
 
 namespace NoMoreTears.Modules.Requests.Domain.ValueObjects;
 
@@ -50,6 +52,39 @@ public sealed record PublicationPolicy
         }
 
         return new PublicationPolicy(acceptanceWaitingPeriod, publishedRequestsLimit);
+    }
+
+    /// <summary>
+    ///     Resolves the terms of a client from the restrictions of Trust active at <paramref name="moment"/>:
+    ///     a publication block forbids publishing, a publication limit lowers the limit to
+    ///     <see cref="RequestRules.RestrictedPublishedRequestsLimit"/>.
+    /// </summary>
+    public static PublicationPolicy ForClient(
+        IEnumerable<ClientRestriction> restrictions,
+        DateTimeOffset moment)
+    {
+        ArgumentNullException.ThrowIfNull(restrictions);
+
+        var active = restrictions
+            .Where(restriction => restriction.IsActiveAt(moment))
+            .ToList();
+
+        var blocks = active
+            .Where(restriction => restriction.Kind is RestrictionKind.PublicationBlock)
+            .ToList();
+
+        if (blocks.Count > 0)
+        {
+            var blockedUntil = blocks.Exists(block => block.ExpiresAt is null)
+                ? null
+                : blocks.Max(block => block.ExpiresAt);
+
+            throw new PublicationBlockedException(blockedUntil);
+        }
+
+        return active.Exists(restriction => restriction.Kind is RestrictionKind.PublicationLimit)
+            ? new PublicationPolicy(RequestRules.DefaultAcceptanceWaitingPeriod, RequestRules.RestrictedPublishedRequestsLimit)
+            : Default;
     }
 
     /// <summary>

@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "NoMoreTears.Modules.Requests.HostSide.Consumers": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
