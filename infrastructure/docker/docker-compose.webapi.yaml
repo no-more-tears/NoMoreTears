@@ -1,4 +1,3 @@
-version: '3.8'
 name: nomoretears-webapi
 
 # Runs the WebApi host. The hosts that consume events are in docker-compose.consumers.yaml.

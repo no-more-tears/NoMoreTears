@@ -25,7 +25,7 @@ public static class HostPipelineRegistrar
             }
 
             application
-                .UseHttpsRedirection()
+                //.UseHttpsRedirection()
                 .UseWebModules();
 
             // Every API endpoint shares one per-client budget; sensitive endpoints add their own limits on top.
