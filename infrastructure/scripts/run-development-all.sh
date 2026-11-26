@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 # Starts the whole local Development environment in one go:
-# infra and observability containers, database migrations, then the WebApi in the foreground.
+# infra and observability containers
 # Usage: infrastructure/scripts/run-development-all.sh
 # Credentials come from infrastructure/docker/.env (run generate-env.sh once beforehand).
 set -euo pipefail
+
+pause_on_exit() {
+    if [[ -t 0 ]]; then
+        echo
+        read -n 1 -s -r -p "Press any key to exit..." || true
+        echo
+    fi
+}
+trap pause_on_exit EXIT
 
 # shellcheck source=lib/dotnet-host.sh
 source "$(dirname "${BASH_SOURCE[0]}")/lib/dotnet-host.sh"

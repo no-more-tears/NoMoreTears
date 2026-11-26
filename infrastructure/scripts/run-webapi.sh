@@ -6,6 +6,15 @@
 # and the migrations to be applied (run-migrations.sh). Credentials come from infrastructure/docker/.env.
 set -euo pipefail
 
+pause_on_exit() {
+    if [[ -t 0 ]]; then
+        echo
+        read -n 1 -s -r -p "Press any key to exit..." || true
+        echo
+    fi
+}
+trap pause_on_exit EXIT
+
 # shellcheck source=lib/dotnet-host.sh
 source "$(dirname "${BASH_SOURCE[0]}")/lib/dotnet-host.sh"
 

@@ -10,6 +10,15 @@
 # Requires docker-compose.infra.yaml to be running and the migrations to be applied (run-migrations.sh).
 set -euo pipefail
 
+pause_on_exit() {
+    if [[ -t 0 ]]; then
+        echo
+        read -n 1 -s -r -p "Press any key to exit..." || true
+        echo
+    fi
+}
+trap pause_on_exit EXIT
+
 # shellcheck source=lib/dotnet-host.sh
 source "$(dirname "${BASH_SOURCE[0]}")/lib/dotnet-host.sh"
 
@@ -35,8 +44,11 @@ stop_hosts() {
     trap - INT TERM EXIT
     (( ${#pids[@]} > 0 )) && kill "${pids[@]}" 2>/dev/null || true
     wait 2>/dev/null || true
+    pause_on_exit
 }
-trap stop_hosts INT TERM EXIT
+trap stop_hosts EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 (
     export_development_masters_consumers_settings
