@@ -7,6 +7,6 @@ public sealed class ChangeWorkScheduleEndpoint : IEndpoint
         app.MapPut(Routes.WorkSchedule, ChangeWorkScheduleHandler.Handle)
             .WithName(EndpointName.ChangeWorkSchedule)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

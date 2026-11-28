@@ -7,6 +7,6 @@ public sealed class ChangeServiceAreaEndpoint : IEndpoint
         app.MapPut(Routes.ServiceArea, ChangeServiceAreaHandler.Handle)
             .WithName(EndpointName.ChangeServiceArea)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

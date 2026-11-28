@@ -7,6 +7,6 @@ public sealed class MarkRequestAsDoneEndpoint : IEndpoint
         app.MapPost(Routes.Done, MarkRequestAsDoneHandler.Handle)
             .WithName(EndpointName.MarkRequestAsDone)
             .WithTags(EndpointTag.Jobs)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

@@ -68,6 +68,9 @@
     <Project Path="Modules/Identity/Contracts/NoMoreTears.Modules.Identity.Contracts.csproj" />
   </Folder>
   <Folder Name="/Modules/Identity/HostSide/" />
+  <Folder Name="/Modules/Identity/HostSide/Consumers/">
+    <Project Path="Modules/Identity/HostSide/Consumers/NoMoreTears.Modules.Identity.HostSide.Consumers.csproj" />
+  </Folder>
   <Folder Name="/Modules/Identity/HostSide/Endpoints/">
     <Project Path="Modules/Identity/HostSide/Endpoints/NoMoreTears.Modules.Identity.HostSide.Endpoints.csproj" />
   </Folder>

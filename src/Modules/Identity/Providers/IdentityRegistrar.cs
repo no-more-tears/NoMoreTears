@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using NoMoreTears.Modules.Identity.Applications.Services;
 using NoMoreTears.Modules.Identity.Applications.Services.Abstractions;
 using NoMoreTears.Modules.Identity.Applications.Services.Configuration;
+using NoMoreTears.Modules.Identity.HostSide.Consumers.Masters;
 using NoMoreTears.Modules.Identity.HostSide.Endpoints;
+using NoMoreTears.Modules.Masters.Contracts.Events;
 using NoMoreTears.Modules.Identity.Applications.Services.Messaging;
 using NoMoreTears.Shared.CQS.Registration;
 using NoMoreTears.Shared.Postgres.Abstractions.Transactions;
@@ -94,11 +96,13 @@ public static class IdentityRegistrar
 
     /// <summary>
     ///     Describes the messaging of the module on the shared bus of the host: the transactional outbox in the
-    ///     identity schema. Identity only publishes events (emails to deliver); it has no consumers.
+    ///     identity schema, and the consumers of the module. Identity publishes events (emails to deliver) and
+    ///     grants the Master role when Masters verifies a master profile.
     /// </summary>
     public static IServiceCollection AddMessaging(this IServiceCollection services)
     {
         return services.AddRabbitMqModule<IIdentityOutbox>("identity", module => module
-            .UsePostgresOutbox<IIdentityOutbox, IdentityDbContext>());
+            .UsePostgresOutbox<IIdentityOutbox, IdentityDbContext>()
+            .AddConsumer<MasterVerifiedEvent, MasterVerifiedEventConsumer>());
     }
 }

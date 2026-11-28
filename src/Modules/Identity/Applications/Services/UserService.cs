@@ -102,6 +102,18 @@ public sealed class UserService(
     }
 
     /// <inheritdoc />
+    public async Task GrantRoleAsync(
+        Guid userId,
+        UserRole role,
+        CancellationToken cancellationToken)
+    {
+        if (await identityProvider.GrantRoleAsync(userId, role, cancellationToken))
+        {
+            logger.LogInformation("User {UserId} was granted the role {Role}", userId, role);
+        }
+    }
+
+    /// <inheritdoc />
     public async Task DeactivateAsync(
         Guid userId,
         CancellationToken cancellationToken)

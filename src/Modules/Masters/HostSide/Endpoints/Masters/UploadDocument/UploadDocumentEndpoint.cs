@@ -7,7 +7,7 @@ public sealed class UploadDocumentEndpoint : IEndpoint
         app.MapPost(Routes.Documents, UploadDocumentHandler.Handle)
             .WithName(EndpointName.UploadDocument)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)))
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)))
             .DisableAntiforgery()
             .WithMetadata(new RequestSizeLimitAttribute(UploadLimits.DocumentRequestSizeInBytes));
     }

@@ -7,6 +7,6 @@ public sealed class GetFileUploadEndpoint : IEndpoint
         app.MapGet(Routes.Upload, GetFileUploadHandler.Handle)
             .WithName(EndpointName.GetFileUpload)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

@@ -7,6 +7,6 @@ public sealed class CreateMasterEndpoint : IEndpoint
         app.MapPost(Routes.Base, CreateMasterHandler.Handle)
             .WithName(EndpointName.CreateMaster)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

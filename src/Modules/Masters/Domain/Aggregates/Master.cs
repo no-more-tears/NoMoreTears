@@ -127,7 +127,7 @@ public sealed class Master: AuditableEntity<Guid>
     }
 
     /// <summary>
-    ///     Creates a master profile for a user with the Worker role.
+    ///     Creates a master profile for a user; the Master role is granted once the profile is verified.
     /// </summary>
     public static Master Create(
         Guid userId,

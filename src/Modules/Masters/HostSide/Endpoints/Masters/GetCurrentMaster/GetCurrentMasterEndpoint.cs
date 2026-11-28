@@ -7,6 +7,6 @@ public sealed class GetCurrentMasterEndpoint : IEndpoint
         app.MapGet(Routes.Me, GetCurrentMasterHandler.Handle)
             .WithName(EndpointName.GetCurrentMaster)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }
