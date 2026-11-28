@@ -7,6 +7,6 @@ public sealed class RemoveDocumentEndpoint : IEndpoint
         app.MapDelete(Routes.Document, RemoveDocumentHandler.Handle)
             .WithName(EndpointName.RemoveDocument)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

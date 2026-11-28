@@ -7,6 +7,6 @@ public sealed class ChangeFullNameEndpoint : IEndpoint
         app.MapPut(Routes.FullName, ChangeFullNameHandler.Handle)
             .WithName(EndpointName.ChangeFullName)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

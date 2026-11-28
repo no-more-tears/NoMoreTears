@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\..\Shared\Providers\Identity\Base\NoMoreTears.Shared.Providers.Identity.csproj" />
     <ProjectReference Include="..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
     <ProjectReference Include="..\Applications\Services\NoMoreTears.Modules.Identity.Applications.Services.csproj" />
+    <ProjectReference Include="..\HostSide\Consumers\NoMoreTears.Modules.Identity.HostSide.Consumers.csproj" />
     <ProjectReference Include="..\HostSide\Endpoints\NoMoreTears.Modules.Identity.HostSide.Endpoints.csproj" />
   </ItemGroup>
 

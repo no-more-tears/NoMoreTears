@@ -32,6 +32,25 @@ internal sealed partial class IdentityProvider
     }
 
     /// <inheritdoc />
+    public async Task<bool> GrantRoleAsync(
+        Guid userId,
+        UserRole role,
+        CancellationToken cancellationToken)
+    {
+        var user = await RequireUserAsync(userId, cancellationToken);
+
+        if (user.Roles.Any(x => x.Role == role))
+        {
+            return false;
+        }
+
+        user.Roles.Add(new UserRoleEntity { UserId = user.Id, Role = role });
+        await db.SaveChangesAsync(cancellationToken);
+
+        return true;
+    }
+
+    /// <inheritdoc />
     public async Task DeactivateAsync(
         Guid userId,
         CancellationToken cancellationToken)

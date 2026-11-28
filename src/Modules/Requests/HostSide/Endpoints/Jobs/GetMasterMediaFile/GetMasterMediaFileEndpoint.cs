@@ -7,6 +7,6 @@ public sealed class GetMasterMediaFileEndpoint : IEndpoint
         app.MapGet(Routes.MediaFile, GetMasterMediaFileHandler.Handle)
             .WithName(EndpointName.GetMasterMediaFile)
             .WithTags(EndpointTag.Jobs)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

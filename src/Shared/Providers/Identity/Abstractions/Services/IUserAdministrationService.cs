@@ -23,6 +23,19 @@ public interface IUserAdministrationService
         CancellationToken cancellationToken);
 
     /// <summary>
+    ///     Adds the role to the user and keeps the other roles.
+    /// </summary>
+    /// <remarks>
+    ///     Idempotent: granting a role the user already has changes nothing. The role appears in access tokens
+    ///     on the next token refresh at the latest.
+    /// </remarks>
+    /// <returns><see langword="true"/> when the role was added; <see langword="false"/> when the user already had it.</returns>
+    Task<bool> GrantRoleAsync(
+        Guid userId,
+        UserRole role,
+        CancellationToken cancellationToken);
+
+    /// <summary>
     ///     Blocks the account from signing in and revokes every session.
     /// </summary>
     Task DeactivateAsync(

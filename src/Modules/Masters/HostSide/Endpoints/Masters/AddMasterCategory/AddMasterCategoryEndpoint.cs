@@ -7,6 +7,6 @@ public sealed class AddMasterCategoryEndpoint : IEndpoint
         app.MapPost(Routes.Categories, AddMasterCategoryHandler.Handle)
             .WithName(EndpointName.AddMasterCategory)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

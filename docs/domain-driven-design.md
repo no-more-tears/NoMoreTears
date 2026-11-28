@@ -27,7 +27,7 @@
 | **2.2 Dispatch** | 1.2 | `Modules/Dispatch`, схема `dispatch` | У стрічку майстра потрапляють лише заявки його підтверджених категорій у його зоні за статусу "верифікований, доступний". Прийняття ексклюзивне: з конкурентних спроб перемагає рівно одна. Майстер не перевищує ліміт активних заявок і не приймає нові під час охолодження. Частка слотів для новачків гарантована. |
 | **2.3 Trust** | 1.3 | `Modules/Trust`, схема `trust` | Відгук лишає лише клієнт завершеної заявки, один раз, у межах вікна. Репутація обчислюється лише з верифікованих відгуків і показників надійності. Санкція накладається лише на підставі інциденту та фіксується в незмінному журналі. Автоматичне блокування завжди має статус «до перегляду людиною». |
 | **2.4 Masters** | 1.4 | `Modules/Masters`, схема `masters` | Майстер отримує доступ до стрічки лише зі статусом "верифікований" і хоча б однією підтвердженою категорією та зоною. Зміна категорій або зони після верифікації потребує повторної перевірки. Каталог категорій є єдиним джерелом істини для всієї платформи. |
-| **2.5 Identity** | 1.5 | `Modules/Identity`, схема `identity` | Один акаунт відповідає одній особі. Сесія прив'язана до ролей акаунта. Ролі: `Client`, `Worker` (майстер), `PlatformSupport` (арбітр і верифікатор), `PlatformAdministrator`. |
+| **2.5 Identity** | 1.5 | `Modules/Identity`, схема `identity` | Один акаунт відповідає одній особі. Сесія прив'язана до ролей акаунта. Ролі: `Client` (кожен зареєстрований користувач), `Master` (верифікований майстер, видається автоматично після верифікації профілю в Masters), `PlatformSupport` (арбітр і верифікатор), `PlatformAdministrator`. |
 | **2.6 Notification** | 1.6 | `Modules/Notification`, схема `notification` | Не містить бізнес-логіки коли доставити. Відповідає лише за як доставити; рішення належить контексту-ініціатору. |
 
 #### 1.2.1. Upstream / Downstream
@@ -39,6 +39,7 @@
 | Identity | Trust | OHS + PL + ACL |
 | Masters | Requests | OHS + PL + ACL |
 | Masters | Dispatch | OHS + PL + ACL |
+| Masters | Identity | OHS + PL + ACL (лише `MasterVerifiedEvent`, за яким Identity видає роль `Master`) |
 | Requests | Dispatch | Customer / Supplier, OHS + PL + ACL |
 | Requests | Trust | Conformist |
 | Trust | Dispatch | OHS + PL + ACL |
@@ -54,7 +55,7 @@
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Segoe UI, Helvetica, Arial, sans-serif","primaryColor":"#1C2128","primaryTextColor":"#FFFFFF","primaryBorderColor":"#A5A5A5","lineColor":"#B1BAC4","edgeLabelBackground":"#1C2128","clusterBkg":"#0D1117","clusterBorder":"#A5A5A5","titleColor":"#FFFFFF"}}}%%
 flowchart LR
     accTitle: Карта контекстів платформи
-    accDescr: Generic-контексти Identity і Notification постачають сервіси всім іншим. Supporting-контекст Masters постачає Requests каталог категорій, а Dispatch перелік верифікованих майстрів. Core-контексти Requests, Dispatch і Trust пов'язані між собою: Requests є постачальником подій для Dispatch і Trust, Trust постачає Dispatch репутацію та санкції, а Masters зміни статусу доступу.
+    accDescr: Generic-контексти Identity і Notification постачають сервіси всім іншим. Supporting-контекст Masters постачає Requests каталог категорій, а Dispatch перелік верифікованих майстрів. Identity отримує від Masters подію про верифікацію профілю, щоб видати роль Master. Core-контексти Requests, Dispatch і Trust пов'язані між собою: Requests є постачальником подій для Dispatch і Trust, Trust постачає Dispatch репутацію та санкції, а Masters зміни статусу доступу.
 
     subgraph GENERIC["Generic Domains"]
         Id["Identity"]
@@ -77,6 +78,7 @@ flowchart LR
 
     Masters -->|"OHS + PL + ACL"| Req
     Masters -->|"OHS + PL + ACL"| Disp
+    Masters -->|"OHS + PL + ACL"| Id
 
     Req -->|"Customer / Supplier<br/>OHS + PL + ACL"| Disp
     Req -->|"Conformist"| Trust

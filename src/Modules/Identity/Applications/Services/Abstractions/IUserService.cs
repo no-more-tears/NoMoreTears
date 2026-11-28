@@ -39,7 +39,12 @@ public interface IUserService
 
     Task UpdateRolesAsync(
         Guid userId,
-        IReadOnlyCollection<UserRole> roles, 
+        IReadOnlyCollection<UserRole> roles,
+        CancellationToken cancellationToken);
+
+    Task GrantRoleAsync(
+        Guid userId,
+        UserRole role,
         CancellationToken cancellationToken);
 
     Task DeactivateAsync(

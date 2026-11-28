@@ -15,7 +15,7 @@ public interface IRequestMasterRequest
 }
 
 /// <summary>
-///     Allows a request only to a user with the Worker role, on the own behalf.
+///     Allows a request only to a user with the Master role (a verified master), on the own behalf.
 ///     Access to the request itself is checked by the services and the domain.
 /// </summary>
 public abstract class RequestMasterAuthorizationHandler<TRequest>(
@@ -29,7 +29,7 @@ public abstract class RequestMasterAuthorizationHandler<TRequest>(
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        RequireRole(typeof(TRequest).Name, UserRole.Worker);
+        RequireRole(typeof(TRequest).Name, UserRole.Master);
 
         if (CurrentUser.UserId != request.MasterId)
         {

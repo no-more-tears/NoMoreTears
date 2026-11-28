@@ -7,6 +7,6 @@ public sealed class RemoveAvatarEndpoint : IEndpoint
         app.MapDelete(Routes.Avatar, RemoveAvatarHandler.Handle)
             .WithName(EndpointName.RemoveAvatar)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

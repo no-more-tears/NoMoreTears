@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Consumers of the Identity module; they run on the bus of the host of the module (WebApi), not in a host of their own. -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\RabbitMq\Abstractions\NoMoreTears.Shared.RabbitMq.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Masters\Contracts\NoMoreTears.Modules.Masters.Contracts.csproj" />
+    <ProjectReference Include="..\..\Applications\Handlers\NoMoreTears.Modules.Identity.Applications.Handlers.csproj" />
+  </ItemGroup>
+
+</Project>

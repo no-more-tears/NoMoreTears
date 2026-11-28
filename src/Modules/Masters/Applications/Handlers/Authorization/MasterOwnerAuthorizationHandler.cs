@@ -15,7 +15,7 @@ public interface IMasterOwnedRequest
 }
 
 /// <summary>
-///     Allows a request only to a user with the Worker role, about the own profile.
+///     Allows a request only about the own profile, to a client who is becoming a master or to a master.
 /// </summary>
 public abstract class MasterOwnerAuthorizationHandler<TRequest>(
     ICurrentUserSession currentUser)
@@ -28,7 +28,7 @@ public abstract class MasterOwnerAuthorizationHandler<TRequest>(
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        RequireRole(typeof(TRequest).Name, UserRole.Worker);
+        RequireRole(typeof(TRequest).Name, UserRole.Client, UserRole.Master);
 
         if (CurrentUser.UserId != request.MasterId)
         {

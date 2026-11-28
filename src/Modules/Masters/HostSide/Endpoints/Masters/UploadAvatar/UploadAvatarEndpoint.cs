@@ -7,7 +7,7 @@ public sealed class UploadAvatarEndpoint : IEndpoint
         app.MapPut(Routes.Avatar, UploadAvatarHandler.Handle)
             .WithName(EndpointName.UploadAvatar)
             .WithTags(EndpointTag.Masters)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)))
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Client), nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)))
             .DisableAntiforgery()
             .WithMetadata(new RequestSizeLimitAttribute(UploadLimits.AvatarRequestSizeInBytes));
     }

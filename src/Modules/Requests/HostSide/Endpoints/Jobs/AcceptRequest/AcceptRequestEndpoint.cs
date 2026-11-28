@@ -7,6 +7,6 @@ public sealed class AcceptRequestEndpoint : IEndpoint
         app.MapPost(Routes.Accept, AcceptRequestHandler.Handle)
             .WithName(EndpointName.AcceptRequest)
             .WithTags(EndpointTag.Jobs)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }

@@ -7,6 +7,6 @@ public sealed class GetMasterRequestsEndpoint : IEndpoint
         app.MapGet(Routes.Base, GetMasterRequestsHandler.Handle)
             .WithName(EndpointName.GetMasterRequests)
             .WithTags(EndpointTag.Jobs)
-            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Worker), nameof(UserRole.PlatformAdministrator)));
+            .RequireAuthorization(policy => policy.RequireRole(nameof(UserRole.Master), nameof(UserRole.PlatformAdministrator)));
     }
 }
