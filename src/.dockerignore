@@ -1,6 +1,7 @@
 # Build context is src/; keep it to sources only.
 **/bin/
 **/obj/
+**/.git/
 **/.vs/
 **/.vscode/
 **/.idea/
